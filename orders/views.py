@@ -146,7 +146,7 @@ def checkout(request):
         )
 
 def view_orders(request):
-    if request.user.is_superuser:
+    if request.user.is_superuser or request.user.is_staff:
         #make a request for all the orders in the database
         rows = UserOrder.objects.all().order_by('-time_of_order')
         #orders.append(row.order[1:-1].split(","))

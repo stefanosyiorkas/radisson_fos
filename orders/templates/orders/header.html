@@ -39,7 +39,16 @@
       id="topNav"
     >
       <a class="navbar-brand" href="/">Food Ordering System</a>
-      <button
+      <a
+            href="/cart"
+            id="cart_button"
+            class="btn btn-light border btn-sm rounded-0"
+            style="color: black"
+            ><span class="badge badge-primary" id="cart-count"></span> My Cart
+            <i class="fa fa-shopping-cart"></i
+          ></a>
+
+        <button
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -79,14 +88,7 @@
             class="btn btn-primary text-light btn-sm border rounded-0"
             ><i class="fa fa-th-list"></i> View Orders</a
           >
-          <a
-            href="/cart"
-            id="cart_button"
-            class="btn btn-light border btn-sm rounded-0"
-            style="color: black"
-            ><span class="badge badge-primary" id="cart-count"></span> My Cart
-            <i class="fa fa-shopping-cart"></i
-          ></a>
+
 
           <button
             type="button"

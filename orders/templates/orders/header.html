@@ -30,7 +30,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'orders/main.js' %}" />
 
-    <title>Food ordering</title>
+    <title>Radisson Ordering System</title>
   </head>
 
   <body>
@@ -38,7 +38,8 @@
       class="navbar navbar-expand-lg navbar-light shadow bg-light"
       id="topNav"
     >
-      <a class="navbar-brand" href="/">Food Ordering System</a>
+      <a class="navbar-brand" href="/">Radisson Ordering System</a>
+      {% if user.is_authenticated %}
       <a
             href="/cart"
             id="cart_button"
@@ -47,6 +48,8 @@
             ><span class="badge badge-primary" id="cart-count"></span> My Cart
             <i class="fa fa-shopping-cart"></i
           ></a>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+      {% endif %}
 
         <button
         class="navbar-toggler"
@@ -61,7 +64,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarText">
-        {% if user.is_authenticated %}
+        
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="/"><i class="fa fa-cutlery"></i> Menu</a>
@@ -82,7 +85,9 @@
             >
           </li>
         </ul>
+        {% if user.is_authenticated %}
         <span class="navbar-text">
+          <h6>Hello, {{request.user.username}}</h6>
           <a
             href="/view-orders"
             class="btn btn-primary text-light btn-sm border rounded-0"
@@ -97,6 +102,14 @@
           >
             <i class="fa fa-sign-out"></i> Logout
           </button>
+        </span>
+        {% else %}
+        <span class="navbar-text">
+          <a
+            href="/login"
+            class="btn btn-primary text-light btn-sm border rounded-0"
+            ><i class="fa fa-sign-in"></i> Login</a
+          >
         </span>
         {% endif %}
       </div>

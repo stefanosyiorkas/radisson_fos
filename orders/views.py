@@ -8,14 +8,18 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from . import forms
 import requests
+import os
+from urllib.parse import urlencode
+from time import gmtime, strftime
 
 # Create your views here.
 def index(request):
-    if request.user.is_authenticated:
-        #we are passing in the data from the category model
-        return render(request, "orders/home.html", {"categories":Category.objects.all})
-    else:
-        return redirect("orders:login")
+    return render(request, "orders/home.html", {"categories":Category.objects.all})
+    # if request.user.is_authenticated:
+    #     #we are passing in the data from the category model
+    #     return render(request, "orders/home.html", {"categories":Category.objects.all})
+    # else:
+    #     return redirect("orders:login")
 
 def login_request(request):
     if request.method == 'POST':
@@ -39,7 +43,7 @@ def login_request(request):
 
 def logout_request(request):
     logout(request)
-    return redirect("orders:login")
+    return render(request, "orders/home.html", {"categories":Category.objects.all})
 
 def register(request):
     if request.method == "POST":
@@ -92,22 +96,22 @@ def dinner_platters(request):
         return redirect("orders:login")
 
 def directions(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/directions.html")
-    else:
-        return redirect("orders:login")
+    # if request.user.is_authenticated:
+    return render(request, "orders/directions.html")
+    # else:
+    #     return redirect("orders:login")
 
 def hours(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/hours.html")
-    else:
-        return redirect("orders:login")
+    # if request.user.is_authenticated:
+    return render(request, "orders/hours.html")
+    # else:
+    #     return redirect("orders:login")
 
 def contact(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/contact.html")
-    else:
-        return redirect("orders:login")
+    # if request.user.is_authenticated:
+    return render(request, "orders/contact.html")
+    # else:
+    #     return redirect("orders:login")
 
 def cart(request):
     if request.user.is_authenticated:
@@ -115,10 +119,20 @@ def cart(request):
     else:
         return redirect("orders:login")
 
+def send_slack(username, message, icon=None):
+    post_data = {"payload": {"username": username, "text": message}}
+    if icon is not None:
+        post_data = {'payload': '{"username": "' + username + '", '
+                                    '"icon_emoji": "' + icon + '", '
+                                    '"text": "' + message + '"}'
+                            }
+    requests.post("https://hooks.slack.com/services/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", data=urlencode(post_data), headers={'Content-Type': 'application/x-www-form-urlencoded'})
+
 def checkout(request):
     if request.method == 'POST':
         cart = json.loads(request.POST.get('cart'))
         price = request.POST.get('price_of_cart')
+        table = request.POST.get('table')
         username = request.user.username
         response_data = {}
         list_of_items = [item["item_description"] for item in cart]
@@ -127,6 +141,7 @@ def checkout(request):
         order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'
+        send_slack(username='Lobby Lounge', message=f'*{strftime("%Y-%m-%d %H:%M:%S", gmtime())}* - New order received')
         # requests.post('https://api.mynotifier.app', {
         #       "apiKey": '0326b712-bb7e-4860-97bc-b3205482232b', # This is your own private key
         #       "message": f"New Order!", # Could be anything

@@ -86,7 +86,9 @@ function add_to_cart(info) {
         var cart = JSON.parse(cart_retrieved);
         cart.push(info)
         localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+        if (cart.length != 0){
+            document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+        }
     }
 
 
@@ -114,7 +116,7 @@ function display_notif(type, info = "No info provided") {
         "onclick": null,
         "showDuration": "70",
         "hideDuration": "1000",
-        "timeOut": "2000",
+        "timeOut": "3000",
         "extendedTimeOut": "500",
         "showEasing": "swing",
         "hideEasing": "linear",
@@ -123,7 +125,7 @@ function display_notif(type, info = "No info provided") {
     }
     switch (type) {
         case "add to cart":
-            toastr.success(info.item_description + ': Php ' + info.price, 'Added to Cart');
+            toastr.success(info.item_description + ': € ' + info.price, 'Added to Cart');
             break;
         case "remove from cart":
             toastr.info("Successfully removed " + info + " from cart");
@@ -149,13 +151,13 @@ function load_cart() {
             var item_price = row.insertCell(2);
             item_number.innerHTML = String(i + 1);
             item_description.innerHTML = cart[i].item_description;
-            item_price.innerHTML = "Php " + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
+            item_price.innerHTML = "€ " + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
 
             total += cart[i].price
         }
         total = Math.round(total * 100) / 100
         localStorage.setItem('total_price', total);
-        document.getElementById('total').innerHTML = "Php " + parseFloat(localStorage.getItem("total_price")).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 })
+        document.getElementById('total').innerHTML = "€ " + parseFloat(localStorage.getItem("total_price")).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 })
 
 
         onRowClick("cart_body", function(row) {
@@ -266,13 +268,14 @@ function checkout() {
     //this is the function that will be run when the user wants to checkout
     var cart = localStorage.getItem("cart")
     var price_of_cart = localStorage.getItem("total_price")
+    var table_number = localStorage.getItem("table")
     var csrftoken = getCookie('csrftoken');
 
     console.log("Checkout was clicked so we now send it to the server!") // sanity check
     $.ajax({
         url: "/checkout", // the endpoint
         type: "POST", // http method
-        data: { cart: cart, price_of_cart: price_of_cart, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
+        data: { cart: cart, price_of_cart: price_of_cart, table: table_number, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
 
         // handle a successful response
         success: function(json) {

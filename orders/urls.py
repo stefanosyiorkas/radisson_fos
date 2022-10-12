@@ -28,4 +28,3 @@ urlpatterns = [
     path("check_superuser", views.check_superuser, name="check_superuser"),
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-

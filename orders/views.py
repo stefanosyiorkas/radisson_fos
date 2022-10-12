@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 import json
-from django.views.decorators.csrf import csrf_exempt
 from . import forms
 import requests
 import os
@@ -210,3 +209,6 @@ def retrieve_saved_cart(request):
 def check_superuser(request):
     print(f"User super??? {request.user.is_superuser}")
     return HttpResponse(request.user.is_superuser)
+
+def page_not_found2(request, *args, **argv):
+    return render(request, "orders/404.html", status=404)

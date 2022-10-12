@@ -209,3 +209,6 @@ def retrieve_saved_cart(request):
 def check_superuser(request):
     print(f"User super??? {request.user.is_superuser}")
     return HttpResponse(request.user.is_superuser)
+
+def handle404(request, exception):
+    return render(request, 'orders/404.html')

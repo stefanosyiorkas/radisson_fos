@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 import json
-from django.views.decorators.csrf import csrf_exempt
 from . import forms
 import requests
 import os

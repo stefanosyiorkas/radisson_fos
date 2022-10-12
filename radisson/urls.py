@@ -21,3 +21,4 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
 ]
+handler404='orders.views.handle_404'

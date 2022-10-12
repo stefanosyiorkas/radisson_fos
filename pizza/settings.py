@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','6c25-46-199-11-234.eu.ngrok.io']
 CSRF_TRUSTED_ORIGINS = ['https://6c25-46-199-11-234.eu.ngrok.io']
@@ -88,7 +88,7 @@ ROOT_URLCONF = 'pizza.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'orders/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

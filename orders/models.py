@@ -120,10 +120,17 @@ class DinnerPlatters(models.Model):
         #overriding the string method to get a good representation of it in string format
         return f"Platter : {self.dish_name}"
 
+class Table(models.Model):
+    table_number = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.table_number}"
+
 class UserOrder(models.Model):
     username = models.CharField(max_length=200) #who placed the order
     order = models.TextField() #this will be a string representation of the cart from localStorage
     price = models.DecimalField(max_digits=6, decimal_places=2) #how much was the order
+    table_number = models.ForeignKey(Table, on_delete=models.SET_NULL, null=True)
     time_of_order  = models.DateTimeField(default=datetime.now, blank=True)
     delivered = models.BooleanField()
 

@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder, SavedCarts
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder, SavedCarts, Table
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
@@ -113,8 +113,10 @@ def contact(request):
     #     return redirect("orders:login")
 
 def cart(request):
+    tables = Table.objects.all()
     if request.user.is_authenticated:
-        return render(request, "orders/cart.html")
+        context = {'tables': tables}
+        return render(request, "orders/cart.html", context)
     else:
         return redirect("orders:login")
 
@@ -131,12 +133,13 @@ def checkout(request):
     if request.method == 'POST':
         cart = json.loads(request.POST.get('cart'))
         price = request.POST.get('price_of_cart')
-        table = request.POST.get('table')
+        table_num = request.POST.get('table_number')
         username = request.user.username
         response_data = {}
         list_of_items = [item["item_description"] for item in cart]
+        table = Table.objects.get_or_create(table_number=table_num)
 
-        order = UserOrder(username=username, order=list_of_items, price=float(price), delivered=False) #create the row entry
+        order = UserOrder(username=username, order=list_of_items, price=float(price), table_number=table[0], delivered=False) #create the row entry
         order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'

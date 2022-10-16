@@ -133,6 +133,8 @@ function display_notif(type, info = "No info provided") {
         case "new order":
             toastr.success("Order successfully placed");
             break;
+        case "table none":
+            toastr.error("Please select a table")
     }
 
 }
@@ -260,22 +262,32 @@ function display_empty_cart() {
 function clear_cart() {
     localStorage.removeItem("cart"); //Clear the cart
     localStorage.removeItem("total_price"); //clear the price
+    localStorage.removeItem("table_number"); //Clear the table number
     //remove the elements from the page
     display_empty_cart();
+}
+
+function getTableNum() {
+    const val = document.querySelector('select').value;
+    var table_number = localStorage.setItem('table_number', val);
 }
 
 function checkout() {
     //this is the function that will be run when the user wants to checkout
     var cart = localStorage.getItem("cart")
     var price_of_cart = localStorage.getItem("total_price")
-    var table_number = localStorage.getItem("table")
+    var table_number = localStorage.getItem('table_number')
     var csrftoken = getCookie('csrftoken');
 
-    console.log("Checkout was clicked so we now send it to the server!") // sanity check
-    $.ajax({
+    console.log(table_number)
+    if (table_number=="none" || table_number==null){
+        display_notif("table none")
+    } else {
+        console.log("Checkout was clicked so we now send it to the server!") // sanity check
+        $.ajax({
         url: "/checkout", // the endpoint
         type: "POST", // http method
-        data: { cart: cart, price_of_cart: price_of_cart, table: table_number, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
+        data: { cart: cart, price_of_cart: price_of_cart, table_number: table_number, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
 
         // handle a successful response
         success: function(json) {
@@ -290,6 +302,7 @@ function checkout() {
 
         }
     });
+    }
 
 }
 

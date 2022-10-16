@@ -30,7 +30,17 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <button id="checkout_button" type="button" class="btn btn-primary btn-block btn-lg rounded-pill" onclick="checkout()">Checkout</button>
+                  <label for="table_number">Table Number: </label>
+                    <select required type="number" name="table" id="table_number" min="1" onblur="getTableNum()" list="table-list" >
+                        <option value="none" selected>Select an Option</option>
+                        {% for table in tables %}
+                              <option value="{{table.table_number}}">{{table.table_number}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <hr>
+                <div class="row justify-content-center">
+                        <button id="checkout_button" type="submit" class="btn btn-primary btn-block btn-lg rounded-pill" onclick="checkout()">Checkout</button>
                 </div>
             </div>
         </div>

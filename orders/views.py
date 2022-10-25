@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder, SavedCarts, Table
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, Allergens, UserOrder, SavedCarts, Table
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
@@ -75,10 +75,22 @@ def pasta(request):
 
 
 def salad(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/salad.html", context = {"dishes":Salad.objects.all})
-    else:
-        return redirect("orders:login")
+    salads = Salad.objects.all()
+    allergens = Allergens.objects.all()
+    allergens_dict = {}
+    for salad in salads:
+        allergies_list = salad.allergies.split(",")
+        salad_allergens = []
+        for i in allergies_list:
+            salad_allergens.append(allergens.get(id=i).allergen_name)
+        allergens_dict[salad.dish_name] = salad_allergens
+
+    print(allergens_dict)
+    return render(request, "orders/salad.html", context={"dishes": Salad.objects.all, "allergies": allergens_dict})
+    # if request.user.is_authenticated:
+    #     return render(request, "orders/salad.html", context = {"dishes":Salad.objects.all, "allergies":allergens_dict})
+    # else:
+    #     return redirect("orders:login")
 
 
 def subs(request):
@@ -167,8 +179,11 @@ def view_orders(request):
         #make a request for all the orders in the database
         rows = UserOrder.objects.all().order_by('-time_of_order')
         #orders.append(row.order[1:-1].split(","))
-
-        return render(request, "orders/orders.html", context = {"rows":rows})
+        pending_orders = 0
+        for row in rows:
+            if not row.delivered:
+                pending_orders+=1
+        return render(request, "orders/orders.html", context = {"rows":rows, "pending_orders":pending_orders})
     else:
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
         return render(request, "orders/orders.html", context = {"rows":rows})

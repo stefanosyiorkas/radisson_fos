@@ -93,6 +93,8 @@ class Pasta(models.Model):
 
 class Salad(models.Model):
     dish_name = models.CharField(max_length=200)
+    dish_description = models.TextField(null=True, blank=True)
+    allergies = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
@@ -119,6 +121,13 @@ class DinnerPlatters(models.Model):
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
         return f"Platter : {self.dish_name}"
+
+class Allergens(models.Model):
+    allergen_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"{self.allergen_name}"
 
 class Table(models.Model):
     table_number = models.IntegerField()

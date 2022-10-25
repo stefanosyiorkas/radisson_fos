@@ -25,11 +25,18 @@ body {
 }
 
 body {
+    background-color: #fffff0;
+    /*
     background-image: url(./../img/wp.jpg);
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
     background-position: center center;
     backdrop-filter: brightness(0.9887);
+    */
+}
+
+.navbar-brand{
+    background-image: url(./../img/logo.png);
 }
 
 #card-tbl tbody tr:hover {

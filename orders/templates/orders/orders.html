@@ -25,6 +25,7 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">Order</th>
                                 <th scope="col">Amount Paid</th>
+                                <th scope="col">Table</th>
                             </tr>
                         </thead>
                         <tbody id="orders_table">
@@ -44,6 +45,7 @@
                                         </ul>
                                     </td>
                                     <td>€ {{row.price|floatformat:2|intcomma}}</td>
+                                    <td>{{row.table_number}}</td>
                                 </tr>
                                 {% endfor %}
                         </tbody>

@@ -16,6 +16,7 @@ urlpatterns = [
     path("Salad", views.salad, name="salad"),
     path("Subs", views.subs, name="subs"),
     path("Platters", views.dinner_platters, name="dinner_platters"),
+    path("All Day Snacks", views.all_day_snacks, name="all_day_snacks"),
     path("directions", views.directions, name="directions"),
     path("hours", views.hours, name="hours"),
     path("contact", views.contact, name="contact"),
@@ -26,5 +27,6 @@ urlpatterns = [
     path("save_cart", views.save_cart, name="save_cart"),
     path("retrieve_saved_cart", views.retrieve_saved_cart, name="retrieve_saved_cart"),
     path("check_superuser", views.check_superuser, name="check_superuser"),
+    path("order_success", views.order_success, name="order_success"),
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

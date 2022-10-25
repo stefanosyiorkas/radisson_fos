@@ -1,5 +1,5 @@
 {% extends 'orders/header.html' %} {% block content %}
-
+{% load static %}
 
 
 <div class="container">
@@ -15,7 +15,11 @@
                             <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
                             <h6>{{dish.dish_description}}</h6>
                         </div>
+                        {% if request.user.is_authenticated %}
                         <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:{{dish.price}} })">€ {{dish.price}}</button>
+                        {% else %}
+                        <button class="btn btn-success" onclick="add_to_cart()">€ {{dish.price}}</button>
+                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>

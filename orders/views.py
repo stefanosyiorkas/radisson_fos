@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, Allergens, UserOrder, SavedCarts, Table
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, AllDaySnacks, Allergens, UserOrder, SavedCarts, Table
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
@@ -13,7 +13,8 @@ from time import gmtime, strftime
 
 # Create your views here.
 def index(request):
-    return render(request, "orders/home.html", {"categories":Category.objects.all})
+    salads = Salad.objects.all()
+    return render(request, "orders/home.html", {"categories":Category.objects.all, "salads":salads})
     # if request.user.is_authenticated:
     #     #we are passing in the data from the category model
     #     return render(request, "orders/home.html", {"categories":Category.objects.all})
@@ -42,7 +43,8 @@ def login_request(request):
 
 def logout_request(request):
     logout(request)
-    return render(request, "orders/home.html", {"categories":Category.objects.all})
+    salads = Salad.objects.all()
+    return render(request, "orders/home.html",  {"categories":Category.objects.all, "salads":salads})
 
 def register(request):
     if request.method == "POST":
@@ -106,6 +108,12 @@ def dinner_platters(request):
     else:
         return redirect("orders:login")
 
+def all_day_snacks(request):
+    if request.user.is_authenticated:
+        return render(request, "orders/salad.html", context = {"dishes":AllDaySnacks.objects.all})
+    else:
+        return redirect("orders:login")
+
 def directions(request):
     # if request.user.is_authenticated:
     return render(request, "orders/directions.html")
@@ -149,13 +157,12 @@ def checkout(request):
         username = request.user.username
         response_data = {}
         list_of_items = [item["item_description"] for item in cart]
-        table = Table.objects.get_or_create(table_number=table_num)
 
-        order = UserOrder(username=username, order=list_of_items, price=float(price), table_number=table[0], delivered=False) #create the row entry
+        order = UserOrder(username=username, order=list_of_items, price=float(price), table_number=table_num, delivered=False) #create the row entry
         order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'
-        send_slack(username='Lobby Lounge', message=f'*{strftime("%Y-%m-%d %H:%M:%S", gmtime())}* - New order received')
+        # send_slack(username='Lobby Lounge', message=f'*{strftime("%Y-%m-%d %H:%M:%S", gmtime())}* - New order received')
         # requests.post('https://api.mynotifier.app', {
         #       "apiKey": '0326b712-bb7e-4860-97bc-b3205482232b', # This is your own private key
         #       "message": f"New Order!", # Could be anything
@@ -164,15 +171,21 @@ def checkout(request):
         #       "type": "info", # info, error, warning or success
         #       "project": "" # Optional. Project ids can be found in project tab <-
         #     })
-        return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
-        )
+        # return HttpResponse(
+        #     json.dumps(response_data),
+        #     content_type="application/json"
+        # )
+        return redirect('orders:order_success')
+
     else:
         return HttpResponse(
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+
+def order_success(request):
+    print("here")
+    return render(request, 'orders/order_received.html')
 
 def view_orders(request):
     if request.user.is_superuser or request.user.is_staff:
@@ -230,3 +243,4 @@ def check_superuser(request):
 
 def handle_404(request,exception):
     return render(request, 'orders/404.html')
+

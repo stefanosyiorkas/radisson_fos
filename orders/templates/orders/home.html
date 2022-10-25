@@ -1,19 +1,33 @@
 {% extends 'orders/header.html' %}
 {% load static %}
 {% block content %}
-    <div class="container-fluid">
-      <div class="row justify-content-center">
-        {% for cat in categories %}
-          <div class="card rounded-0" style="width: 18rem; margin: 20px;"> <!-- The col-sm-4 stuff is that if its on a small screen it will take up a third of the widths-->
-            <img src="{% if cat.category_gif %}{{cat.category_gif.url}}{% else %}{% static 'no-img-available.png' %}{% endif %}" class="card-img-top cat-img rounded-0" alt="gif for category item" style="width:100%;">
-            <div class="card-body">
-              <h5 class="card-title" >{{cat.category_title}}</h5>
-              <p class="card-text truncate-3">{{cat.category_description|striptags}}</p>
-              <center><a href="{{cat.category_title}}" class="btn rounded-0 btn-gradient bg-primary text-light" >Order {{cat.category_title}}</a></center>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
+<!--    <div class="container-fluid">-->
+<!--      <div class="row justify-content-center">-->
+<!--        {% for cat in categories %}-->
+<!--          <div class="card rounded-0" style="width: 18rem; margin: 20px;"> &lt;!&ndash; The col-sm-4 stuff is that if its on a small screen it will take up a third of the widths&ndash;&gt;-->
+<!--            <img src="{% if cat.category_gif %}{{cat.category_gif.url}}{% else %}{% static 'no-img-available.png' %}{% endif %}" class="card-img-top cat-img rounded-0" alt="gif for category item" style="width:100%;">-->
+<!--            <div class="card-body">-->
+<!--              <h5 class="card-title" >{{cat.category_title}}</h5>-->
+<!--              <p class="card-text truncate-3">{{cat.category_description|striptags}}</p>-->
+<!--              <center><a href="{{cat.category_title}}" class="btn rounded-0 btn-gradient bg-primary text-light" >Order {{cat.category_title}}</a></center>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        {% endfor %}-->
+<!--      </div>-->
+<!--    </div>-->
+
+                  {% for dish in salads %}
+                    <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <h6>{{dish.dish_description}}</h6>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:{{dish.price}} })">€ {{dish.price}}</button>
+                        {% else %}
+                        <button class="btn btn-success" onclick="add_to_cart()">€ {{dish.price}}</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
 
 {% endblock %}

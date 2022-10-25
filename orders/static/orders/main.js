@@ -74,25 +74,31 @@ function check_user_super() {
 function add_to_cart(info) {
     //info will be the stuff displayed in the reciept
     // item description as well as teh price
-    display_notif("add to cart", info);
-    var cart_retrieved = !!localStorage.getItem("cart") ? localStorage.getItem("cart") : null
-    if (cart_retrieved === null) {
-        //make a new cart
-        var cart = [info];
-        localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart-count').innerText = ''
+    console.log(info);
+    if (info == null) {
+        display_notif("please login");
+    }
+    else{
+        display_notif("add to cart", info);
+        var cart_retrieved = !!localStorage.getItem("cart") ? localStorage.getItem("cart") : null
+        if (cart_retrieved === null) {
+            //make a new cart
+            var cart = [info];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.getElementById('cart-count').innerText = ''
 
-    } else {
-        var cart = JSON.parse(cart_retrieved);
-        cart.push(info)
-        localStorage.setItem('cart', JSON.stringify(cart));
-        if (cart.length != 0){
-            document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+        } else {
+            var cart = JSON.parse(cart_retrieved);
+            cart.push(info)
+            localStorage.setItem('cart', JSON.stringify(cart));
+            if (cart.length != 0){
+                document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+            }
         }
     }
 
-
 }
+
 
 function onRowClick(tableId, callback) {
     var table = document.getElementById(tableId),
@@ -134,7 +140,11 @@ function display_notif(type, info = "No info provided") {
             toastr.success("Order successfully placed");
             break;
         case "table none":
-            toastr.error("Please select a table")
+            toastr.error("Please select a table");
+            break;
+        case "please login":
+            toastr.error("Please login first");
+            break;
     }
 
 }

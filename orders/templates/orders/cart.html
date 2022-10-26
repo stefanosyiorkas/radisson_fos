@@ -5,14 +5,24 @@
         <div class="card rounded-0 shadow">
             <div class="card-body">
                 <div class="row justify-content-center">
-                    <h2 id="cart_heading"></h2>
-                    <fieldset class="pb-2 mb-3 border w-100">
-                        <legend class="px-3 w-auto ml-3">Instructions:</legend>
-                        <ul>
-                            <li>Click the Item row to remove item from cart list. </li>
-                            <li>Click checkout button to place order </li>
-                        </ul>
-                    </fieldset>
+                    <div class="row">
+                      <div class="column"><h2 id="cart_heading"></h2></div>
+                      <div class="column"><button
+                            type="button"
+                            class="btn btn-dark btn-sm rounded-0"
+                            onclick="clear_cart_btn()"
+                          >
+                            <i class="fa fa-clear"></i> Clear Cart
+                          </button></div>
+                    </div>
+
+<!--                    <fieldset class="pb-2 mb-3 border w-100">-->
+<!--                        <legend class="px-3 w-auto ml-3">Instructions:</legend>-->
+<!--                        <ul>-->
+<!--                            <li>Click the Item row to remove item from cart list. </li>-->
+<!--                            <li>Click checkout button to place order </li>-->
+<!--                        </ul>-->
+<!--                    </fieldset>-->
                     <table class="table table-bordered table-striped" id="card-tbl">
                         <thead class="thead-light">
                             <tr>

@@ -14,19 +14,28 @@
                         </ul>
                     </fieldset>
                     {% else %}
-                    <h2> List of Orders </h2>
+                        <h2> My Orders </h2>
                     {% endif %}
 
                     <table class="table" id="order-tbl">
                         <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Order ID</th>
-                                <th scope="col">Ordered by</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Order</th>
-                                <th scope="col">Amount Paid</th>
-                                <th scope="col">Table</th>
-                            </tr>
+                            {% if user.is_superuser %}
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Ordered by</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Order</th>
+                                    <th scope="col">Amount Paid</th>
+                                    <th scope="col">Table</th>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Order</th>
+                                    <th scope="col">Amount Paid</th>
+                                </tr>
+                            {% endif %}
                         </thead>
                         <tbody id="orders_table">
                             {% for row in rows %} {% if row.delivered %}
@@ -34,18 +43,34 @@
                                 {% else %}
                                 <tr class="table-danger mark-as-complete">
                                     {% endif %}
-                                    <td>{{row.id}}</td>
-                                    <td>{{row.username}}</td>
-                                    <td>{{row.time_of_order}}</td>
-                                    <td>
-                                        <ul>
-                                            {% for item in row.order|format_cart %}
-                                            <li>{{item|format_cart_item}}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </td>
-                                    <td>€ {{row.price|floatformat:2|intcomma}}</td>
-                                    <td>{{row.table_number}}</td>
+
+                                    {% if user.is_superuser %}
+                                        <td>{{row.id}}</td>
+                                        <td>{{row.username}}</td>
+                                        <td>{{row.time_of_order}}</td>
+                                        <td>
+                                            <ul>
+                                                {% for item in row.order|format_cart %}
+                                                <li>{{item|format_cart_item}}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+                                        <td>€ {{row.price|floatformat:2|intcomma}}</td>
+                                        <td>{{row.table_number}}</td>
+
+                                    {% else %}
+                                        <td>{{row.id}}</td>
+                                        <td>{{row.time_of_order}}</td>
+                                        <td>
+                                            <ul>
+                                                {% for item in row.order|format_cart %}
+                                                <li>{{item|format_cart_item}}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+                                        <td>€ {{row.price|floatformat:2|intcomma}}</td>
+
+                                    {% endif %}
                                 </tr>
                                 {% endfor %}
                         </tbody>

@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, AllDaySnacks, Allergens, UserOrder, SavedCarts, Table
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, AllDaySnacks, MainDishes, Burgers, Desserts, Allergens, UserOrder, SavedCarts, Table
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import logout, authenticate, login
@@ -12,9 +12,18 @@ from urllib.parse import urlencode
 from time import gmtime, strftime
 
 # Create your views here.
+main_context = {
+    "categories": Category.objects.all(),
+    "salads": Salad.objects.all(),
+    "all_day_snacks": AllDaySnacks.objects.all(),
+    "main_dishes": MainDishes.objects.all(),
+    "burgers": Burgers.objects.all(),
+    "desserts": Desserts.objects.all()
+}
+
 def index(request):
     salads = Salad.objects.all()
-    return render(request, "orders/home.html", {"categories":Category.objects.all, "salads":salads})
+    return render(request, "orders/home.html", main_context)
     # if request.user.is_authenticated:
     #     #we are passing in the data from the category model
     #     return render(request, "orders/home.html", {"categories":Category.objects.all})
@@ -43,8 +52,7 @@ def login_request(request):
 
 def logout_request(request):
     logout(request)
-    salads = Salad.objects.all()
-    return render(request, "orders/home.html",  {"categories":Category.objects.all, "salads":salads})
+    return render(request, "orders/home.html",  main_context)
 
 def register(request):
     if request.method == "POST":
@@ -133,6 +141,7 @@ def contact(request):
     #     return redirect("orders:login")
 
 def cart(request):
+
     tables = Table.objects.all()
     if request.user.is_authenticated:
         context = {'tables': tables}

@@ -15,8 +15,42 @@
 <!--        {% endfor %}-->
 <!--      </div>-->
 <!--    </div>-->
+<div class="container">
+    <div class="content my-4 px-4">
+        <div class="card rounded-0 shadow">
+            <div class="card-body">
+                <h4 style="margin:10px; text-align:center;"> SALADS &#x1f957 </h4>
+                <div class="row justify-content-center">
 
-                  {% for dish in salads %}
+                    {% for dish in salads %}
+                    <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
+                        <div class="card-body">
+                            <img src="{{dish.dish_image}}" style="display: block;  margin-left: auto;  margin-right: auto;  width: 35%;">
+                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <h6>{{dish.dish_description}}</h6>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:{{dish.price}} })">€ {{dish.price}}</button>
+                        {% else %}
+                        <button class="btn btn-success" onclick="add_to_cart()">€ {{dish.price}}</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="content my-4 px-4">
+        <div class="card rounded-0 shadow">
+            <div class="card-body">
+                <h4 style="margin:10px; text-align:center;"> ALL DAY SNACKS &#129386 </h4>
+                <div class="row justify-content-center">
+
+                    {% for dish in all_day_snacks %}
                     <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
                         <div class="card-body">
                             <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
@@ -29,5 +63,87 @@
                         {% endif %}
                     </div>
                     {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container">
+    <div class="content my-4 px-4">
+        <div class="card rounded-0 shadow">
+            <div class="card-body">
+                <h4 style="margin:10px; text-align:center;"> MAIN DISHES &#129368 </h4>
+                <div class="row justify-content-center">
+
+                    {% for dish in main_dishes %}
+                    <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <h6>{{dish.dish_description}}</h6>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:{{dish.price}} })">€ {{dish.price}}</button>
+                        {% else %}
+                        <button class="btn btn-success" onclick="add_to_cart()">€ {{dish.price}}</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content my-4 px-4">
+        <div class="card rounded-0 shadow">
+            <div class="card-body">
+                <h4 style="margin:10px; text-align:center;"> BURGERS &#127828 </h4>
+                <div class="row justify-content-center">
+
+                    {% for dish in burgers %}
+                    <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <h6>{{dish.dish_description}}</h6>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:{{dish.price}} })">€ {{dish.price}}</button>
+                        {% else %}
+                        <button class="btn btn-success" onclick="add_to_cart()">€ {{dish.price}}</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content my-4 px-4">
+        <div class="card rounded-0 shadow">
+            <div class="card-body">
+                <h4 style="margin:10px; text-align:center;"> DESSERTS &#127854 </h4>
+                <div class="row justify-content-center">
+
+                    {% for dish in desserts %}
+                    <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <h6>{{dish.dish_description}}</h6>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:{{dish.price}} })">€ {{dish.price}}</button>
+                        {% else %}
+                        <button class="btn btn-success" onclick="add_to_cart()">€ {{dish.price}}</button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

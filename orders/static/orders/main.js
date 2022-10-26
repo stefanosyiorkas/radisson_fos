@@ -269,6 +269,12 @@ function display_empty_cart() {
 
 }
 
+function clear_cart_btn(){
+    if (confirm("Proceed to clear the cart?")) {
+        clear_cart()
+    }
+}
+
 function clear_cart() {
     localStorage.removeItem("cart"); //Clear the cart
     localStorage.removeItem("total_price"); //clear the price
@@ -303,6 +309,7 @@ function checkout() {
         success: function(json) {
             display_notif("new order")
             clear_cart()
+            window.location.replace("/");
         },
 
         // handle a non-successful response

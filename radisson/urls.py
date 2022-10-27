@@ -22,3 +22,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
 ]
 handler404='orders.views.handle_404'
+
+admin.site.site_header = "Admin Dashboard"
+admin.site.site_title = "Radisson FOS Admin Dashboard"
+admin.site.index_title = "Radisson FOS Admin Dashboard"

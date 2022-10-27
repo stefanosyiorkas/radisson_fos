@@ -27,6 +27,8 @@ urlpatterns = [
     path("save_cart", views.save_cart, name="save_cart"),
     path("retrieve_saved_cart", views.retrieve_saved_cart, name="retrieve_saved_cart"),
     path("check_superuser", views.check_superuser, name="check_superuser"),
+    path("check_staff_user", views.check_staff_user, name="check_staff_user"),
     path("order_success", views.order_success, name="order_success"),
+    # path("session_expired", views.session_expired, name="session_expired"),
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -25,7 +25,8 @@ function order_list_functionality() {
         var csrftoken = getCookie('csrftoken');
         //send get request to see if user has superuser permissions
         var user_is_super = check_user_super();
-        if (user_is_super && row.classList.contains("mark-as-complete")) {
+        var user_is_staff = check_user_staff();
+        if ((user_is_super || user_is_staff) && row.classList.contains("mark-as-complete")) {
             var r = confirm("Would you like to mark order " + id + " as delivered?");
             if (r == true) {
                 $.ajax({
@@ -56,6 +57,25 @@ function check_user_super() {
     var return_value;
     $.ajax({
         url: "check_superuser",
+        type: 'GET',
+        success: function(res) {
+            console.log("we got back from the server the value ---> " + res)
+            if (res == "True") {
+                console.log("assigned true")
+                return_value = true;
+            } else {
+                return_value = false;
+            }
+        },
+        async: false
+    });
+    return return_value
+}
+
+function check_user_staff() {
+    var return_value;
+    $.ajax({
+        url: "check_staff_user",
         type: 'GET',
         success: function(res) {
             console.log("we got back from the server the value ---> " + res)

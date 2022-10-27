@@ -5,7 +5,7 @@
         <div class="card shadow rounded-0">
             <div class="card-body">
                 <div class="row justify-content-center">
-                    {% if user.is_superuser %}
+                    {% if user.is_superuser or user.is_staff %}
                     <h2>Pending Orders: {{pending_orders}}</h2>
                     <fieldset class="pb-2 mb-3 border w-100">
                         <legend class="px-3 w-auto ml-3">Instructions:</legend>
@@ -19,7 +19,7 @@
 
                     <table class="table" id="order-tbl">
                         <thead class="thead-light">
-                            {% if user.is_superuser %}
+                            {% if user.is_superuser or user.is_staff  %}
                                 <tr>
                                     <th scope="col">Order ID</th>
                                     <th scope="col">Ordered by</th>
@@ -44,7 +44,7 @@
                                 <tr class="table-danger mark-as-complete">
                                     {% endif %}
 
-                                    {% if user.is_superuser %}
+                                    {%  if user.is_superuser or user.is_staff  %}
                                         <td>{{row.id}}</td>
                                         <td>{{row.username}}</td>
                                         <td>{{row.time_of_order}}</td>

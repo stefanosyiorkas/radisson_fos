@@ -250,6 +250,12 @@ def check_superuser(request):
     print(f"User super??? {request.user.is_superuser}")
     return HttpResponse(request.user.is_superuser)
 
+def check_staff_user(request):
+    print(f"User staff??? {request.user.is_staff}")
+    return HttpResponse(request.user.is_staff)
+
 def handle_404(request,exception):
     return render(request, 'orders/404.html')
 
+# def session_expired(request):
+#     return render(request, "orders/session_expired.html", {})

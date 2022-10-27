@@ -43,7 +43,7 @@
       </a>
 <!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>-->
       {% if user.is_authenticated %}
-        {% if user.is_superuser %}
+        {% if user.is_superuser or user.is_staff %}
         <a
             href="/view-orders"
             class="btn btn-primary text-light btn-sm border rounded-0"
@@ -98,7 +98,7 @@
         {% if user.is_authenticated %}
         <span class="navbar-text">
           <h6>Hello, {{request.user.username}}</h6>
-          {% if user.is_superuser %}
+          {% if user.is_superuser or user.is_staff %}
           {% else %}
           <a
             href="/view-orders"

@@ -171,3 +171,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # SESSION_EXPIRE_SECONDS = 3600
 # SESSION_TIMEOUT_REDIRECT = '/session_expired'
 # SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+
+GUEST_USER_NAME_GENERATOR = 'guest_user.functions.generate_numbered_username'
+GUEST_USER_MAX_AGE = 43200 # 12 HOURS

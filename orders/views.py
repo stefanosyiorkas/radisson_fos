@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, AllDaySnacks, MainDishes, Burgers, Desserts, Allergens, UserOrder, SavedCarts, Table
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 import json
 from . import forms
@@ -209,6 +210,7 @@ def order_success(request):
     print("here")
     return render(request, 'orders/order_received.html')
 
+@login_required(login_url='orders:login')
 def view_orders(request):
     if request.user.is_superuser or request.user.is_staff:
         #make a request for all the orders in the database

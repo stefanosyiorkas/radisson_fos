@@ -20,6 +20,7 @@ urlpatterns = [
     path("", include("orders.urls")),
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
+    path("convert/", include("guest_user.urls")),
 ]
 handler404='orders.views.handle_404'
 

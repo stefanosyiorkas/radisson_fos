@@ -8,6 +8,7 @@ app_name = "orders"
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("guest", views.hello_guest, name="guest"),
     path("login", views.login_request, name="login"),
     path("register/", views.register, name="register"),
     path("logout", views.logout_request, name="logout"),

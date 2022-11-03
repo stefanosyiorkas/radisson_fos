@@ -10,6 +10,7 @@ import requests
 import os
 from urllib.parse import urlencode
 from time import gmtime, strftime
+from guest_user.decorators import allow_guest_user
 
 # Create your views here.
 main_context = {
@@ -29,6 +30,18 @@ def index(request):
     #     return render(request, "orders/home.html", {"categories":Category.objects.all})
     # else:
     #     return redirect("orders:login")
+
+@allow_guest_user
+def hello_guest(request):
+    """
+    SOURCE: https://django-guest-user.readthedocs.io/en/latest/usage.html
+    This view will always have an authenticated user, but some may be guests.
+    The default username generator will create a UUID4.
+
+    Example response: "Hello, b5daf1dd-1a2f-4d18-a74c-f13bf2f086f7!"
+    """
+    # return HttpResponse(f"Hello, {request.user.username}!")
+    return redirect("orders:index")
 
 def login_request(request):
     if request.method == 'POST':

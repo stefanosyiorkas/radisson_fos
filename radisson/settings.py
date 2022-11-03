@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'tinymce',
+    'guest_user',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +136,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+   "django.contrib.auth.backends.ModelBackend",
+   # it should be the last entry to prevent unauthorized access
+   "guest_user.backends.GuestBackend",
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -162,6 +168,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SESSION_EXPIRE_SECONDS = 3600
-SESSION_TIMEOUT_REDIRECT = '/session_expired'
-SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+# SESSION_EXPIRE_SECONDS = 3600
+# SESSION_TIMEOUT_REDIRECT = '/session_expired'
+# SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True

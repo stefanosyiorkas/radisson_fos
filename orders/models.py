@@ -96,7 +96,7 @@ class Salad(models.Model):
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
     dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
-    allergies = models.CharField(max_length=200)
+    allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
@@ -111,7 +111,7 @@ class Salad(models.Model):
 class AllDaySnacks(models.Model):
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
-    # allergies = models.CharField(max_length=200)
+    allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
@@ -125,7 +125,7 @@ class AllDaySnacks(models.Model):
 class MainDishes(models.Model):
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
-    # allergies = models.CharField(max_length=200)
+    allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
@@ -139,7 +139,7 @@ class MainDishes(models.Model):
 class Burgers(models.Model):
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
-    # allergies = models.CharField(max_length=200)
+    allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
@@ -153,7 +153,7 @@ class Burgers(models.Model):
 class Desserts(models.Model):
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
-    # allergies = models.CharField(max_length=200)
+    allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:

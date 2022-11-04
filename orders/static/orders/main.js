@@ -3,7 +3,11 @@ $(document).ready(function() {
     retrieve_saved_cart()
     var cart = !!localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : null;
     if (cart !== null)
-        document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+        if (cart.length == 0){
+            document.getElementById('cart-count').innerText = ''
+        }else{
+            document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+        }
 
     if (window.location.href.indexOf("cart") > -1) {
         //dynamically generate the cart on the page
@@ -105,7 +109,7 @@ function add_to_cart(info) {
             //make a new cart
             var cart = [info];
             localStorage.setItem('cart', JSON.stringify(cart));
-            document.getElementById('cart-count').innerText = ''
+            document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
 
         } else {
             var cart = JSON.parse(cart_retrieved);
@@ -198,6 +202,7 @@ function load_cart() {
             var r = confirm("Proceed to delete '" + description + "' from cart?");
             if (r == true) {
                 document.getElementById("cart_body").deleteRow(value - 1);
+                document.getElementById('cart-count').innerText = parseFloat(cart.length - 1).toLocaleString('en-US')
                 //edit the cart
                 cart.splice(value - 1, 1) //this is how you remove elements from a list in javascript
                 localStorage.setItem('cart', JSON.stringify(cart)); //change the elements in the cart in local storage
@@ -286,7 +291,7 @@ function display_empty_cart() {
     document.getElementById('total').innerHTML = ""
     document.getElementById('cart_heading').innerHTML = "Cart is empty!"
     document.getElementById("checkout_button").disabled = true;
-
+    document.getElementById('cart-count').innerText = '';
 }
 
 function clear_cart_btn(){

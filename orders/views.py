@@ -16,11 +16,30 @@ main_context = {
     "all_day_snacks": AllDaySnacks.objects.all(),
     "main_dishes": MainDishes.objects.all(),
     "burgers": Burgers.objects.all(),
-    "desserts": Desserts.objects.all()
+    "desserts": Desserts.objects.all(),
+    "allergens": Allergens.objects.all()
+
 }
 
 def index(request):
-    salads = Salad.objects.all()
+    allergens = main_context["allergens"]
+    allergens_dict = { str(allergen.id):allergen.allergen_name for allergen in allergens}
+    categories = [cat for cat in main_context.keys()]
+    for cat in categories:
+        if cat not in ('categories', 'allergens'):
+            category_object = main_context[cat]
+            try:
+                for item in category_object:
+                    allergens_temp = [allergens_dict[allergie] for allergie in item.allergies.split(",")]
+                    item.allergies = allergens_temp
+            except (AttributeError, KeyError) as e:
+                print("Error:", cat, e)
+            main_context[cat] = category_object
+    # salads = Salad.objects.all()
+    # for salad in salads:
+    #     allergens_temp = [allergens_dict[allergie] for allergie in salad.allergies.split(",")]
+    #     salad.allergies = ", ".join(allergens_temp)
+    # main_context['salads'] = salads
     return render(request, "orders/home.html", main_context)
     # if request.user.is_authenticated:
     #     #we are passing in the data from the category model

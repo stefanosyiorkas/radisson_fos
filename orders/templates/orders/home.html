@@ -26,7 +26,10 @@
                     <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
                         <div class="card-body">
                             <img src="{{dish.dish_image}}" style="display: block;  margin-left: auto;  margin-right: auto;  width: 35%;">
-                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <h5 class="card-title" style="font-weight: bold;">{{dish.dish_name}}
+                                <div>{% for allergen in dish.allergies %}
+                                    <img src="media/allergens/{{allergen}}.png" style="width: 10%;">
+                                {% endfor %}</div>
                             <h6>{{dish.dish_description}}</h6>
                         </div>
                         {% if request.user.is_authenticated %}
@@ -53,7 +56,11 @@
                     {% for dish in all_day_snacks %}
                     <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
                         <div class="card-body">
-                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <img src="{{dish.dish_image}}" style="display: block;  margin-left: auto;  margin-right: auto;  width: 35%;">
+                            <h5 class="card-title" style="font-weight: bold;">{{dish.dish_name}}
+                                <div>{% for allergen in dish.allergies %}
+                                    <img src="media/allergens/{{allergen}}.png" style="width: 10%;">
+                                {% endfor %}</div>
                             <h6>{{dish.dish_description}}</h6>
                         </div>
                         {% if request.user.is_authenticated %}
@@ -79,7 +86,11 @@
                     {% for dish in main_dishes %}
                     <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
                         <div class="card-body">
-                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <img src="{{dish.dish_image}}" style="display: block;  margin-left: auto;  margin-right: auto;  width: 35%;">
+                            <h5 class="card-title" style="font-weight: bold;">{{dish.dish_name}}
+                                <div>{% for allergen in dish.allergies %}
+                                    <img src="media/allergens/{{allergen}}.png" style="width: 10%;">
+                                {% endfor %}</div>
                             <h6>{{dish.dish_description}}</h6>
                         </div>
                         {% if request.user.is_authenticated %}
@@ -105,7 +116,11 @@
                     {% for dish in burgers %}
                     <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
                         <div class="card-body">
-                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <img src="{{dish.dish_image}}" style="display: block;  margin-left: auto;  margin-right: auto;  width: 35%;">
+                            <h5 class="card-title" style="font-weight: bold;">{{dish.dish_name}}
+                                <div>{% for allergen in dish.allergies %}
+                                    <img src="media/allergens/{{allergen}}.png" style="width: 10%;">
+                                {% endfor %}</div>
                             <h6>{{dish.dish_description}}</h6>
                         </div>
                         {% if request.user.is_authenticated %}
@@ -131,7 +146,11 @@
                     {% for dish in desserts %}
                     <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
                         <div class="card-body">
-                            <h5 class="card-title">{{dish.dish_name}} <span><h6>Allergies {{dish.allergies}}</h6></span></h5>
+                            <img src="{{dish.dish_image}}" style="display: block;  margin-left: auto;  margin-right: auto;  width: 35%;">
+                            <h5 class="card-title" style="font-weight: bold;">{{dish.dish_name}}
+                                <div>{% for allergen in dish.allergies %}
+                                    <img src="media/allergens/{{allergen}}.png" style="width: 10%;">
+                                {% endfor %}</div>
                             <h6>{{dish.dish_description}}</h6>
                         </div>
                         {% if request.user.is_authenticated %}

@@ -18,18 +18,20 @@ class SicilianPizzaAdmin(admin.ModelAdmin):
             models.TextField: {'widget': TinyMCE()},
             }
 
-
+#
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(RegularPizza, RegularPizzaAdmin)
 admin.site.register(SicilianPizza, SicilianPizzaAdmin)
 admin.site.register(Toppings)
 admin.site.register(Sub)
 admin.site.register(Pasta)
-admin.site.register(Salad)
 admin.site.register(DinnerPlatters)
+#
+
 admin.site.register(UserOrder)
 admin.site.register(SavedCarts)
 
+admin.site.register(Salad)
 admin.site.register(AllDaySnacks)
 admin.site.register(MainDishes)
 admin.site.register(Burgers)

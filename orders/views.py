@@ -194,12 +194,10 @@ def checkout(request):
         #       "type": "info", # info, error, warning or success
         #       "project": "" # Optional. Project ids can be found in project tab <-
         #     })
-        # return HttpResponse(
-        #     json.dumps(response_data),
-        #     content_type="application/json"
-        # )
-        return redirect('orders:order_success')
-
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
     else:
         return HttpResponse(
             json.dumps({"nothing to see": "this isn't happening"}),
@@ -207,8 +205,8 @@ def checkout(request):
         )
 
 def order_success(request):
-    print("here")
-    return render(request, 'orders/order_received.html')
+    order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
+    return render(request, "orders/order_received.html", context={"order": order})
 
 @login_required(login_url='orders:login')
 def view_orders(request):

@@ -329,7 +329,7 @@ function checkout() {
         success: function(json) {
             display_notif("new order")
             clear_cart()
-            window.location.replace("/");
+            window.location.replace('/order_success');
         },
 
         // handle a non-successful response

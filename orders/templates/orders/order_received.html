@@ -1,6 +1,12 @@
 {% extends 'orders/header.html' %} {% block content %}
 
 <h1>Order Received!</h1>
+<h5>{{order}}</h5>
+<h5>{{order.id}}</h5>
+<h5>{{order.time_of_order}}</h5>
+<h5>{{order.order}}</h5>
+<h5>€ {{order.price}}</h5>
+<h5>Table: {{order.table_number}}</h5>
 <a href="/">Go to Home</a>
 
 

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="{%  static 'img/favicon.png' %}">
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -29,7 +30,6 @@
     />
     {% load static %}
     <link rel="stylesheet" href="{% static 'orders/main.js' %}" />
-
     <title>Radisson Ordering System</title>
   </head>
 
@@ -38,17 +38,28 @@
       class="navbar navbar-expand-lg navbar-light shadow bg-light"
       id="topNav"
     >
-      <a class="navbar-brand" href="/">Radisson Ordering System</a>
+      <a href="/">
+         <img alt="Radisson" src="/media/rbrl_logo.png"
+         width=150" height="70"  style="vertical-align:middle;margin:0px 10px">
+      </a>
+<!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>-->
       {% if user.is_authenticated %}
-      <a
-            href="/cart"
-            id="cart_button"
-            class="btn btn-light border btn-sm rounded-0"
-            style="color: black"
-            ><span class="badge badge-primary" id="cart-count"></span> My Cart
-            <i class="fa fa-shopping-cart"></i
-          ></a>
-          &nbsp;&nbsp;&nbsp;&nbsp;
+        {% if user.is_superuser or user.is_staff %}
+        <a
+            href="/view-orders"
+            class="btn btn-primary text-light btn-sm border rounded-0"
+            ><i class="fa fa-th-list"></i> View Orders</a
+          >
+        {% else %}
+        <a
+              href="/cart"
+              id="cart_button"
+              class="btn btn-light border btn-sm rounded-0"
+              style="color: black"
+              ><span class="badge badge-primary" id="cart-count"></span> My Cart
+              <i class="fa fa-shopping-cart"></i
+            ></a>
+        {% endif %}
       {% endif %}
 
         <button
@@ -69,16 +80,16 @@
           <li class="nav-item">
             <a class="nav-link" href="/"><i class="fa fa-cutlery"></i> Menu</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/directions"
-              ><i class="fa fa-map-marker"></i> Our Location</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/hours"
-              ><i class="fa fa-clock-o"></i> Shop Hours</a
-            >
-          </li>
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="/directions"-->
+<!--              ><i class="fa fa-map-marker"></i> Location</a-->
+<!--            >-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" href="/hours"-->
+<!--              ><i class="fa fa-clock-o"></i> Shop Hours</a-->
+<!--            >-->
+<!--          </li>-->
           <li class="nav-item">
             <a class="nav-link" href="/contact"
               ><i class="fa fa-phone"></i> Contact Us</a
@@ -88,11 +99,14 @@
         {% if user.is_authenticated %}
         <span class="navbar-text">
           <h6>Hello, {{request.user.username}}</h6>
+          {% if user.is_superuser or user.is_staff %}
+          {% else %}
           <a
             href="/view-orders"
             class="btn btn-primary text-light btn-sm border rounded-0"
-            ><i class="fa fa-th-list"></i> View Orders</a
+            ><i class="fa fa-th-list"></i> My Orders</a
           >
+          {% endif %}
 
 
           <button
@@ -106,9 +120,16 @@
         {% else %}
         <span class="navbar-text">
           <a
+            href="/guest"
+            class="btn btn-primary text-light btn-sm border rounded-0"
+            ><i class="fa fa-sign-in"></i> Continue as Guest</a
+          >
+        </span>
+        <span class="navbar-text">
+          <a
             href="/login"
             class="btn btn-primary text-light btn-sm border rounded-0"
-            ><i class="fa fa-sign-in"></i> Login</a
+            ><i class="fa fa-sign-in"></i> User Login</a
           >
         </span>
         {% endif %}
@@ -134,5 +155,12 @@
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{% static 'orders/main.js' %}"></script>
+
+    <footer>
+    <div style="text-align: center; margin:0 auto; opacity: 0.7;">Powered by <a href=
+        "https://www.leyiodigital.com">Leyio Digital</a>
+    </div>
+    </footer>
+
   </body>
 </html>

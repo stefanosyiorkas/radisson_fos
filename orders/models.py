@@ -51,6 +51,7 @@ class SicilianPizza(models.Model):
 class Toppings(models.Model):
     #example row :: Pepperoni
     topping_name = models.CharField(max_length=200)
+    dish_name = models.CharField(max_length=200)
 
     class Meta:
         verbose_name = "List of Pizza Toppings"
@@ -93,6 +94,9 @@ class Pasta(models.Model):
 
 class Salad(models.Model):
     dish_name = models.CharField(max_length=200)
+    dish_description = models.TextField(null=True, blank=True)
+    dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
+    allergies = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
@@ -104,6 +108,61 @@ class Salad(models.Model):
         #overriding the string method to get a good representation of it in string format
         return f"Salad : {self.dish_name}"
 
+class AllDaySnacks(models.Model):
+    dish_name = models.CharField(max_length=200)
+    dish_description = models.TextField(null=True, blank=True)
+    # allergies = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    class Meta:
+        verbose_name = "List of All Day Snacks"
+        verbose_name_plural = "List of All Day Snacks"
+
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"Snack : {self.dish_name}"
+
+class MainDishes(models.Model):
+    dish_name = models.CharField(max_length=200)
+    dish_description = models.TextField(null=True, blank=True)
+    # allergies = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    class Meta:
+        verbose_name = "List of Main Dishes"
+        verbose_name_plural = "List of Main Dishes"
+
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"Main : {self.dish_name}"
+
+class Burgers(models.Model):
+    dish_name = models.CharField(max_length=200)
+    dish_description = models.TextField(null=True, blank=True)
+    # allergies = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    class Meta:
+        verbose_name = "List of Burgers"
+        verbose_name_plural = "List of Burgers"
+
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"Burger : {self.dish_name}"
+
+class Desserts(models.Model):
+    dish_name = models.CharField(max_length=200)
+    dish_description = models.TextField(null=True, blank=True)
+    # allergies = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    class Meta:
+        verbose_name = "List of Desserts"
+        verbose_name_plural = "List of Desserts"
+
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"Dessert : {self.dish_name}"
 
 
 class DinnerPlatters(models.Model):
@@ -120,10 +179,38 @@ class DinnerPlatters(models.Model):
         #overriding the string method to get a good representation of it in string format
         return f"Platter : {self.dish_name}"
 
+class Allergens(models.Model):
+    allergen_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        #overriding the string method to get a good representation of it in string format
+        return f"{self.allergen_name}"
+
+
+class ExtraToppings(models.Model):
+    topping_name = models.CharField(max_length=200)
+    dish_name = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    class Meta:
+        verbose_name = "List of Extra Toppings"
+        verbose_name_plural = "List of Extra Toppings"
+
+    def __str__(self):
+        # overriding the string method to get a good representation of it in string format
+        return f"{self.topping_name}"
+
+class Table(models.Model):
+    table_number = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.table_number}"
+
 class UserOrder(models.Model):
     username = models.CharField(max_length=200) #who placed the order
     order = models.TextField() #this will be a string representation of the cart from localStorage
     price = models.DecimalField(max_digits=6, decimal_places=2) #how much was the order
+    table_number = models.IntegerField()
     time_of_order  = models.DateTimeField(default=datetime.now, blank=True)
     delivered = models.BooleanField()
 

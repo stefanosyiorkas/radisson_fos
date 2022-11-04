@@ -25,7 +25,8 @@ function order_list_functionality() {
         var csrftoken = getCookie('csrftoken');
         //send get request to see if user has superuser permissions
         var user_is_super = check_user_super();
-        if (user_is_super && row.classList.contains("mark-as-complete")) {
+        var user_is_staff = check_user_staff();
+        if ((user_is_super || user_is_staff) && row.classList.contains("mark-as-complete")) {
             var r = confirm("Would you like to mark order " + id + " as delivered?");
             if (r == true) {
                 $.ajax({
@@ -71,28 +72,53 @@ function check_user_super() {
     return return_value
 }
 
+function check_user_staff() {
+    var return_value;
+    $.ajax({
+        url: "check_staff_user",
+        type: 'GET',
+        success: function(res) {
+            console.log("we got back from the server the value ---> " + res)
+            if (res == "True") {
+                console.log("assigned true")
+                return_value = true;
+            } else {
+                return_value = false;
+            }
+        },
+        async: false
+    });
+    return return_value
+}
+
 function add_to_cart(info) {
     //info will be the stuff displayed in the reciept
     // item description as well as teh price
-    display_notif("add to cart", info);
-    var cart_retrieved = !!localStorage.getItem("cart") ? localStorage.getItem("cart") : null
-    if (cart_retrieved === null) {
-        //make a new cart
-        var cart = [info];
-        localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart-count').innerText = ''
+    console.log(info);
+    if (info == null) {
+        display_notif("please login");
+    }
+    else{
+        display_notif("add to cart", info);
+        var cart_retrieved = !!localStorage.getItem("cart") ? localStorage.getItem("cart") : null
+        if (cart_retrieved === null) {
+            //make a new cart
+            var cart = [info];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.getElementById('cart-count').innerText = ''
 
-    } else {
-        var cart = JSON.parse(cart_retrieved);
-        cart.push(info)
-        localStorage.setItem('cart', JSON.stringify(cart));
-        if (cart.length != 0){
-            document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+        } else {
+            var cart = JSON.parse(cart_retrieved);
+            cart.push(info)
+            localStorage.setItem('cart', JSON.stringify(cart));
+            if (cart.length != 0){
+                document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
+            }
         }
     }
 
-
 }
+
 
 function onRowClick(tableId, callback) {
     var table = document.getElementById(tableId),
@@ -132,6 +158,12 @@ function display_notif(type, info = "No info provided") {
             break;
         case "new order":
             toastr.success("Order successfully placed");
+            break;
+        case "table none":
+            toastr.error("Please select a table");
+            break;
+        case "please login":
+            toastr.error("Please login first");
             break;
     }
 
@@ -257,30 +289,47 @@ function display_empty_cart() {
 
 }
 
+function clear_cart_btn(){
+    if (confirm("Proceed to clear the cart?")) {
+        clear_cart()
+    }
+}
+
 function clear_cart() {
     localStorage.removeItem("cart"); //Clear the cart
     localStorage.removeItem("total_price"); //clear the price
+    localStorage.removeItem("table_number"); //Clear the table number
     //remove the elements from the page
     display_empty_cart();
+}
+
+function getTableNum() {
+    const val = document.querySelector('select').value;
+    var table_number = localStorage.setItem('table_number', val);
 }
 
 function checkout() {
     //this is the function that will be run when the user wants to checkout
     var cart = localStorage.getItem("cart")
     var price_of_cart = localStorage.getItem("total_price")
-    var table_number = localStorage.getItem("table")
+    var table_number = localStorage.getItem('table_number')
     var csrftoken = getCookie('csrftoken');
 
-    console.log("Checkout was clicked so we now send it to the server!") // sanity check
-    $.ajax({
+    console.log(table_number)
+    if (table_number=="none" || table_number==null){
+        display_notif("table none")
+    } else {
+        console.log("Checkout was clicked so we now send it to the server!") // sanity check
+        $.ajax({
         url: "/checkout", // the endpoint
         type: "POST", // http method
-        data: { cart: cart, price_of_cart: price_of_cart, table: table_number, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
+        data: { cart: cart, price_of_cart: price_of_cart, table_number: table_number, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
 
         // handle a successful response
         success: function(json) {
             display_notif("new order")
             clear_cart()
+            window.location.replace('/order_success');
         },
 
         // handle a non-successful response
@@ -290,6 +339,7 @@ function checkout() {
 
         }
     });
+    }
 
 }
 

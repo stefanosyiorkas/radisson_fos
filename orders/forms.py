@@ -12,5 +12,5 @@ class Registration(UserCreationForm):
 class Login(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"jsmith"})
-        self.fields['password'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"*******"})
+        self.fields['username'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"Enter username"})
+        self.fields['password'].widget.attrs.update({'class':'form-control form-control-sm rounded-0', 'placeholder':"Enter password"})

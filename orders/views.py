@@ -1,24 +1,44 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, UserOrder, SavedCarts
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, AllDaySnacks, MainDishes, Burgers, Desserts, Allergens, UserOrder, SavedCarts, Table
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 import json
 from . import forms
 import requests
-import os
 from urllib.parse import urlencode
-from time import gmtime, strftime
+from guest_user.decorators import allow_guest_user
 
 # Create your views here.
+main_context = {
+    "categories": Category.objects.all(),
+    "salads": Salad.objects.all(),
+    "all_day_snacks": AllDaySnacks.objects.all(),
+    "main_dishes": MainDishes.objects.all(),
+    "burgers": Burgers.objects.all(),
+    "desserts": Desserts.objects.all()
+}
+
 def index(request):
-    return render(request, "orders/home.html", {"categories":Category.objects.all})
+    salads = Salad.objects.all()
+    return render(request, "orders/home.html", main_context)
     # if request.user.is_authenticated:
     #     #we are passing in the data from the category model
     #     return render(request, "orders/home.html", {"categories":Category.objects.all})
     # else:
     #     return redirect("orders:login")
+
+@allow_guest_user
+def hello_guest(request):
+    """
+    SOURCE: https://django-guest-user.readthedocs.io/en/latest/usage.html
+    This view will always have an authenticated user, but some may be guests.
+    The default username generator will create a UUID4.
+
+    Example response: "Hello, b5daf1dd-1a2f-4d18-a74c-f13bf2f086f7!"
+    """
+    # return HttpResponse(f"Hello, {request.user.username}!")
+    return redirect("orders:index")
 
 def login_request(request):
     if request.method == 'POST':
@@ -42,7 +62,7 @@ def login_request(request):
 
 def logout_request(request):
     logout(request)
-    return render(request, "orders/home.html", {"categories":Category.objects.all})
+    return render(request, "orders/home.html",  main_context)
 
 def register(request):
     if request.method == "POST":
@@ -75,10 +95,22 @@ def pasta(request):
 
 
 def salad(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/salad.html", context = {"dishes":Salad.objects.all})
-    else:
-        return redirect("orders:login")
+    salads = Salad.objects.all()
+    allergens = Allergens.objects.all()
+    allergens_dict = {}
+    for salad in salads:
+        allergies_list = salad.allergies.split(",")
+        salad_allergens = []
+        for i in allergies_list:
+            salad_allergens.append(allergens.get(id=i).allergen_name)
+        allergens_dict[salad.dish_name] = salad_allergens
+
+    print(allergens_dict)
+    return render(request, "orders/salad.html", context={"dishes": Salad.objects.all, "allergies": allergens_dict})
+    # if request.user.is_authenticated:
+    #     return render(request, "orders/salad.html", context = {"dishes":Salad.objects.all, "allergies":allergens_dict})
+    # else:
+    #     return redirect("orders:login")
 
 
 def subs(request):
@@ -91,6 +123,12 @@ def subs(request):
 def dinner_platters(request):
     if request.user.is_authenticated:
         return render(request, "orders/dinner_platters.html", context = {"dishes":DinnerPlatters.objects.all})
+    else:
+        return redirect("orders:login")
+
+def all_day_snacks(request):
+    if request.user.is_authenticated:
+        return render(request, "orders/salad.html", context = {"dishes":AllDaySnacks.objects.all})
     else:
         return redirect("orders:login")
 
@@ -113,8 +151,11 @@ def contact(request):
     #     return redirect("orders:login")
 
 def cart(request):
+
+    tables = Table.objects.all()
     if request.user.is_authenticated:
-        return render(request, "orders/cart.html")
+        context = {'tables': tables}
+        return render(request, "orders/cart.html", context)
     else:
         return redirect("orders:login")
 
@@ -131,16 +172,16 @@ def checkout(request):
     if request.method == 'POST':
         cart = json.loads(request.POST.get('cart'))
         price = request.POST.get('price_of_cart')
-        table = request.POST.get('table')
+        table_num = request.POST.get('table_number')
         username = request.user.username
         response_data = {}
         list_of_items = [item["item_description"] for item in cart]
 
-        order = UserOrder(username=username, order=list_of_items, price=float(price), delivered=False) #create the row entry
+        order = UserOrder(username=username, order=list_of_items, price=float(price), table_number=table_num, delivered=False) #create the row entry
         order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'
-        send_slack(username='Lobby Lounge', message=f'*{strftime("%Y-%m-%d %H:%M:%S", gmtime())}* - New order received')
+        # send_slack(username='Lobby Lounge', message=f'*{strftime("%Y-%m-%d %H:%M:%S", gmtime())}* - New order received')
         # requests.post('https://api.mynotifier.app', {
         #       "apiKey": '0326b712-bb7e-4860-97bc-b3205482232b', # This is your own private key
         #       "message": f"New Order!", # Could be anything
@@ -159,13 +200,21 @@ def checkout(request):
             content_type="application/json"
         )
 
+def order_success(request):
+    order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
+    return render(request, "orders/order_received.html", context={"order": order})
+
+@login_required(login_url='orders:login')
 def view_orders(request):
     if request.user.is_superuser or request.user.is_staff:
         #make a request for all the orders in the database
         rows = UserOrder.objects.all().order_by('-time_of_order')
         #orders.append(row.order[1:-1].split(","))
-
-        return render(request, "orders/orders.html", context = {"rows":rows})
+        pending_orders = 0
+        for row in rows:
+            if not row.delivered:
+                pending_orders+=1
+        return render(request, "orders/orders.html", context = {"rows":rows, "pending_orders":pending_orders})
     else:
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
         return render(request, "orders/orders.html", context = {"rows":rows})
@@ -210,5 +259,12 @@ def check_superuser(request):
     print(f"User super??? {request.user.is_superuser}")
     return HttpResponse(request.user.is_superuser)
 
+def check_staff_user(request):
+    print(f"User staff??? {request.user.is_staff}")
+    return HttpResponse(request.user.is_staff)
+
 def handle_404(request,exception):
     return render(request, 'orders/404.html')
+
+# def session_expired(request):
+#     return render(request, "orders/session_expired.html", {})

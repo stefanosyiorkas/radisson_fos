@@ -1,16 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, AllDaySnacks, MainDishes, Burgers, Desserts, Allergens, UserOrder, SavedCarts, Table
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 import json
 from . import forms
 import requests
-import os
 from urllib.parse import urlencode
-from time import gmtime, strftime
 from guest_user.decorators import allow_guest_user
 
 # Create your views here.

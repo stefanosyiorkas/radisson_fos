@@ -1,5 +1,6 @@
 $(document).ready(function() {
     //check if local storage value of "cart retrived " is True
+    console.log(localStorage.getItem("table"))
     retrieve_saved_cart()
     var cart = !!localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : null;
     if (cart !== null)

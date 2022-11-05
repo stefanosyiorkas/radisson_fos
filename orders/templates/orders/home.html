@@ -16,6 +16,44 @@
 <!--      </div>-->
 <!--    </div>-->
 <div class="container">
+    <div class=" my-4">
+        <div class=" rounded-0 shadow">
+            <div class="card-body">
+               {% for cat in categories %}
+               <div>
+                   <h5 class="title-category" id="{{cat}}">{{cat}}<div class="line"></div></h5>
+                </div>
+                    {% for dish in all_dishes %}
+                        {% if cat == dish.category_id %}
+                        <div class="card" id="dish-card">
+                            <div class="dish-body">
+                                <div>
+                                    <h5 class="card-title">{{dish.dish_name}}</h5>
+                                    <div class="allergen-container">
+                                        {% for allergen in dish.allergies %}
+                                        <img class="allergen-img" src="media/allergens/{{allergen}}.png">
+                                        {% endfor %}
+                                    </div>
+                                    <h6>{{dish.dish_description}}</h6>
+                                </div>
+                                <img id="dish-img" class="dish-img" src="{{dish.dish_image}}">
+                            </div>
+                            {% if request.user.is_authenticated %}
+                            <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}'})">€ {{dish.price}}</button>
+                            {% else %}
+                            <button class="btn btn-success" onclick="add_to_cart()">€ {{dish.price}}</button>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
     <div class="content my-4 px-4">
         <div class="card rounded-0 shadow">
             <div class="card-body">
@@ -26,7 +64,7 @@
                     <div class="card" id="regular_pizza_card" style="width: 24rem; margin:10px;">
                         <div class="card-body">
                             <img src="{{dish.dish_image}}" style="display: block;  margin-left: auto;  margin-right: auto;  width: 35%;">
-                            <h5 class="card-title" style="font-weight: bold;">{{dish.dish_name}}
+                            <h5 class="card-title" style="font-weight: bold;">{{dish.dish_name}} ({{dish.category_id}})
                                 <div>{% for allergen in dish.allergies %}
                                     <img src="media/allergens/{{allergen}}.png" style="width: 10%;">
                                 {% endfor %}</div>
@@ -164,5 +202,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 {% endblock %}

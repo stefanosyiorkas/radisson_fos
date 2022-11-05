@@ -18,81 +18,8 @@ class Category(models.Model):
     def has_add_permission(self):
         return False
 
-class RegularPizza(models.Model):
-    #example row :: 1 topping , 5.00 , 7.00
-    pizza_choice = models.CharField(max_length=200)
-    small_price = models.DecimalField(max_digits=6, decimal_places=2)
-    large_price = models.DecimalField(max_digits=6, decimal_places=2)
-    category_description = models.TextField() #make this the wysiwyg text field
-
-    class Meta:
-        verbose_name = "List of Regular Pizza"
-        verbose_name_plural = "List of Regular Pizza"
-
-    def __str__(self):
-        #overriding the string method to get a good representation of it in string format
-        return f"Regular Pizza : {self.pizza_choice}"
-
-class SicilianPizza(models.Model):
-    #example row :: 1 topping , 5.00 , 7.00
-    pizza_choice = models.CharField(max_length=200)
-    small_price = models.DecimalField(max_digits=6, decimal_places=2)
-    large_price = models.DecimalField(max_digits=6, decimal_places=2)
-    category_description = models.TextField() #make this the wysiwyg text field
-
-    class Meta:
-        verbose_name = "List of Sicilian Pizza"
-        verbose_name_plural = "List of Sicilian Pizza"
-    
-    def __str__(self):
-        #overriding the string method to get a good representation of it in string format
-        return f"Sicilian Pizza : {self.pizza_choice}"
-
-class Toppings(models.Model):
-    #example row :: Pepperoni
-    topping_name = models.CharField(max_length=200)
-    dish_name = models.CharField(max_length=200)
-
-    class Meta:
-        verbose_name = "List of Pizza Toppings"
-        verbose_name_plural = "List of Pizza Toppings"
-    
-
-    def __str__(self):
-        #overriding the string method to get a good representation of it in string format
-        return f"{self.topping_name}"
-
-
-class Sub(models.Model):
-    #example row :: meatball , 5.00 , 6.50
-    sub_filling = models.CharField(max_length=200)
-    small_price = models.DecimalField(max_digits=6, decimal_places=2)
-    large_price = models.DecimalField(max_digits=6, decimal_places=2)
-
-    class Meta:
-        verbose_name = "List of Subway Food"
-        verbose_name_plural = "List of Subway Food"
-    
-
-    def __str__(self):
-        #overriding the string method to get a good representation of it in string format
-        return f"Sub : {self.sub_filling}"
-
-class Pasta(models.Model):
-    dish_name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-
-    class Meta:
-        verbose_name = "List of Pasta"
-        verbose_name_plural = "List of Pasta"
-
-
-    def __str__(self):
-        #overriding the string method to get a good representation of it in string format
-        return f"{self.dish_name}"
-
-
 class Salad(models.Model):
+    category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
     dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
@@ -109,6 +36,7 @@ class Salad(models.Model):
         return f"Salad : {self.dish_name}"
 
 class AllDaySnacks(models.Model):
+    category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
     allergies = models.CharField(max_length=200, null=True)
@@ -123,6 +51,7 @@ class AllDaySnacks(models.Model):
         return f"Snack : {self.dish_name}"
 
 class MainDishes(models.Model):
+    category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
     allergies = models.CharField(max_length=200, null=True)
@@ -137,6 +66,7 @@ class MainDishes(models.Model):
         return f"Main : {self.dish_name}"
 
 class Burgers(models.Model):
+    category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
     allergies = models.CharField(max_length=200, null=True)
@@ -151,6 +81,7 @@ class Burgers(models.Model):
         return f"Burger : {self.dish_name}"
 
 class Desserts(models.Model):
+    category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
     allergies = models.CharField(max_length=200, null=True)
@@ -165,40 +96,12 @@ class Desserts(models.Model):
         return f"Dessert : {self.dish_name}"
 
 
-class DinnerPlatters(models.Model):
-    dish_name = models.CharField(max_length=200)
-    small_price = models.DecimalField(max_digits=6, decimal_places=2)
-    large_price = models.DecimalField(max_digits=6, decimal_places=2)
-
-    class Meta:
-        verbose_name = "List of Diner Platters"
-        verbose_name_plural = "List of Diner Platters"
-
-
-    def __str__(self):
-        #overriding the string method to get a good representation of it in string format
-        return f"Platter : {self.dish_name}"
-
 class Allergens(models.Model):
     allergen_name = models.CharField(max_length=200)
 
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
         return f"{self.allergen_name}"
-
-
-class ExtraToppings(models.Model):
-    topping_name = models.CharField(max_length=200)
-    dish_name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-
-    class Meta:
-        verbose_name = "List of Extra Toppings"
-        verbose_name_plural = "List of Extra Toppings"
-
-    def __str__(self):
-        # overriding the string method to get a good representation of it in string format
-        return f"{self.topping_name}"
 
 class Table(models.Model):
     table_number = models.IntegerField()

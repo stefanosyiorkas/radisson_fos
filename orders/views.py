@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, RegularPizza, SicilianPizza, Toppings, Sub, Pasta, Salad, DinnerPlatters, AllDaySnacks, MainDishes, Burgers, Desserts, Allergens, UserOrder, SavedCarts, Table
+from .models import Category, Salad, AllDaySnacks, MainDishes, Burgers, Desserts, Allergens, UserOrder, SavedCarts, Table
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 import json
@@ -8,10 +8,12 @@ from . import forms
 import requests
 from urllib.parse import urlencode
 from guest_user.decorators import allow_guest_user
+from itertools import chain
 
 # Create your views here.
 main_context = {
     "categories": Category.objects.all(),
+    "all_dishes": list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),)),
     "salads": Salad.objects.all(),
     "all_day_snacks": AllDaySnacks.objects.all(),
     "main_dishes": MainDishes.objects.all(),
@@ -35,11 +37,6 @@ def index(request):
             except (AttributeError, KeyError) as e:
                 print("Error:", e)
             main_context[cat] = category_object
-    # salads = Salad.objects.all()
-    # for salad in salads:
-    #     allergens_temp = [allergens_dict[allergie] for allergie in salad.allergies.split(",")]
-    #     salad.allergies = ", ".join(allergens_temp)
-    # main_context['salads'] = salads
     return render(request, "orders/home.html", main_context)
     # if request.user.is_authenticated:
     #     #we are passing in the data from the category model

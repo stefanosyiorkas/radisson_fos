@@ -29,41 +29,42 @@
       rel="stylesheet"
     />
     {% load static %}
-    <link rel="stylesheet" href="{% static 'orders/main.js' %}" />
+    <link rel="script" href="{% static 'orders/main.js' %}" />
     <title>Radisson Ordering System</title>
   </head>
 
   <body>
-    <nav
+    <div class="nav-sticky">
+      <nav
       class="navbar navbar-expand-lg navbar-light shadow bg-light"
       id="topNav"
-    >
+      >
       <a href="/">
          <img alt="Radisson" src="/media/rbrl_logo.png"
          width=150" height="70"  style="vertical-align:middle;margin:0px 10px">
       </a>
 <!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>-->
-      {% if user.is_authenticated %}
-        {% if user.is_superuser or user.is_staff %}
-        <a
-            href="/view-orders"
+{% if user.is_authenticated %}
+{% if user.is_superuser or user.is_staff %}
+<a
+href="/view-orders"
             class="btn btn-primary text-light btn-sm border rounded-0"
             ><i class="fa fa-th-list"></i> View Orders</a
-          >
-        {% else %}
-        <a
-              href="/cart"
-              id="cart_button"
-              class="btn btn-light border btn-sm rounded-0"
-              style="color: black"
-              ><span class="badge badge-primary" id="cart-count"></span> My Cart
-              <i class="fa fa-shopping-cart"></i
-            ></a>
-        {% endif %}
-      {% endif %}
-
-        <button
-        class="navbar-toggler"
+            >
+            {% else %}
+            <a
+            href="/cart"
+            id="cart_button"
+            class="btn btn-light border btn-sm rounded-0"
+            style="color: black"
+            ><span class="badge badge-primary" id="cart-count"></span> My Cart
+            <i class="fa fa-shopping-cart"></i
+              ></a>
+              {% endif %}
+              {% endif %}
+              
+              <button
+              class="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarText"
@@ -71,52 +72,52 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarText">
-        
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarText">
+      
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="/"><i class="fa fa-cutlery"></i> Menu</a>
           </li>
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="/directions"-->
-<!--              ><i class="fa fa-map-marker"></i> Location</a-->
-<!--            >-->
-<!--          </li>-->
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link" href="/hours"-->
-<!--              ><i class="fa fa-clock-o"></i> Shop Hours</a-->
-<!--            >-->
-<!--          </li>-->
-          <li class="nav-item">
-            <a class="nav-link" href="/contact"
-              ><i class="fa fa-phone"></i> Contact Us</a
-            >
-          </li>
-        </ul>
-        {% if user.is_authenticated %}
-        <span class="navbar-text">
-          {% if request.session.table %}
-            <h6>Hello, {{request.user.username}} Table:{{request.session.table}}</h6>
+          <!--          <li class="nav-item">-->
+            <!--            <a class="nav-link" href="/directions"-->
+              <!--              ><i class="fa fa-map-marker"></i> Location</a-->
+              <!--            >-->
+              <!--          </li>-->
+              <!--          <li class="nav-item">-->
+                <!--            <a class="nav-link" href="/hours"-->
+                  <!--              ><i class="fa fa-clock-o"></i> Shop Hours</a-->
+                  <!--            >-->
+                  <!--          </li>-->
+                  <li class="nav-item">
+                    <a class="nav-link" href="/contact"
+                    ><i class="fa fa-phone"></i> Contact Us</a
+                    >
+                  </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <span class="navbar-text">
+                  {% if request.session.table %}
+                  <h6>Hello, {{request.user.username}} Table:{{request.session.table}}</h6>
           {% else %}
             <h6>Hello, {{request.user.username}}</h6>
           {% endif %}
           {% if user.is_superuser or user.is_staff %}
           {% else %}
           <a
-            href="/view-orders"
-            class="btn btn-primary text-light btn-sm border rounded-0"
-            ><i class="fa fa-th-list"></i> My Orders</a
+          href="/view-orders"
+          class="btn btn-primary text-light btn-sm border rounded-0"
+          ><i class="fa fa-th-list"></i> My Orders</a
           >
           {% endif %}
-
-
+          
+          
           <button
-            type="button"
-            class="btn btn-dark btn-sm rounded-0"
-            onclick="logout()"
+          type="button"
+          class="btn btn-dark btn-sm rounded-0"
+          onclick="logout()"
           >
             <i class="fa fa-sign-out"></i> Logout
           </button>
@@ -124,38 +125,49 @@
         {% else %}
         <span class="navbar-text">
           <a
-            href="/guest"
-            class="btn btn-primary text-light btn-sm border rounded-0"
-            ><i class="fa fa-sign-in"></i> Continue as Guest</a
+          href="/guest"
+          class="btn btn-primary text-light btn-sm border rounded-0"
+          ><i class="fa fa-sign-in"></i> Continue as Guest</a
           >
         </span>
         <span class="navbar-text">
           <a
-            href="/login"
-            class="btn btn-secondary text-light btn-sm border rounded-0"
-            ><i class="fa fa-sign-in"></i> User Login</a
+          href="/login"
+          class="btn btn-secondary text-light btn-sm border rounded-0"
+          ><i class="fa fa-sign-in"></i> User Login</a
           >
         </span>
         {% endif %}
       </div>
     </nav>
-
+    
+    <div class="nav-secondary">
+      <nav class="nav-categories">
+        
+      </nav>
+      <nav class="nav-subcategories">
+        {% for cat in categories%}
+        <a class="subcategory-link" href="#{{cat}}">{{cat}}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </div>
     {% block content %} {% endblock %}
-
+    
     <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"
     ></script>
     <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{% static 'orders/main.js' %}"></script>

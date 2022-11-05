@@ -1,3 +1,7 @@
+*{
+  scroll-behavior: smooth;
+}
+
 html,
 body {
     height: 100%;
@@ -46,4 +50,109 @@ body {
 
 #login-box {
     width: 100% !important
+}
+
+.nav-subcategories{
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+}
+
+.subcategory-link{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width:fit-content ;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.subcategory-link:hover{
+    text-decoration: none;
+    background-color: #e3e3e3;
+    color: #000;
+}
+
+.subcategory-link:active {
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+}
+
+.dish-img{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 1em;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 15%;
+    transition: all 0.2s ease-in-out;
+}
+
+.dish-img-active{
+    height: 15em;
+}
+
+.allergen-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1em;
+}
+
+.allergen-img{
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.card-title{
+    display: inline-block !important;
+    margin-bottom: 0px !important;
+    font-weight: 600;
+}
+
+.dish-body{
+    display: flex;
+    flex-direction: row;
+}
+
+.card{
+    margin-bottom: 1em;
+    padding: 1em;
+    padding-bottom: 0.5em;
+    border: unset;
+    border-bottom: 1px solid rgb(188, 188, 188);
+    border-radius: 0;
+}
+
+.title-category{
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.line{
+    width: 100%;
+    color: black;
+    height: 2px;
+}
+
+.shadow{
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.244) !important
+}
+
+.nav-sticky{
+    position: sticky !important;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 12px 35px rgb(0 0 0 / 40%);
+    backdrop-filter: blur(20px) !important;
 }

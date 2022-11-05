@@ -33,7 +33,7 @@ def index(request):
                     allergens_temp = [allergens_dict[allergie] for allergie in item.allergies.split(",")]
                     item.allergies = allergens_temp
             except (AttributeError, KeyError) as e:
-                print("Error:", cat, e)
+                print("Error:", e)
             main_context[cat] = category_object
     # salads = Salad.objects.all()
     # for salad in salads:
@@ -49,6 +49,13 @@ def index(request):
 
 @allow_guest_user
 def hello_guest(request):
+    table = request.GET.get('table')
+    #add check if table exist in db
+    try:
+        request.session['table'] = int(table)
+    except TypeError:
+        print(f"Table ({table}) is not valid")
+
     """
     SOURCE: https://django-guest-user.readthedocs.io/en/latest/usage.html
     This view will always have an authenticated user, but some may be guests.

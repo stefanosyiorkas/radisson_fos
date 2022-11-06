@@ -39,6 +39,7 @@ class AllDaySnacks(models.Model):
     category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
+    dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -54,6 +55,7 @@ class MainDishes(models.Model):
     category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
+    dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -69,6 +71,7 @@ class Burgers(models.Model):
     category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
+    dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -84,6 +87,7 @@ class Desserts(models.Model):
     category_id = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
+    dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 

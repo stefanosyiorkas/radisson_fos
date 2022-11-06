@@ -14,35 +14,21 @@ from itertools import chain
 main_context = {
     "categories": Category.objects.all(),
     "all_dishes": list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),)),
-    "salads": Salad.objects.all(),
-    "all_day_snacks": AllDaySnacks.objects.all(),
-    "main_dishes": MainDishes.objects.all(),
-    "burgers": Burgers.objects.all(),
-    "desserts": Desserts.objects.all(),
     "allergens": Allergens.objects.all()
-
 }
 
 def index(request):
+    # Setup allergens for all dishes
     allergens = main_context["allergens"]
     allergens_dict = { str(allergen.id):allergen.allergen_name for allergen in allergens}
-    categories = [cat for cat in main_context.keys()]
-    for cat in categories:
-        if cat not in ('categories', 'allergens'):
-            category_object = main_context[cat]
-            try:
-                for item in category_object:
-                    allergens_temp = [allergens_dict[allergie] for allergie in item.allergies.split(",")]
-                    item.allergies = allergens_temp
-            except (AttributeError, KeyError) as e:
-                print("Error:", e)
-            main_context[cat] = category_object
+    for dish in main_context['all_dishes']:
+        try:
+            allergens_temp = [allergens_dict[allergie] for allergie in dish.allergies.split(",")]
+            dish.allergies = allergens_temp
+        except AttributeError as e:
+            print(f"Error in ({dish}):", e)
+
     return render(request, "orders/home.html", main_context)
-    # if request.user.is_authenticated:
-    #     #we are passing in the data from the category model
-    #     return render(request, "orders/home.html", {"categories":Category.objects.all})
-    # else:
-    #     return redirect("orders:login")
 
 @allow_guest_user
 def hello_guest(request):
@@ -50,8 +36,8 @@ def hello_guest(request):
     #add check if table exist in db
     try:
         request.session['table'] = int(table)
-    except TypeError:
-        print(f"Table ({table}) is not valid")
+    except (TypeError, ValueError):
+        print(f"Table << {table} >> is not valid")
 
     """
     SOURCE: https://django-guest-user.readthedocs.io/en/latest/usage.html
@@ -104,83 +90,20 @@ def register(request):
                   template_name = "orders/register.html",
                   context={"form":form})
 
-def pizza(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/pizza.html", context = {"regular_pizza":RegularPizza.objects.all, "sicillian_pizza":SicilianPizza.objects.all , "toppings":Toppings.objects.all, "number_of_toppings":3})
-    else:
-        return redirect("orders:login")
-
-def pasta(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/pasta.html", context = {"dishes":Pasta.objects.all})
-    else:
-        return redirect("orders:login")
-
-
-def salad(request):
-    salads = Salad.objects.all()
-    allergens = Allergens.objects.all()
-    allergens_dict = {}
-    for salad in salads:
-        allergies_list = salad.allergies.split(",")
-        salad_allergens = []
-        for i in allergies_list:
-            salad_allergens.append(allergens.get(id=i).allergen_name)
-        allergens_dict[salad.dish_name] = salad_allergens
-
-    print(allergens_dict)
-    return render(request, "orders/salad.html", context={"dishes": Salad.objects.all, "allergies": allergens_dict})
-    # if request.user.is_authenticated:
-    #     return render(request, "orders/salad.html", context = {"dishes":Salad.objects.all, "allergies":allergens_dict})
-    # else:
-    #     return redirect("orders:login")
-
-
-def subs(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/sub.html", context = {"dishes":Sub.objects.all})
-    else:
-        return redirect("orders:login")
-
-
-def dinner_platters(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/dinner_platters.html", context = {"dishes":DinnerPlatters.objects.all})
-    else:
-        return redirect("orders:login")
-
-def all_day_snacks(request):
-    if request.user.is_authenticated:
-        return render(request, "orders/salad.html", context = {"dishes":AllDaySnacks.objects.all})
-    else:
-        return redirect("orders:login")
-
 def directions(request):
-    # if request.user.is_authenticated:
     return render(request, "orders/directions.html")
-    # else:
-    #     return redirect("orders:login")
 
 def hours(request):
-    # if request.user.is_authenticated:
     return render(request, "orders/hours.html")
-    # else:
-    #     return redirect("orders:login")
 
 def contact(request):
-    # if request.user.is_authenticated:
     return render(request, "orders/contact.html")
-    # else:
-    #     return redirect("orders:login")
 
+@login_required(login_url='orders:login')
 def cart(request):
-
     tables = Table.objects.all()
-    if request.user.is_authenticated:
-        context = {'tables': tables}
-        return render(request, "orders/cart.html", context)
-    else:
-        return redirect("orders:login")
+    context = {'tables': tables}
+    return render(request, "orders/cart.html", context)
 
 def send_slack(username, message, icon=None):
     post_data = {"payload": {"username": username, "text": message}}
@@ -223,6 +146,7 @@ def checkout(request):
             content_type="application/json"
         )
 
+@login_required(login_url='orders:login')
 def order_success(request):
     order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
     return render(request, "orders/order_received.html", context={"order": order})

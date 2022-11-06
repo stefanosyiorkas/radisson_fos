@@ -26,16 +26,18 @@ def index(request):
             allergens_temp = [allergens_dict[allergie] for allergie in dish.allergies.split(",")]
             dish.allergies = allergens_temp
         except AttributeError as e:
-            print(f"Error in ({dish}):", e)
+            pass
+            # print(f"Error in ({dish}):", e)
 
     return render(request, "orders/home.html", main_context)
 
 @allow_guest_user
 def hello_guest(request):
     table = request.GET.get('table')
-    #add check if table exist in db
+    tables = [str(table.table_number) for table in Table.objects.all()]
     try:
-        request.session['table'] = int(table)
+        if table in tables:
+            request.session['table'] = int(table)
     except (TypeError, ValueError):
         print(f"Table << {table} >> is not valid")
 
@@ -156,12 +158,7 @@ def view_orders(request):
     if request.user.is_superuser or request.user.is_staff:
         #make a request for all the orders in the database
         rows = UserOrder.objects.all().order_by('-time_of_order')
-        #orders.append(row.order[1:-1].split(","))
-        pending_orders = 0
-        for row in rows:
-            if not row.delivered:
-                pending_orders+=1
-        return render(request, "orders/orders.html", context = {"rows":rows, "pending_orders":pending_orders})
+        return render(request, "orders/orders.html", context = {"rows":rows})
     else:
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
         return render(request, "orders/orders.html", context = {"rows":rows})
@@ -170,6 +167,20 @@ def mark_order_as_delivered(request):
     if request.method == 'POST':
         id = request.POST.get('id')
         UserOrder.objects.filter(pk=id).update(delivered=True)
+        return HttpResponse(
+            json.dumps({"good":"boy"}),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+def mark_order_as_pending(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        UserOrder.objects.filter(pk=id).update(delivered=False)
         return HttpResponse(
             json.dumps({"good":"boy"}),
             content_type="application/json"

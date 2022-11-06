@@ -25,34 +25,72 @@ $(document).ready(function() {
 });
 
 function order_list_functionality() {
+    document.getElementById('pending-orders').innerText = document.getElementsByClassName("table-danger").length
     onRowClick("orders_table", function(row) {
         var id = row.getElementsByTagName("td")[0].innerHTML;
         var csrftoken = getCookie('csrftoken');
         //send get request to see if user has superuser permissions
         var user_is_super = check_user_super();
         var user_is_staff = check_user_staff();
-        if ((user_is_super || user_is_staff) && row.classList.contains("mark-as-complete")) {
-            var r = confirm("Would you like to mark order " + id + " as delivered?");
-            if (r == true) {
-                $.ajax({
-                    url: "/mark_order_as_delivered", // the endpoint
-                    type: "POST", // http method
-                    data: { id: id, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
-
-                    // handle a successful response
-                    success: function(json) {
-                        //make the row green
-                        row.classList.remove("table-danger");
-                        row.classList.add("table-success")
-                    },
-
-                    // handle a non-successful response
-                    error: function(xhr, errmsg, err) {
-                        //have this as another toast
-                        console.log("the server said no lol")
-                    }
-                }); //make ajax post request
+        if (user_is_super || user_is_staff) {
+            if (row.classList.length == 1 && row.classList.contains("table-danger")){
+                row.classList.add("pending");
+            } else if (row.classList.length == 1 && row.classList.contains("table-success")){
+                row.classList.add("completed");
             }
+            if (row.classList.contains("pending")){
+                var r = confirm("Would you like to mark order " + id + " as delivered?");
+                if (r == true) {
+                    $.ajax({
+                        url: "/mark_order_as_delivered", // the endpoint
+                        type: "POST", // http method
+                        data: { id: id, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
+
+                        // handle a successful response
+                        success: function(json) {
+                            //make the row green
+                            row.classList.remove("table-danger");
+                            row.classList.add("table-success");
+                            row.classList.add("completed");
+                            row.classList.remove("pending")
+                            row.classList.remove("mark-as-complete")
+                            order_list_functionality()
+                        },
+
+                        // handle a non-successful response
+                        error: function(xhr, errmsg, err) {
+                            //have this as another toast
+                            console.log("the server said no lol")
+                        }
+                    }); //make ajax post request
+                }
+            }else if (row.classList.contains("completed")){
+                var r = confirm("Would you like to mark order " + id + " as pending?");
+                if (r == true) {
+                    $.ajax({
+                        url: "/mark_order_as_pending", // the endpoint
+                        type: "POST", // http method
+                        data: { id: id, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
+
+                        // handle a successful response
+                        success: function(json) {
+                            //make the row red
+                            row.classList.remove("table-success");
+                            row.classList.add("table-danger");
+                            row.classList.add("pending");
+                            row.classList.remove("completed")
+                            order_list_functionality()
+                        },
+
+                        // handle a non-successful response
+                        error: function(xhr, errmsg, err) {
+                            //have this as another toast
+                            console.log("the server said no lol")
+                        }
+                    }); //make ajax post request
+                }
+            }
+
         }
 
     });
@@ -190,7 +228,7 @@ function load_cart() {
             item_description.innerHTML = cart[i].item_description;
             item_price.innerHTML = "€ " + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
 
-            total += cart[i].price
+            total += parseFloat(cart[i].price)
         }
         total = Math.round(total * 100) / 100
         localStorage.setItem('total_price', total);

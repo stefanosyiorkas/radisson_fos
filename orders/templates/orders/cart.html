@@ -41,16 +41,12 @@
 
                 <div class="row justify-content-center">
                   <label for="table_number">Table Number: </label>
-                    <select required type="number" name="table" id="table_number" min="1" onblur="getTableNum()" list="table-list" >
-                        {% if request.session.table %}
-                            <option value="{{request.session.table}}" selected>{{request.session.table}}</option>
-                        {% else %}
-                            <option value="none" selected>Select an Option</option>
-                            {% for table in tables %}
-                                  <option value="{{table.table_number}}">{{table.table_number}}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
+                    {% if request.session.table %}
+                    <span id="table_number">{{request.session.table}}</span>
+                    {% else %}
+                    <span id="table_number">None</span>
+                    {% endif %}
+
                 </div>
                 <hr>
                 <div class="row justify-content-center">

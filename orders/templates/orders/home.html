@@ -2,6 +2,14 @@
 {% load static %}
 {% block content %}
 
+{% if request.user.is_authenticated %}
+    {% if last_order %}
+    <div class="alert alert-info" role="alert">
+      Take a look on your last order <a href="/order_success" class="alert-link">here</a>
+    </div>
+    {% endif %}
+{% endif %}
+
 <div class="container">
     <div class=" my-4">
         <div class=" rounded-0 shadow">
@@ -18,7 +26,9 @@
                                     <h5 class="card-title">{{dish.dish_name}}</h5>
                                     <div class="allergen-container">
                                         {% for allergen in dish.allergies %}
-                                        <img class="allergen-img" src="media/allergens/{{allergen}}.png">
+                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="{{allergen}}">
+                                            <img class="allergen-img" src="media/allergens/{{allergen}}.png">
+                                        </span>
                                         {% endfor %}
                                     </div>
                                     <h6>{{dish.dish_description}}</h6>

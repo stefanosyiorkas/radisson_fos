@@ -163,3 +163,10 @@ body {
     background-color: #049FAC;
     border-color: #049FAC;
 }
+
+#table-num-badge {
+    background-color: #059EAB;
+    margin: auto;
+    margin-top: 10px;
+    margin-left: 5px;
+}

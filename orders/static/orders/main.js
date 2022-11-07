@@ -1,6 +1,5 @@
 $(document).ready(function() {
     //check if local storage value of "cart retrived " is True
-    console.log(localStorage.getItem("table"))
     retrieve_saved_cart()
     var cart = !!localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : null;
     if (cart !== null)
@@ -12,6 +11,9 @@ $(document).ready(function() {
 
     if (window.location.href.indexOf("cart") > -1) {
         //dynamically generate the cart on the page
+        if (document.getElementById('table_number').innerHTML == 'None'){
+            document.getElementById("checkout_button").disabled = true;
+        }
         load_cart()
     }
 
@@ -22,6 +24,7 @@ $(document).ready(function() {
     $('#order-tbl').find('th, td').addClass('px-2 py-1 align-middle')
     $('#order-tbl').find('th:nth-child(1), td:nth-child(1)').addClass('text-center')
     $('#order-tbl').find('th:nth-last-child(1), td:nth-last-child(1)').addClass('text-right')
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 });
 
 function order_list_functionality() {
@@ -347,16 +350,11 @@ function clear_cart() {
     display_empty_cart();
 }
 
-function getTableNum() {
-    const val = document.querySelector('select').value;
-    var table_number = localStorage.setItem('table_number', val);
-}
-
 function checkout() {
     //this is the function that will be run when the user wants to checkout
     var cart = localStorage.getItem("cart")
     var price_of_cart = localStorage.getItem("total_price")
-    var table_number = localStorage.getItem('table_number')
+    var table_number = document.getElementById('table_number').innerHTML
     var csrftoken = getCookie('csrftoken');
 
     console.log(table_number)

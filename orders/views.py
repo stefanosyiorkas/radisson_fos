@@ -9,6 +9,7 @@ import requests
 from urllib.parse import urlencode
 from guest_user.decorators import allow_guest_user
 from itertools import chain
+from datetime import datetime, timedelta, timezone
 
 # Create your views here.
 main_context = {
@@ -18,6 +19,13 @@ main_context = {
 }
 
 def index(request):
+    try:
+        last_order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
+        minutes_diff = (datetime.now() - last_order.time_of_order.replace(tzinfo=None)).total_seconds() / 60.0
+        main_context['last_order'] = last_order if round(minutes_diff) < 15 else None
+    except IndexError:
+        main_context['last_order'] = None
+
     # Setup allergens for all dishes
     allergens = main_context["allergens"]
     allergens_dict = { str(allergen.id):allergen.allergen_name for allergen in allergens}

@@ -60,6 +60,9 @@ href="/view-orders"
             ><span class="badge badge-primary" id="cart-count"></span> My Cart
             <i class="fa fa-shopping-cart"></i
               ></a>
+                {% if request.session.table %}
+                <h4><span class="badge badge-secondary" id="table-num-badge">&#127869 {{request.session.table}}</span></h4>
+                {% endif %}
               {% endif %}
               {% endif %}
               
@@ -99,11 +102,7 @@ href="/view-orders"
                 </ul>
                 {% if user.is_authenticated %}
                 <span class="navbar-text">
-                  {% if request.session.table %}
-                  <h6>Hello, {{request.user.username}} Table:{{request.session.table}}</h6>
-          {% else %}
-            <h6>Hello, {{request.user.username}}</h6>
-          {% endif %}
+                  <h6>Hello, {{request.user.username}}</h6>
           {% if user.is_superuser or user.is_staff %}
           {% else %}
           <a

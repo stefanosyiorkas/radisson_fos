@@ -24,7 +24,7 @@ SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','sgiorkas.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1','sgiorkas.pythonanywhere.com','sql7.freemysqlhosting.net']
 CSRF_TRUSTED_ORIGINS = ['https://sgiorkas.pythonanywhere.com']
 
 
@@ -114,7 +114,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'default2': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sql7552363',
+        'USER': 'sql7552363',
+        'PASSWORD': '1l7EzKi3W1',
+        'HOST': 'sql7.freemysqlhosting.net',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
+
 }
 
 
@@ -174,6 +186,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # SESSION_TIMEOUT_REDIRECT = '/session_expired'
 # SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_AGE = 86400 # one day
+SESSION_COOKIE_HTTPONLY = True
 
 GUEST_USER_NAME_GENERATOR = 'guest_user.functions.generate_numbered_username'
 GUEST_USER_MAX_AGE = 43200 # 12 HOURS

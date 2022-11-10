@@ -104,6 +104,11 @@ href="/view-orders"
                 <span class="navbar-text">
                   <h6>Hello, {{request.user.username}}</h6>
           {% if user.is_superuser or user.is_staff %}
+          <a
+          href="/admin"
+          class="btn btn-primary text-light btn-sm border rounded-0"
+          > Dashboard</a
+          >
           {% else %}
           <a
           href="/view-orders"

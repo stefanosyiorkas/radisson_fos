@@ -25,6 +25,7 @@ class Salad(models.Model):
     dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    enabled = models.BooleanField()
 
     class Meta:
         verbose_name = "List of Salad"
@@ -42,6 +43,7 @@ class AllDaySnacks(models.Model):
     dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    enabled = models.BooleanField()
 
     class Meta:
         verbose_name = "List of All Day Snacks"
@@ -58,6 +60,7 @@ class MainDishes(models.Model):
     dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    enabled = models.BooleanField()
 
     class Meta:
         verbose_name = "List of Main Dishes"
@@ -74,6 +77,7 @@ class Burgers(models.Model):
     dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    enabled = models.BooleanField()
 
     class Meta:
         verbose_name = "List of Burgers"
@@ -90,6 +94,7 @@ class Desserts(models.Model):
     dish_image = models.CharField(max_length=200, default='media/media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
+    enabled = models.BooleanField()
 
     class Meta:
         verbose_name = "List of Desserts"

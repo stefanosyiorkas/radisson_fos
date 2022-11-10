@@ -4,16 +4,19 @@
     <div class="content my-3 px-2">
         <div class="card rounded-0 shadow">
             <div class="card-body">
+                <div id="clear-cart">
+                    <button onclick="clear_cart_btn()" type="button" class="btn btn-outline-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                    </svg>
+                Clear Cart
+                    </button>
+                </div>
                 <div class="row justify-content-center">
                     <div class="row">
                       <div class="column"><h2 id="cart_heading"></h2></div>
-                      <div class="column"><button
-                            type="button"
-                            class="btn btn-dark btn-sm rounded-0"
-                            onclick="clear_cart_btn()"
-                          >
-                            <i class="fa fa-clear"></i> Clear Cart
-                          </button></div>
+                      <div class="column"></div>
                     </div>
 
 <!--                    <fieldset class="pb-2 mb-3 border w-100">-->
@@ -40,17 +43,22 @@
                 </div>
 
                 <div class="row justify-content-center">
-                  <label for="table_number">Table Number: </label>
                     {% if request.session.table %}
-                    <span id="table_number">{{request.session.table}}</span>
+                    <div class="alert alert-info" role="alert">
+                        Table: <span id="table_number">{{request.session.table}}</span>
+                    </div>
+
                     {% else %}
-                    <span id="table_number">None</span>
+                    <div class="alert alert-danger" role="alert">
+                      No table selected! Please scan the QR Code on the table
+                    </div>
+                    <span id="table_number"></span>
                     {% endif %}
 
                 </div>
                 <hr>
                 <div class="row justify-content-center">
-                        <button id="checkout_button" type="submit" class="btn btn-primary btn-block btn-lg rounded-pill" onclick="checkout()">Checkout</button>
+                        <button id="checkout_button" type="submit" class="btn btn-primary btn-block btn-lg rounded-pill" onclick="checkout()">Order Now</button>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ $(document).ready(function() {
 
     if (window.location.href.indexOf("cart") > -1) {
         //dynamically generate the cart on the page
-        if (document.getElementById('table_number').innerHTML == 'None'){
+        if (document.getElementById('table_number').innerHTML == ''){
             document.getElementById("checkout_button").disabled = true;
         }
         load_cart()
@@ -358,7 +358,7 @@ function checkout() {
     var csrftoken = getCookie('csrftoken');
 
     console.log(table_number)
-    if (table_number=="none" || table_number==null){
+    if (table_number=="none" || table_number==null || table_number==''){
         display_notif("table none")
     } else {
         console.log("Checkout was clicked so we now send it to the server!") // sanity check

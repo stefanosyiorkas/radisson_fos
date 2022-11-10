@@ -5,8 +5,7 @@ from datetime import datetime
 
 class Category(models.Model):
     category_title = models.CharField(max_length=200)
-    category_gif = models.ImageField(upload_to="media")
-    category_description = models.TextField() #make this the wysiwyg text field
+
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"

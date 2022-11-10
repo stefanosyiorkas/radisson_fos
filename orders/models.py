@@ -1,10 +1,12 @@
 from django.db import models
 from datetime import datetime
+from django.utils.translation import gettext as _
+from translated_fields import TranslatedField
 
 # Create your models here.
 
 class Category(models.Model):
-    category_title = models.CharField(max_length=200)
+    category_title = TranslatedField(models.CharField(_("category_title"),max_length=200),)
 
     class Meta:
         verbose_name = "Category"

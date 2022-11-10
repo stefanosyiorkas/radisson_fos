@@ -71,11 +71,13 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'tinymce',
     'guest_user',
+    'modeltranslation',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -158,6 +160,12 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('en-us', gettext('English')),
+    ('el', gettext('Greek')),
+)
 
 TIME_ZONE = 'UTC'
 

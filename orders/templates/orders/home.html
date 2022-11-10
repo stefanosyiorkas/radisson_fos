@@ -33,7 +33,21 @@
                                     </div>
                                     <h6>{{dish.dish_description}}</h6>
                                 </div>
+                                 <!-- Trigger the Modal -->
                                 <img id="dish-img" class="dish-img" src="{{dish.dish_image}}">
+
+                                <!-- The Modal -->
+                                <div id="dish-img-modal" class="modal" onclick="document.getElementById('dish-img-modal').style.display='none'">
+
+                                  <!-- The Close Button -->
+                                  <span class="close" onclick="document.getElementById('dish-img-modal').style.display='none'">&times;</span>
+
+                                  <!-- Modal Content (The Image) -->
+                                  <img class="modal-content" id="img01">
+
+                                  <!-- Modal Caption (Image Text) -->
+                                  <div id="caption"></div>
+                                </div>
                             </div>
                             {% if request.user.is_authenticated %}
                                 {% if dish.enabled %}

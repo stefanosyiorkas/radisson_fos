@@ -21,6 +21,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path("convert/", include("guest_user.urls")),
+    path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 handler404='orders.views.handle_404'
 

@@ -77,6 +77,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -157,7 +158,8 @@ AUTHENTICATION_BACKENDS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'el'
+LANGUAGES = [("en", "English"), ("el", "Greek")]
 
 TIME_ZONE = 'UTC'
 
@@ -186,9 +188,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # SESSION_TIMEOUT_REDIRECT = '/session_expired'
 # SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_AGE = 86400 # one day
-SESSION_COOKIE_HTTPONLY = True
 
 GUEST_USER_NAME_GENERATOR = 'guest_user.functions.generate_numbered_username'
 GUEST_USER_MAX_AGE = 43200 # 12 HOURS

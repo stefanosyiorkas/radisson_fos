@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="shortcut icon" href="{%  static 'img/favicon.png' %}">
+    <link rel="shortcut icon" href="{%  static 'img/favicon.png' %}" />
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -36,14 +36,13 @@
   </head>
 
   <body>
-    <div class="nav-sticky">
+    <div class="nav-main" id="nav-main">
       <nav
-      class="navbar navbar-expand-lg navbar-light shadow bg-light"
-      id="topNav"
+        class="navbar navbar-expand-lg navbar-light shadow bg-light"
       >
       <a href="/">
          <img alt="Radisson" src="/media/rbrl_logo.png"
-         width=150" height="70"  style="vertical-align:middle;margin:0px 10px">
+         width=150" height="70"  style="vertical-align:middle;margin:0px 10px"/>
       </a>
 <!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>-->
 {% if user.is_authenticated %}
@@ -118,8 +117,8 @@ href="/view-orders"
           ><i class="fa fa-th-list"></i> My Orders</a
           >
           {% endif %}
-          
-          
+
+
           <button
           type="button"
           class="btn btn-dark btn-sm rounded-0"
@@ -179,36 +178,35 @@ href="/view-orders"
       </nav>
       <nav class="nav-subcategories">
         {% for cat in categories%}
-        <a class="subcategory-link" href="#{{cat}}">{{cat}}</a>
+        <a class="subcategory-link" href="#{{cat}}" title="{{cat}}">{{cat}}</a>
         {% endfor %}
       </nav>
     </div>
   </div>
     {% block content %} {% endblock %}
-    
+
     <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
     ></script>
     <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
     ></script>
     <script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{% static 'orders/main.js' %}"></script>
 
     <footer>
-    <div style="text-align: center; margin:0 auto; opacity: 0.7;">Powered by <a href=
-        "https://www.leyiodigital.com">Leyio Digital</a>
-    </div>
+      <div style="text-align: center; margin: 0 auto; opacity: 0.7">
+        Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a>
+      </div>
     </footer>
-
   </body>
 </html>

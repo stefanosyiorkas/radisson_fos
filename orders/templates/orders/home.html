@@ -10,14 +10,13 @@
     {% endif %}
 {% endif %}
 
-<div class="container">
+<div class="container main-container">
     <div class=" my-4">
         <div class=" rounded-0 shadow">
             <div class="card-body">
                {% for cat in categories %}
-               <div>
-                   <h5 class="title-category" id="{{cat}}">{{cat}}<div class="line"></div></h5>
-                </div>
+                <div class="section" id="{{cat}}">
+                   <h5 class="title-category">{{cat}}<div class="line"></div></h5>
                     {% for dish in all_dishes %}
                         {% if cat == dish.category_id %}
                         <div class="card" id="dish-card">

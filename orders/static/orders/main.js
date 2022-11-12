@@ -25,6 +25,26 @@ $(document).ready(function() {
     $('#order-tbl').find('th:nth-child(1), td:nth-child(1)').addClass('text-center')
     $('#order-tbl').find('th:nth-last-child(1), td:nth-last-child(1)').addClass('text-right')
     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+    document.querySelector('.nav-subcategories').addEventListener('click', function(e){
+
+        if (e.target.classList.contains('subcategory-link')){
+            const yOffSet = 350;
+            var current = document.querySelector('.active')
+            if (current)
+                current.classList.remove('active')
+            e.target.classList.add('active')
+            const id = e.target.getAttribute('href');
+            document.querySelector(id).scrollIntoView()
+        }
+    })
+
+    window.addEventListener('scroll', function(e){
+        if (window.scrollY > 50){
+            const img = document.querySelector('nav-logo')
+            img.style.transform = "scale(-0.5, -0.5)"
+        }
+    })
 });
 
 function order_list_functionality() {

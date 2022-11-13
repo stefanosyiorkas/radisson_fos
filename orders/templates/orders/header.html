@@ -18,73 +18,156 @@
   </head>
   <body>
     <div class="nav-main" id="nav-main">
-      <nav class="navbar navbar-expand-lg navbar-light shadow bg-light">
-        <a href="/">
-          <img alt="Radisson" src="/media/rbrl_logo.png" width=150" height="70" style="vertical-align:middle;margin:0px 10px" />
+      <nav
+        class="navbar navbar-expand-lg navbar-light shadow bg-light"
+      >
+        <a href="/" class="nav-logo-link">
+          <img alt="Radisson" class="nav-logo" src="/media/rbrl_logo.png" />
         </a>
-        <!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>--> {% if user.is_authenticated %} {% if user.is_superuser or user.is_staff %} <a href="/view-orders" class="btn btn-primary text-light btn-sm border rounded-0">
-          <i class="fa fa-th-list"></i> View Orders </a> {% else %} <a href="/cart" id="cart_button" class="btn btn-light border btn-sm rounded-0" style="color: black">
-          <span class="badge badge-primary" id="cart-count"></span> My Cart <i class="fa fa-shopping-cart"></i>
-        </a> {% if request.session.table %} <h4>
-          <span class="badge badge-secondary" id="table-num-badge">&#127869 {{request.session.table}}</span>
-        </h4> {% endif %} {% endif %} {% endif %} <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="fa fa-cutlery"></i> Menu </a>
-            </li>
-            <!--          <li class="nav-item">-->
-            <!--            <a class="nav-link" href="/directions"-->
-            <!--              ><i class="fa fa-map-marker"></i> Location</a-->
-            <!--            >-->
-            <!--          </li>-->
-            <!--          <li class="nav-item">-->
-            <!--            <a class="nav-link" href="/hours"-->
-            <!--              ><i class="fa fa-clock-o"></i> Shop Hours</a-->
-            <!--            >-->
-            <!--          </li>-->
-            <li class="nav-item">
-              <a class="nav-link" href="/contact">
-                <i class="fa fa-phone"></i> Contact Us </a>
-            </li>
-          </ul> {% if user.is_authenticated %} <span class="navbar-text">
-            <h6>Hello, {{request.user.username}}</h6> {% if user.is_superuser or user.is_staff %} <a href="/admin" class="btn btn-primary text-light btn-sm border rounded-0"> Dashboard</a> {% else %} <a href="/view-orders" class="btn btn-primary text-light btn-sm border rounded-0">
-              <i class="fa fa-th-list"></i> My Orders </a> {% endif %} <button type="button" class="btn btn-dark btn-sm rounded-0" onclick="logout()">
-              <i class="fa fa-sign-out"></i> Logout </button>
-          </span> {% else %} <span class="navbar-text">
-            <a href="/guest" class="btn btn-primary text-light btn-sm border rounded-0">
-              <i class="fa fa-sign-in"></i> Continue as Guest </a>
-          </span>
-          <span class="navbar-text">
-            <a href="/login" class="btn btn-secondary text-light btn-sm border rounded-0">
-              <i class="fa fa-sign-in"></i> User Login </a>
-          </span> {% endif %}
-        </div>
-        <div>
-          <form action="{% url 'set_language' %}" method="post"> {% csrf_token %} <input name="next" type="hidden" value="/" />
-            <select class="btn btn-secondary btn-sm dropdown-toggle" name="language" style="width: auto;" onchange="this.form.submit()"> {% get_current_language as LANGUAGE_CODE %} {% get_available_languages as LANGUAGES %} {% get_language_info_list for LANGUAGES as languages %} {% for language in languages %} <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected="selected" {% endif %} data-content='
-								<img src="/static/images/flags/{{ language.code }}.gif">
-								</span>
-								<span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
-                          {{ language.name_local }}
+        {% if user.is_authenticated %}
+          {% if user.is_superuser or user.is_staff %}
+            <a href="/view-orders" class="btn btn-primary text-light btn-sm border rounded-0">
+              <i class="fa fa-th-list"></i>
+              View Orders
+            </a>
+          {% else %}
+            <a href="/cart" id="cart_button" class="btn btn-light border btn-sm rounded-0"
+            style="color: black"><span class="badge badge-primary" id="cart-count"></span>My Cart
+              <i class="fa fa-shopping-cart"></i>
+            </a>
+            {% if request.session.table %}
+              <h4><span class="badge badge-secondary" id="table-num-badge">&#127869 {{request.session.table}}</span></h4>
+            {% endif %}
+          {% endif %}
+        {% endif %}
 
-									<!-- span style="color:#999;">&nbsp;[{{ language.code }}]</span -->
-								</span>'>
-                {{ language.code | upper }}
-              </option> {% endfor %} </select>
-          </form>
+              <button
+              class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarText"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarText">
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><i class="fa fa-cutlery"></i> Menu</a>
+          </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/contact"
+                    ><i class="fa fa-phone"></i> Contact Us</a
+                    >
+                  </li>
+                </ul>
+                {% if user.is_authenticated %}
+          <span class="navbar-text">
+            <h6>Hello, {{request.user.username}}</h6>
+          </span>
+          <div class="burger-menu-buttons">
+          {% if user.is_superuser or user.is_staff %}
+          <span class="navbar-text">
+          <a
+          href="/admin"
+          class="btn btn-primary text-light btn-sm border rounded-0"
+          > Dashboard</a
+          >
+          {% else %}
+          <a
+          href="/view-orders"
+          class="btn btn-primary text-light btn-sm border rounded-0"
+          ><i class="fa fa-th-list"></i> My Orders</a
+          >
+          {% endif %}
+
+
+          <button
+          type="button"
+          class="btn btn-dark btn-sm rounded-0"
+          onclick="logout()"
+          >
+            <i class="fa fa-sign-out"></i> Logout
+          </button>
+        </span>
+        {% else %}
+        <span class="navbar-text">
+          <a
+          href="/guest"
+          class="btn btn-primary text-light btn-sm border rounded-0"
+          ><i class="fa fa-sign-in"></i> Continue as Guest</a
+          >
+        </span>
+        <span class="navbar-text">
+          <a
+          href="/login"
+          class="btn btn-secondary text-light btn-sm border rounded-0"
+          ><i class="fa fa-sign-in"></i> User Login</a
+          >
+        </span>
+        {% endif %}
+        <div class="language-change-btn">
+          <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="/" />
+
+            <select class="selectpicker" name="language" style="width: auto;" onchange="this.form.submit()">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {% for language in languages %}
+
+                  <option
+                    value="{{ language.code }}"
+                    {% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}
+                    data-content='<img src="/static/images/flags/{{ language.code }}.gif"></span>
+                    <span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
+                      {{ language.name_local }}
+                      <!-- span style="color:#999;">&nbsp;[{{ language.code }}]</span -->
+                    </span>'>
+                    {{ language.code | upper }}
+                  </option>
+
+              {% endfor %}
+            </select>
+            </form>
+          </div>
         </div>
-      </nav>
-      <div class="nav-secondary">
-        <nav class="nav-categories"></nav>
-        <nav class="nav-subcategories"> {% for cat in categories%} <a class="subcategory-link" href="#{{cat}}" title="{{cat}}">{{cat}}</a> {% endfor %} </nav>
       </div>
-    </div> {% block content %} {% endblock %} <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </nav>
+    
+    <div class="nav-secondary">
+      <nav class="nav-categories">
+        
+      </nav>
+      <nav class="nav-subcategories">
+        {% for cat in categories%}
+        <a class="subcategory-link" href="#{{cat}}" title="{{cat}}">{{cat}}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </div>
+    {% block content %} {% endblock %}
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{% static 'orders/main.js' %}"></script>
     <footer>

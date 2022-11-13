@@ -1,211 +1,94 @@
-{% load static %}
-{% load i18n %}
-
+{% load static %} {% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="shortcut icon" href="{%  static 'img/favicon.png' %}" />
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{% static 'orders/style.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'orders/order_received.css' %}" />
     <!-- For the toasts -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-      rel="stylesheet"
-    />
-    {% load static %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" /> {% load static %}
     <link rel="script" href="{% static 'orders/main.js' %}" />
     <title>Radisson Ordering System</title>
   </head>
-
   <body>
     <div class="nav-main" id="nav-main">
-      <nav
-        class="navbar navbar-expand-lg navbar-light shadow bg-light"
-      >
-      <a href="/">
-         <img alt="Radisson" src="/media/rbrl_logo.png"
-         width=150" height="70"  style="vertical-align:middle;margin:0px 10px"/>
-      </a>
-<!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>-->
-{% if user.is_authenticated %}
-{% if user.is_superuser or user.is_staff %}
-<a
-href="/view-orders"
-            class="btn btn-primary text-light btn-sm border rounded-0"
-            ><i class="fa fa-th-list"></i> View Orders</a
-            >
-            {% else %}
-            <a
-            href="/cart"
-            id="cart_button"
-            class="btn btn-light border btn-sm rounded-0"
-            style="color: black"
-            ><span class="badge badge-primary" id="cart-count"></span> My Cart
-            <i class="fa fa-shopping-cart"></i
-              ></a>
-                {% if request.session.table %}
-                <h4><span class="badge badge-secondary" id="table-num-badge">&#127869 {{request.session.table}}</span></h4>
-                {% endif %}
-              {% endif %}
-              {% endif %}
-              
-              <button
-              class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarText"
-        aria-controls="navbarText"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarText">
-      
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/"><i class="fa fa-cutlery"></i> Menu</a>
-          </li>
-          <!--          <li class="nav-item">-->
+      <nav class="navbar navbar-expand-lg navbar-light shadow bg-light">
+        <a href="/">
+          <img alt="Radisson" src="/media/rbrl_logo.png" width=150" height="70" style="vertical-align:middle;margin:0px 10px" />
+        </a>
+        <!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>--> {% if user.is_authenticated %} {% if user.is_superuser or user.is_staff %} <a href="/view-orders" class="btn btn-primary text-light btn-sm border rounded-0">
+          <i class="fa fa-th-list"></i> View Orders </a> {% else %} <a href="/cart" id="cart_button" class="btn btn-light border btn-sm rounded-0" style="color: black">
+          <span class="badge badge-primary" id="cart-count"></span> My Cart <i class="fa fa-shopping-cart"></i>
+        </a> {% if request.session.table %} <h4>
+          <span class="badge badge-secondary" id="table-num-badge">&#127869 {{request.session.table}}</span>
+        </h4> {% endif %} {% endif %} {% endif %} <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="fa fa-cutlery"></i> Menu </a>
+            </li>
+            <!--          <li class="nav-item">-->
             <!--            <a class="nav-link" href="/directions"-->
-              <!--              ><i class="fa fa-map-marker"></i> Location</a-->
-              <!--            >-->
-              <!--          </li>-->
-              <!--          <li class="nav-item">-->
-                <!--            <a class="nav-link" href="/hours"-->
-                  <!--              ><i class="fa fa-clock-o"></i> Shop Hours</a-->
-                  <!--            >-->
-                  <!--          </li>-->
-                  <li class="nav-item">
-                    <a class="nav-link" href="/contact"
-                    ><i class="fa fa-phone"></i> Contact Us</a
-                    >
-                  </li>
-                </ul>
-                {% if user.is_authenticated %}
-                <span class="navbar-text">
-                  <h6>Hello, {{request.user.username}}</h6>
-          {% if user.is_superuser or user.is_staff %}
-          <a
-          href="/admin"
-          class="btn btn-primary text-light btn-sm border rounded-0"
-          > Dashboard</a
-          >
-          {% else %}
-          <a
-          href="/view-orders"
-          class="btn btn-primary text-light btn-sm border rounded-0"
-          ><i class="fa fa-th-list"></i> My Orders</a
-          >
-          {% endif %}
-
-
-          <button
-          type="button"
-          class="btn btn-dark btn-sm rounded-0"
-          onclick="logout()"
-          >
-            <i class="fa fa-sign-out"></i> Logout
-          </button>
-        </span>
-        {% else %}
-        <span class="navbar-text">
-          <a
-          href="/guest"
-          class="btn btn-primary text-light btn-sm border rounded-0"
-          ><i class="fa fa-sign-in"></i> Continue as Guest</a
-          >
-        </span>
-        <span class="navbar-text">
-          <a
-          href="/login"
-          class="btn btn-secondary text-light btn-sm border rounded-0"
-          ><i class="fa fa-sign-in"></i> User Login</a
-          >
-        </span>
-        {% endif %}
-      </div>
-          <div>
-              <form action="{% url 'set_language' %}" method="post">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="/" />
-
-                <select class="selectpicker" name="language" style="width: auto;" onchange="this.form.submit()">
-                  {% get_current_language as LANGUAGE_CODE %}
-                  {% get_available_languages as LANGUAGES %}
-                  {% get_language_info_list for LANGUAGES as languages %}
-                  {% for language in languages %}
-
-                      <option
-                        value="{{ language.code }}"
-                        {% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}
-                        data-content='<img src="/static/images/flags/{{ language.code }}.gif"></span>
-                        <span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
+            <!--              ><i class="fa fa-map-marker"></i> Location</a-->
+            <!--            >-->
+            <!--          </li>-->
+            <!--          <li class="nav-item">-->
+            <!--            <a class="nav-link" href="/hours"-->
+            <!--              ><i class="fa fa-clock-o"></i> Shop Hours</a-->
+            <!--            >-->
+            <!--          </li>-->
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">
+                <i class="fa fa-phone"></i> Contact Us </a>
+            </li>
+          </ul> {% if user.is_authenticated %} <span class="navbar-text">
+            <h6>Hello, {{request.user.username}}</h6> {% if user.is_superuser or user.is_staff %} <a href="/admin" class="btn btn-primary text-light btn-sm border rounded-0"> Dashboard</a> {% else %} <a href="/view-orders" class="btn btn-primary text-light btn-sm border rounded-0">
+              <i class="fa fa-th-list"></i> My Orders </a> {% endif %} <button type="button" class="btn btn-dark btn-sm rounded-0" onclick="logout()">
+              <i class="fa fa-sign-out"></i> Logout </button>
+          </span> {% else %} <span class="navbar-text">
+            <a href="/guest" class="btn btn-primary text-light btn-sm border rounded-0">
+              <i class="fa fa-sign-in"></i> Continue as Guest </a>
+          </span>
+          <span class="navbar-text">
+            <a href="/login" class="btn btn-secondary text-light btn-sm border rounded-0">
+              <i class="fa fa-sign-in"></i> User Login </a>
+          </span> {% endif %}
+        </div>
+        <div>
+          <form action="{% url 'set_language' %}" method="post"> {% csrf_token %} <input name="next" type="hidden" value="/" />
+            <select class="btn btn-secondary btn-sm dropdown-toggle" name="language" style="width: auto;" onchange="this.form.submit()"> {% get_current_language as LANGUAGE_CODE %} {% get_available_languages as LANGUAGES %} {% get_language_info_list for LANGUAGES as languages %} {% for language in languages %} <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected="selected" {% endif %} data-content='
+								<img src="/static/images/flags/{{ language.code }}.gif">
+								</span>
+								<span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
                           {{ language.name_local }}
-                          <!-- span style="color:#999;">&nbsp;[{{ language.code }}]</span -->
-                        </span>'>
-                        {{ language.code | upper }}
-                      </option>
 
-                  {% endfor %}
-                </select>
-            </form>
-          </div>
-    </nav>
-    
-    <div class="nav-secondary">
-      <nav class="nav-categories">
-        
+									<!-- span style="color:#999;">&nbsp;[{{ language.code }}]</span -->
+								</span>'>
+                {{ language.code | upper }}
+              </option> {% endfor %} </select>
+          </form>
+        </div>
       </nav>
-      <nav class="nav-subcategories">
-        {% for cat in categories%}
-        <a class="subcategory-link" href="#{{cat}}" title="{{cat}}">{{cat}}</a>
-        {% endfor %}
-      </nav>
-    </div>
-  </div>
-    {% block content %} {% endblock %}
-
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
+      <div class="nav-secondary">
+        <nav class="nav-categories"></nav>
+        <nav class="nav-subcategories"> {% for cat in categories%} <a class="subcategory-link" href="#{{cat}}" title="{{cat}}">{{cat}}</a> {% endfor %} </nav>
+      </div>
+    </div> {% block content %} {% endblock %} <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{% static 'orders/main.js' %}"></script>
-
     <footer>
-      <div style="text-align: center; margin: 0 auto; opacity: 0.7">
-        Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a>
+      <div style="text-align: center; margin: 0 auto; opacity: 0.7"> Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a>
       </div>
     </footer>
   </body>

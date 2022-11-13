@@ -186,6 +186,10 @@ body {
     margin-top: 10em;
 }
 
+.secondary-container{
+    margin-top: 7em;
+}
+
 .section {
     scroll-margin-top: 9rem;
 }

@@ -11,14 +11,18 @@ from guest_user.decorators import allow_guest_user
 from itertools import chain
 from datetime import datetime, timedelta, timezone
 
-# Create your views here.
+def get_all_dishes():
+    return list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),))
+
 main_context = {
     "categories": Category.objects.all(),
-    "all_dishes": list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),)),
+    "all_dishes": get_all_dishes(),
     "allergens": Allergens.objects.all()
 }
 
 def index(request):
+    main_context["all_dishes"] = get_all_dishes()
+
     try:
         last_order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
         minutes_diff = (datetime.now() - last_order.time_of_order.replace(tzinfo=None)).total_seconds() / 60.0
@@ -158,8 +162,19 @@ def checkout(request):
 
 @login_required(login_url='orders:login')
 def order_success(request):
-    order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
-    return render(request, "orders/order_received.html", context={"order": order})
+    try:
+        order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
+        print(order.time_of_order)
+        order_list = [[item,] for item in order.order.strip('][').replace("'","").split(', ') ]
+        all_dishes_prices = { dish.dish_name:float(dish.price) for dish in main_context["all_dishes"]}
+        for dish in order_list:
+            dish.append(all_dishes_prices[dish[0]])
+            dish.append('comment')
+    except Exception as e:
+        print(e)
+        order_list = []
+
+    return render(request, "orders/order_received.html", context={"order": order, "order_list":order_list})
 
 @login_required(login_url='orders:login')
 def view_orders(request):
@@ -231,6 +246,3 @@ def check_staff_user(request):
 
 def handle_404(request,exception):
     return render(request, 'orders/404.html')
-
-# def session_expired(request):
-#     return render(request, "orders/session_expired.html", {})

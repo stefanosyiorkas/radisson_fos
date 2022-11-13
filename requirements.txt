@@ -7,3 +7,4 @@ requests
 Pillow
 django-session-timeout
 django-guest-user
+django-translated-fields

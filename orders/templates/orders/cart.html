@@ -54,7 +54,7 @@
     <div class="container">
         <div class="block-heading">
           <h2>Cart</h2>
-            <div id="table-alert" class="row justify-content-center"> {% if request.session.table %} <div class="alert alert-info" role="alert"> Table: <span id="table_number">{{request.session.table}}</span>
+            <div id="table-alert" class="row justify-content-center"> {% if request.session.table %} <div class="alert alert-info" role="alert">Now Ordering for Table: <span id="table_number">{{request.session.table}}</span>
               </div> {% else %} <div class="alert alert-danger" role="alert"> No table selected! Please scan the QR Code on the table </div>
               <span id="table_number"></span> {% endif %}
             </div>
@@ -93,7 +93,7 @@
                         <h3>Summary</h3>
                         <div class="summary-item"><span class="text">Subtotal</span><span class="price">€</span></div>
                         <div class="summary-item"><span class="text">Tax</span><span class="price">€</span></div>
-                        <div class="summary-item"><span class="text">Total</span><span class="price" id="total"></span></div>
+                        <div class="summary-item"><span class="text">Total</span><span class="price" id="total">€ 0</span></div>
 <!--                        <button id="checkout_button" type="submit" class="btn btn-primary btn-block btn-lg" onclick="checkout()">Order Now</button>-->
                         <div class="row justify-content-center">
                           <button id="checkout_button" type="submit" class="btn btn-primary btn-block btn-lg rounded-pill" onclick="checkout()">Order Now</button>

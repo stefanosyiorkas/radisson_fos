@@ -51,6 +51,7 @@ body {
 .navbar-toggler,
 .navbar-toggler:active,
 .navbar-toggler:focus{
+    margin-right: 0.5rem;
     border: unset !important;
     border-color: white !important;
 }
@@ -182,8 +183,9 @@ body {
 
 .title-category{
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 900;
     display: inline-block;
+    margin-top: 1rem;
     margin-bottom: 2rem;
     text-align: center;
     line-height: 0.5;
@@ -222,6 +224,7 @@ body {
 .nav-main{
     position: fixed !important;
     top: 0 !important;
+    top: 0 !important;
     width: 100% !important;
     z-index: 100 !important;
     backdrop-filter: blur(20px) !important;
@@ -238,7 +241,7 @@ body {
 }
 
 .secondary-container{
-    margin-top: 7em;
+    margin-top: 5.5rem;
 }
 
 .section {

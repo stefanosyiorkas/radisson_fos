@@ -38,13 +38,6 @@ $(document).ready(function() {
             document.querySelector(id).scrollIntoView()
         }
     })
-
-    window.addEventListener('scroll', function(e){
-        if (window.scrollY > 50){
-            const img = document.querySelector('nav-logo')
-            img.style.transform = "scale(-0.5, -0.5)"
-        }
-    })
 });
 
 function order_list_functionality() {

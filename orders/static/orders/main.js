@@ -38,13 +38,6 @@ $(document).ready(function() {
             document.querySelector(id).scrollIntoView()
         }
     })
-
-    window.addEventListener('scroll', function(e){
-        if (window.scrollY > 50){
-            const img = document.querySelector('nav-logo')
-            img.style.transform = "scale(-0.5, -0.5)"
-        }
-    })
 });
 
 function order_list_functionality() {
@@ -239,6 +232,7 @@ function load_cart() {
     var table = document.getElementById('cart_body');
     table.innerHTML = ""; //clear the table
     var cart = JSON.parse(localStorage.getItem("cart"));
+    console.log(cart);
     var total = 0;
     if (cart !== null && cart.length > 0) {
         for (var i = 0; i < cart.length; i++) {
@@ -275,7 +269,8 @@ function load_cart() {
     } else {
         display_empty_cart()
     }
-    $('#card-tbl').find('th, td').addClass('px-2 py-1 align-middle')
+    $('#card-tbl').find('th').addClass('px-2 py-1 align-middle')
+    $('#card-tbl').find('td').addClass('px-2 py-3 align-middle')
     $('#card-tbl').find('th:nth-child(1), td:nth-child(1)').addClass('text-center')
     $('#card-tbl').find('th:nth-last-child(1), td:nth-last-child(1)').addClass('text-right')
 
@@ -351,7 +346,7 @@ function display_empty_cart() {
     var table = document.getElementById('cart_body');
     table.innerHTML = ""; //clear the table
     document.getElementById('total').innerHTML = ""
-    document.getElementById('cart_heading').innerHTML = "Cart is empty!"
+//    document.getElementById('cart_heading').innerHTML = "Cart is empty!"
     document.getElementById("checkout_button").disabled = true;
     document.getElementById('cart-count').innerText = '';
 }

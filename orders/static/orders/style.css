@@ -44,12 +44,35 @@ body {
     background-image: url(./../img/logo.png);
 }
 
+.navbar-collapse{
+    padding: 1rem;
+}
+
+.navbar-toggler,
+.navbar-toggler:active,
+.navbar-toggler:focus{
+    margin-right: 0.5rem;
+    border: unset !important;
+    border-color: white !important;
+}
+
 #card-tbl tbody tr:hover {
     cursor: pointer !important;
 }
 
 #login-box {
     width: 100% !important
+}
+
+.burger-menu-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.language-change-btn{
+    margin-left: auto;
 }
 
 .nav-subcategories{
@@ -145,18 +168,47 @@ body {
 }
 
 .card{
-    margin-bottom: 1em;
-    padding: 1em;
+    margin-bottom: 1.5em;
     padding-bottom: 0.5em;
     border: unset;
     border-bottom: 1px solid rgb(188, 188, 188);
     border-radius: 0;
 }
 
+
+.title-category span{
+    display: inline-block;
+    position: relative;
+}  
+
 .title-category{
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 900;
     display: inline-block;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 0.5;
+}
+
+.title-category span::before,
+.title-category span::after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #049FAC;
+    top: 5px;
+    width: 600px;
+}
+
+.title-category span::before{
+    right: 100%;
+    margin-right: 15px;
+}
+
+.title-category span::after{
+    left: 100%;
+    margin-left: 15px;
 }
 
 .line{
@@ -172,6 +224,8 @@ body {
 .nav-main{
     position: fixed !important;
     top: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
     z-index: 100 !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
@@ -183,11 +237,16 @@ body {
 }
 
 .main-container{
-    margin-top: 10em;
+    margin-top: 8em;
+}
+
+.secondary-container{
+    margin-top: 5.5rem;
 }
 
 .section {
     scroll-margin-top: 9rem;
+    overflow: hidden;
 }
 
 .section:not(:first-child){
@@ -195,10 +254,18 @@ body {
 }
 
 .nav-logo{
+    display: block;
     width: 150px;
     height: 70px;
-    vertical-align:middle;
-    margin:0px 10px;
+    transform: scale(0.8);
+}
+
+.nav-logo-link{
+    transition: transform 0.2s;
+}
+
+.navbar{
+    padding: unset !important
 }
 
 .btn-success {

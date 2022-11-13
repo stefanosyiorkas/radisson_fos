@@ -1,72 +1,46 @@
-{% load static %}
-{% load i18n %}
-
+{% load static %} {% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="shortcut icon" href="{%  static 'img/favicon.png' %}" />
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{% static 'orders/style.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'orders/order_received.css' %}" />
     <!-- For the toasts -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-      rel="stylesheet"
-    />
-    {% load static %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" /> {% load static %}
     <link rel="script" href="{% static 'orders/main.js' %}" />
     <title>Radisson Ordering System</title>
   </head>
-
   <body>
     <div class="nav-main" id="nav-main">
       <nav
         class="navbar navbar-expand-lg navbar-light shadow bg-light"
       >
-      <a href="/">
-         <img alt="Radisson" src="/media/rbrl_logo.png"
-         width=150" height="70"  style="vertical-align:middle;margin:0px 10px"/>
-      </a>
-<!--      <a class="navbar-brand" href="/">Radisson Ordering System</a>-->
-{% if user.is_authenticated %}
-{% if user.is_superuser or user.is_staff %}
-<a
-href="/view-orders"
-            class="btn btn-primary text-light btn-sm border rounded-0"
-            ><i class="fa fa-th-list"></i> View Orders</a
-            >
-            {% else %}
-            <a
-            href="/cart"
-            id="cart_button"
-            class="btn btn-light border btn-sm rounded-0"
-            style="color: black"
-            ><span class="badge badge-primary" id="cart-count"></span> My Cart
-            <i class="fa fa-shopping-cart"></i
-              ></a>
-                {% if request.session.table %}
-                <h4><span class="badge badge-secondary" id="table-num-badge">&#127869 {{request.session.table}}</span></h4>
-                {% endif %}
-              {% endif %}
-              {% endif %}
-              
+        <a href="/" class="nav-logo-link">
+          <img alt="Radisson" class="nav-logo" src="/media/rbrl_logo.png" />
+        </a>
+        {% if user.is_authenticated %}
+          {% if user.is_superuser or user.is_staff %}
+            <a href="/view-orders" class="btn btn-primary text-light btn-sm border rounded-0">
+              <i class="fa fa-th-list"></i>
+              View Orders
+            </a>
+          {% else %}
+            <a href="/cart" id="cart_button" class="btn btn-light border btn-sm rounded-0"
+            style="color: black"><span class="badge badge-primary" id="cart-count"></span> Cart
+              <i class="fa fa-shopping-cart"></i>
+            </a>
+            {% if request.session.table %}
+              <h4><span class="badge badge-secondary" id="table-num-badge">&#127869 {{request.session.table}}</span></h4>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
               <button
               class="navbar-toggler"
         type="button"
@@ -78,23 +52,13 @@ href="/view-orders"
       >
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarText">
-      
+
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="/"><i class="fa fa-cutlery"></i> Menu</a>
           </li>
-          <!--          <li class="nav-item">-->
-            <!--            <a class="nav-link" href="/directions"-->
-              <!--              ><i class="fa fa-map-marker"></i> Location</a-->
-              <!--            >-->
-              <!--          </li>-->
-              <!--          <li class="nav-item">-->
-                <!--            <a class="nav-link" href="/hours"-->
-                  <!--              ><i class="fa fa-clock-o"></i> Shop Hours</a-->
-                  <!--            >-->
-                  <!--          </li>-->
                   <li class="nav-item">
                     <a class="nav-link" href="/contact"
                     ><i class="fa fa-phone"></i> Contact Us</a
@@ -102,9 +66,12 @@ href="/view-orders"
                   </li>
                 </ul>
                 {% if user.is_authenticated %}
-                <span class="navbar-text">
-                  <h6>Hello, {{request.user.username}}</h6>
+          <span class="navbar-text">
+            <h6>Hello, {{request.user.username}}</h6>
+          </span>
+          <div class="burger-menu-buttons">
           {% if user.is_superuser or user.is_staff %}
+          <span class="navbar-text">
           <a
           href="/admin"
           class="btn btn-primary text-light btn-sm border rounded-0"
@@ -143,33 +110,34 @@ href="/view-orders"
           >
         </span>
         {% endif %}
-      </div>
-          <div>
-              <form action="{% url 'set_language' %}" method="post">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="/" />
+        <div class="language-change-btn">
+          <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="/" />
 
-                <select class="selectpicker" name="language" style="width: auto;" onchange="this.form.submit()">
-                  {% get_current_language as LANGUAGE_CODE %}
-                  {% get_available_languages as LANGUAGES %}
-                  {% get_language_info_list for LANGUAGES as languages %}
-                  {% for language in languages %}
+            <select class="selectpicker" name="language" style="width: auto;" onchange="this.form.submit()">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {% for language in languages %}
 
-                      <option
-                        value="{{ language.code }}"
-                        {% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}
-                        data-content='<img src="/static/images/flags/{{ language.code }}.gif"></span>
-                        <span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
-                          {{ language.name_local }}
-                          <!-- span style="color:#999;">&nbsp;[{{ language.code }}]</span -->
-                        </span>'>
-                        {{ language.code | upper }}
-                      </option>
+                  <option
+                    value="{{ language.code }}"
+                    {% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}
+                    data-content='<img src="/static/images/flags/{{ language.code }}.gif"></span>
+                    <span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
+                      {{ language.name_local }}
+                      <!-- span style="color:#999;">&nbsp;[{{ language.code }}]</span -->
+                    </span>'>
+                    {{ language.code | upper }}
+                  </option>
 
-                  {% endfor %}
-                </select>
+              {% endfor %}
+            </select>
             </form>
           </div>
+        </div>
+      </div>
     </nav>
     
     <div class="nav-secondary">
@@ -202,10 +170,8 @@ href="/view-orders"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{% static 'orders/main.js' %}"></script>
-
     <footer>
-      <div style="text-align: center; margin: 0 auto; opacity: 0.7">
-        Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a>
+      <div style="text-align: center; margin: 0 auto; opacity: 0.7"> Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a>
       </div>
     </footer>
   </body>

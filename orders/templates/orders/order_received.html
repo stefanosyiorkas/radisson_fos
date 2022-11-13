@@ -1,14 +1,140 @@
 {% extends 'orders/header.html' %} {% block content %}
 
-<h1>Order Received!</h1>
-<h5>{{order}}</h5>
-<h5>{{order.id}}</h5>
-<h5>{{order.time_of_order}}</h5>
-<h5>{{order.order}}</h5>
-<h5>€ {{order.price}}</h5>
-<h5>Table: {{order.table_number}}</h5>
-<a href="/">Go to Home</a>
+<div class="container secondary-container">
+  {% if order.delivered %}
+  <div class="alert alert-success" role="alert">
+  Order status: Ready
+</div>
+  {% else %}
+  <div class="alert alert-danger" role="alert">
+  Order status: Pending
+</div>
+  {% endif %}
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="text-left logo p-2 px-2">
+          <img src="/media/rbrl_logo.png" width="100">
+        </div>
+        <div class="invoice">
+          <h5>Order Received!</h5>
+          <span class="font-weight-bold d-block mt-4">Hello, {{request.user}}</span>
+          <span>You order has been confirmed and will be soon to your table!</span>
+          <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="py-2">
+                      <span class="d-block text-muted">Order Date</span>
+                      <span>{{order.time_of_order}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="py-2">
+                      <span class="d-block text-muted">Order No</span>
+                      <span>{{order.id}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="py-2">
+                      <span class="d-block text-muted">Table Number</span>
+                      <span>{{order.table_number}}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="product border-bottom table-responsive">
+            <table class="table table-borderless">
+              <tbody>
+                {% for dish in order_list %}
+                  <tr>
+
+                        <td width="60%">
+                          <span class="font-weight-bold">{{dish.0}}</span>
+<!--                          <div class="product-comment">-->
+<!--                              <span class="d-block">{{dish.2}}</span>-->
+<!--                          </div>-->
+                        </td>
+                    <td width="20%">
+                  <div class="text-right">
+                    <span class="font-weight-bold">€ {{dish.1}}</span>
+                  </div>
+                </td>
+                                    </tr>
 
 
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="row d-flex justify-content-end">
+            <div class="col-md-5">
+              <table class="table table-borderless">
+                <tbody class="totals">
+<!--                  <tr>-->
+<!--                    <td>-->
+<!--                      <div class="text-left">-->
+<!--                        <span class="text-muted">Subtotal</span>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                      <div class="text-right">-->
+<!--                        <span>$168.50</span>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                  </tr>-->
 
-{% endblock %}
+<!--                  <tr>-->
+<!--                    <td>-->
+<!--                      <div class="text-left">-->
+<!--                        <span class="text-muted">Tax Fee</span>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                      <div class="text-right">-->
+<!--                        <span>$7.65</span>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                  </tr>-->
+<!--                  <tr>-->
+<!--                    <td>-->
+<!--                      <div class="text-left">-->
+<!--                        <span class="text-muted">Discount</span>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                      <div class="text-right">-->
+<!--                        <span class="text-success">$168.50</span>-->
+<!--                      </div>-->
+<!--                    </td>-->
+<!--                  </tr>-->
+                  <tr class="border-top border-bottom">
+                    <td>
+                      <div class="text-left">
+                        <span class="font-weight-bold">Total</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-right">
+                        <span class="font-weight-bold">€{{order.price}}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p>The kitchen will process your order and update this page when its ready</p>
+          <p class="font-weight-bold mb-0">Thank you and Enjoy your time!</p>
+          <span>Radisson Beach Resort</span>
+        </div>
+          <div class="go-to-home">
+              <a class="btn btn-primary" href="/" role="button">Go to Home</a>
+          </div>
+      </div>
+    </div>
+  </div>
+</div> {% endblock %}

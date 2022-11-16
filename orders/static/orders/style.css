@@ -163,7 +163,7 @@ body {
 
 .card-title{
     display: inline-block !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0.5rem !important;
     font-weight: 600;
 }
 
@@ -273,16 +273,10 @@ body {
     padding: unset !important
 }
 
-.btn-success {
-    background-color: #049FAC;
-    border-color: #049FAC;
-}
-
 #table-num-badge {
     background-color: #059EAB;
     margin: auto;
-    margin-top: 10px;
-    margin-left: 5px;
+    margin-top: 5px;
 }
 
 #clear-cart {

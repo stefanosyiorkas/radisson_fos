@@ -49,12 +49,12 @@
                             </div>
                             {% if request.user.is_authenticated %}
                                 {% if dish.enabled %}
-                                <button class="btn btn-success" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}', comments:''})">€ {{dish.price}}</button>
+                                <button class="btn btn-info" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}', comments:''})">€ {{dish.price}}</button>
                                 {% else %}
                                  <button class="btn btn-danger">Not Available</button>
                                 {% endif %}
                             {% else %}
-                            <button class="btn btn-success disabled" onclick="add_to_cart()">€ {{dish.price}}</button>
+                            <button class="btn btn-outline-info" onclick="add_to_cart()">€ {{dish.price}}</button>
                             {% endif %}
                         </div>
                         {% endif %}

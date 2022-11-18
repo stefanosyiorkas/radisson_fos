@@ -122,6 +122,7 @@ class Table(models.Model):
 class UserOrder(models.Model):
     username = models.CharField(max_length=200) #who placed the order
     order = models.TextField() #this will be a string representation of the cart from localStorage
+    comments = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2) #how much was the order
     table_number = models.IntegerField()
     time_of_order  = models.DateTimeField(default=datetime.now, blank=True)

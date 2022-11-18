@@ -136,8 +136,9 @@ def checkout(request):
         username = request.user.username
         response_data = {}
         list_of_items = [item["item_description"] for item in cart]
+        list_of_comments = [item['comments'] for item in cart]
 
-        order = UserOrder(username=username, order=list_of_items, price=float(price), table_number=table_num, delivered=False) #create the row entry
+        order = UserOrder(username=username, order=list_of_items, comments=list_of_comments, price=float(price), table_number=table_num, delivered=False) #create the row entry
         order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'
@@ -164,15 +165,13 @@ def checkout(request):
 def order_success(request):
     try:
         order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
-        print(order.time_of_order)
-        order_list = [[item,] for item in order.order.strip('][').replace("'","").split(', ') ]
-        all_dishes_prices = { dish.dish_name:float(dish.price) for dish in main_context["all_dishes"]}
+        order_list = [[item,comment] for item,comment in zip(order.order.strip('][').replace("'","").split(', '),order.comments.strip('][').replace("'","").split(', ')) ]
+        all_dishes_prices = { dish.dish_name:dish.price for dish in main_context["all_dishes"]}
         for dish in order_list:
             dish.append(all_dishes_prices[dish[0]])
-            dish.append('comment')
-    except Exception as e:
+        print(order_list)
+    except KeyError as e:
         print(e)
-        order_list = []
 
     return render(request, "orders/order_received.html", context={"order": order, "order_list":order_list})
 
@@ -181,6 +180,11 @@ def view_orders(request):
     if request.user.is_superuser or request.user.is_staff:
         #make a request for all the orders in the database
         rows = UserOrder.objects.all().order_by('-time_of_order')
+        for row in rows:
+            order_list = row.order.strip('][').replace("'","").split(', ')
+            comment_list = row.comments.strip('][').replace("'","").split(', ')
+            row_temp = [item + f" ({comment})" if comment else item for item,comment in zip(order_list,comment_list)]
+            row.orderlist = str(row_temp)
         return render(request, "orders/orders.html", context = {"rows":rows})
     else:
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')

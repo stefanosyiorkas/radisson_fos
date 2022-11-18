@@ -153,7 +153,8 @@ function check_user_staff() {
 function add_to_cart(info) {
     //info will be the stuff displayed in the reciept
     // item description as well as teh price
-    console.log(info);
+    info['comments'] = document.getElementById(info['item_description']+'-additional-comments').value
+    document.getElementById(info['item_description']+'-additional-comments').value=''
     if (info == null) {
         display_notif("please login");
     }
@@ -243,9 +244,11 @@ function load_cart() {
             var row = table.insertRow(-1);
             var item_number = row.insertCell(0);
             var item_description = row.insertCell(1);
-            var item_price = row.insertCell(2);
+            var item_comments = row.insertCell(2);
+            var item_price = row.insertCell(3);
             item_number.innerHTML = String(i + 1);
             item_description.innerHTML = cart[i].item_description;
+            item_comments.innerHTML = cart[i].comments;
             item_price.innerHTML = "€ " + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
 
             total += parseFloat(cart[i].price)

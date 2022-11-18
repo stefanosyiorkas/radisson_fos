@@ -153,12 +153,12 @@ function check_user_staff() {
 function add_to_cart(info) {
     //info will be the stuff displayed in the reciept
     // item description as well as teh price
-    info['comments'] = document.getElementById(info['item_description']+'-additional-comments').value
-    document.getElementById(info['item_description']+'-additional-comments').value=''
     if (info == null) {
         display_notif("please login");
     }
     else{
+        info['comments'] = document.getElementById(info['item_description']+'-additional-comments').value
+        document.getElementById(info['item_description']+'-additional-comments').value=''
         display_notif("add to cart", info);
         var cart_retrieved = !!localStorage.getItem("cart") ? localStorage.getItem("cart") : null
         if (cart_retrieved === null) {

@@ -366,3 +366,7 @@ body {
 #orders-container{
     max-width: 100%
 }
+
+.info-form-control{
+    color: black;
+}

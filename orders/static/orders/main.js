@@ -295,7 +295,7 @@ function getCookie(name) {
 function display_empty_cart() {
     var table = document.getElementById('cart_body');
     table.innerHTML = ""; //clear the table
-    document.getElementById('total').innerHTML = ""
+    document.getElementById('total').innerHTML = "€ 0"
 //    document.getElementById('cart_heading').innerHTML = "Cart is empty!"
     document.getElementById("checkout_button").disabled = true;
     document.getElementById('cart-count').innerText = '';

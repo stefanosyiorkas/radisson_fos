@@ -35,13 +35,13 @@
                                 <img id="dish-img" class="dish-img" src="{{dish.dish_image}}">
 
                                 <!-- The Modal -->
-                                <div id="dish-img-modal" class="modal" onclick="document.getElementById('dish-img-modal').style.display='none'">
+                                <div id="dish-img-modal" class="dish-img-modal" onclick="document.getElementById('dish-img-modal').style.display='none'">
 
                                   <!-- The Close Button -->
                                   <span class="close" onclick="document.getElementById('dish-img-modal').style.display='none'">&times;</span>
 
                                   <!-- Modal Content (The Image) -->
-                                  <img class="modal-content" id="img01">
+                                  <img class="dish-img-modal-content" id="img01">
 
                                   <!-- Modal Caption (Image Text) -->
                                   <div id="caption"></div>
@@ -49,7 +49,41 @@
                             </div>
                             {% if request.user.is_authenticated %}
                                 {% if dish.enabled %}
-                                <button class="btn btn-info" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}', comments:''})">€ {{dish.price}}</button>
+<!--                                <button class="btn btn-info" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}', comments:''})">€ {{dish.price}}</button>-->
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{dish.dish_name}}Modal" data-whatever="€ {{dish.price}}">€ {{dish.price}}</button>
+
+                                <div class="modal fade" id="{{dish.dish_name}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{dish.dish_name}}ModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document" style="margin-top: 7rem;">
+                                    <div class="modal-content">
+<!--                                      <div class="modal-header">-->
+<!--                                        <h5 class="modal-title" id="{{dish.dish_name}}ModalLabel">New message</h5>-->
+<!--                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                          <span aria-hidden="true">&times;</span>-->
+<!--                                        </button>-->
+<!--                                      </div>-->
+                                      <div class="modal-body">
+                                        <form>
+                                          <div class="form-group">
+                                            <label for="item-name" class="col-form-label">Item:</label>
+                                            <input type="text" class="form-control" id="item-name" value="{{dish.dish_name}}" disabled>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="item-price" class="col-form-label">Price:</label>
+                                            <input type="text" class="form-control" id="item-price" value="€ {{dish.price}}" disabled>
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="{{dish.dish_name}}-additional-comments" class="col-form-label">Additional Comments:</label>
+                                            <textarea class="form-control" id="{{dish.dish_name}}-additional-comments"></textarea>
+                                          </div>
+                                        </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-info" data-dismiss="modal" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}'})">Add to cart</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                                 {% else %}
                                  <button class="btn btn-danger">Not Available</button>
                                 {% endif %}

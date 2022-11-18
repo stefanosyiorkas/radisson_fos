@@ -285,7 +285,7 @@ body {
 
 
 /* The Modal (background) */
-.modal {
+.dish-img-modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -300,7 +300,7 @@ body {
 }
 
 /* Modal Content (Image) */
-.modal-content {
+.dish-img-modal-content {
     margin: auto;
     margin-top: 10rem;
     display: block;
@@ -321,7 +321,7 @@ body {
 }
 
 /* Add Animation - Zoom in the Modal */
-.modal-content, #caption {
+.dish-img-modal-content, #caption {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.2s;
     animation-name: zoom;
@@ -361,4 +361,8 @@ body {
     .modal-content {
         width: 100%;
     }
+}
+
+#orders-container{
+    max-width: 100%
 }

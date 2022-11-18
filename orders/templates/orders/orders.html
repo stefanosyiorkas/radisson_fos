@@ -1,6 +1,6 @@
 {% extends 'orders/header.html' %} {% load custom_tags %} {% load humanize %} {% block content %}
 
-<div class="container secondary-container">
+<div class="container secondary-container" id="orders-container">
     <div class="content my-3 px-4">
         <div class="card shadow rounded-0">
             <div class="card-body">
@@ -53,7 +53,7 @@
                                         <td>{{row.time_of_order}}</td>
                                         <td>
                                             <ul>
-                                                {% for item in row.order|format_cart %}
+                                                {% for item in row.orderlist|format_cart %}
                                                 <li>{{item|format_cart_item}}</li>
                                                 {% endfor %}
                                             </ul>

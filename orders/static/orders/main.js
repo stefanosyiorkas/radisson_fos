@@ -224,6 +224,9 @@ function display_notif(type, info = "No info provided") {
         case "please login":
             toastr.error("Please login first");
             break;
+        case "clear cart":
+            toastr.success("Successfully cleared the cart");
+            break;
     }
 
 }
@@ -313,6 +316,7 @@ function clear_cart() {
     localStorage.removeItem("table_number"); //Clear the table number
     //remove the elements from the page
     display_empty_cart();
+    display_notif("clear cart");
 }
 
 function checkout() {

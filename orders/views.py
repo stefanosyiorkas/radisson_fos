@@ -216,9 +216,10 @@ def mark_order_as_pending(request):
 
 def save_cart(request):
     if request.method == 'POST':
-        cart = request.POST.get('cart')
-        saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
-        saved_cart.save() #save row entry in database
+        if 'Guest' not in request.user.username:
+            cart = request.POST.get('cart')
+            saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
+            saved_cart.save() #save row entry in database
         return HttpResponse(
             json.dumps({"good":"boy"}),
             content_type="application/json"

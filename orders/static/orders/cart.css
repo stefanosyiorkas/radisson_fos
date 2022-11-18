@@ -51,6 +51,7 @@
 	text-align: right;
 	padding-top: 1rem;
 	padding-right: 1rem;
+	padding-bottom: 1rem;
 }
 
 .shopping-cart .items{
@@ -60,8 +61,6 @@
 .shopping-cart .items .product{
     margin-left: 0.1rem;
     margin-right: 0.1rem;
-	padding-top: 20px;
-	padding-bottom: 10px;
 }
 
 .shopping-cart .items .product .info{

@@ -333,6 +333,12 @@ function clear_cart() {
     display_notif("clear cart");
 }
 
+function clear_cart_silent() {
+    localStorage.removeItem("cart"); //Clear the cart
+    localStorage.removeItem("total_price"); //clear the price
+    localStorage.removeItem("table_number"); //Clear the table number
+}
+
 function checkout() {
     //this is the function that will be run when the user wants to checkout
     ButtonClicked();
@@ -354,7 +360,7 @@ function checkout() {
         // handle a successful response
         success: function(json) {
 //            display_notif("new order")
-            clear_cart()
+            clear_cart_silent()
             window.location.replace('/order_success');
         },
 

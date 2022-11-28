@@ -233,12 +233,21 @@ function display_notif(type, info = "No info provided") {
 }
 
 function load_cart() {
+    document.getElementById("card-tbl").style.display = "";
     var table = document.getElementById('cart_body');
     table.innerHTML = ""; //clear the table
-    var cart = JSON.parse(localStorage.getItem("cart"));
+    try {
+        var cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    catch(err) {
+        console.log(err)
+      var cart = null
+    }
     console.log(cart);
     var total = 0;
     if (cart !== null && cart.length > 0) {
+        document.getElementById("empty-cart").style.display = "none";
+        document.getElementById("cart-content").style.display = "";
         for (var i = 0; i < cart.length; i++) {
 
             var row = table.insertRow(-1);
@@ -299,6 +308,8 @@ function getCookie(name) {
 } //this function is to get the CSRF token
 
 function display_empty_cart() {
+    document.getElementById("empty-cart").style.display = "";
+    document.getElementById("cart-content").style.display = "none";
     var table = document.getElementById('cart_body');
     table.innerHTML = ""; //clear the table
     document.getElementById('total').innerHTML = "€ 0"
@@ -324,12 +335,13 @@ function clear_cart() {
 
 function checkout() {
     //this is the function that will be run when the user wants to checkout
+    ButtonClicked();
     var cart = localStorage.getItem("cart")
     var price_of_cart = localStorage.getItem("total_price")
     var table_number = document.getElementById('table_number').innerHTML
     var csrftoken = getCookie('csrftoken');
 
-    console.log(table_number)
+    console.log("Table " + table_number)
     if (table_number=="none" || table_number==null || table_number==''){
         display_notif("table none")
     } else {
@@ -341,7 +353,7 @@ function checkout() {
 
         // handle a successful response
         success: function(json) {
-            display_notif("new order")
+//            display_notif("new order")
             clear_cart()
             window.location.replace('/order_success');
         },
@@ -404,17 +416,46 @@ var modal = document.getElementById('dish-img-modal');
 var img = document.getElementById('dish-img');
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
-img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    modalImg.alt = this.alt;
-    captionText.innerHTML = this.alt;
+try {
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+      modal.style.display = "none";
+    }
+}
+catch(err) {
+    console.log(err)
 }
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
+
+
+function ButtonClicked()
+{
+   document.getElementById("checkout_button").style.display = "none"; // to undisplay
+   document.getElementById("loading-order").style.display = ""; // to display
+   return true;
 }
+var FirstLoading = true;
+function RestoreSubmitButton()
+{
+   if( FirstLoading )
+   {
+      FirstLoading = false;
+      return;
+   }
+   document.getElementById("checkout_button").style.display = ""; // to display
+   document.getElementById("loading-order").style.display = "none"; // to undisplay
+}
+// To disable restoring submit button, disable or delete next line.
+document.onfocus = RestoreSubmitButton;

@@ -167,6 +167,10 @@ body {
     font-weight: 600;
 }
 
+.card-body{
+    padding: 1rem;
+}
+
 .dish-body{
     display: flex;
     flex-direction: row;
@@ -239,6 +243,11 @@ body {
 .nav-sticky{
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.264);
     transition: all 0.2s ease-in-out;
+}
+
+.container{
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
 }
 
 .main-container{

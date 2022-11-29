@@ -341,7 +341,7 @@ function clear_cart_silent() {
 
 function checkout() {
     //this is the function that will be run when the user wants to checkout
-    ButtonClicked();
+    CheckoutButtonClicked();
     var cart = localStorage.getItem("cart")
     var price_of_cart = localStorage.getItem("total_price")
     var table_number = document.getElementById('table_number').innerHTML
@@ -415,39 +415,9 @@ function retrieve_saved_cart() {
     }
 }
 
-// Get the modal
-var modal = document.getElementById('dish-img-modal');
-
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById('dish-img');
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-try {
-    img.onclick = function(){
-        modal.style.display = "block";
-        modalImg.src = this.src;
-        modalImg.alt = this.alt;
-        captionText.innerHTML = this.alt;
-    }
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
-      modal.style.display = "none";
-    }
-}
-catch(err) {
-    console.log(err)
-}
-
-
-
-
-function ButtonClicked()
+function CheckoutButtonClicked()
 {
+   document.getElementById("clear-cart-btn").disabled = true;
    document.getElementById("checkout_button").style.display = "none"; // to undisplay
    document.getElementById("loading-order").style.display = ""; // to display
    return true;

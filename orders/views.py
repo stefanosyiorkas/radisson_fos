@@ -12,7 +12,11 @@ from itertools import chain
 from datetime import datetime, timedelta, timezone
 
 def get_all_dishes():
-    return list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),))
+    try:
+        return list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),))
+    except Exception as e:
+        print("DISHES ERROR "+str(e))
+        return None
 
 main_context = {
     "categories": Category.objects.all(),
@@ -221,9 +225,10 @@ def mark_order_as_pending(request):
 def save_cart(request):
     if request.method == 'POST':
         if not request.user.is_superuser or not request.user.is_staff:
-            cart = request.POST.get('cart')
-            saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
-            saved_cart.save() #save row entry in database
+            if 'Guest' not in request.user.username:
+                cart = request.POST.get('cart')
+                saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
+                saved_cart.save() #save row entry in database
         return HttpResponse(
             json.dumps({"good":"boy"}),
             content_type="application/json"

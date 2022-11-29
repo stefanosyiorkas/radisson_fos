@@ -2,53 +2,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'orders/cart.css' %}" />
 
-<!--<div class="container secondary-container">-->
-<!--  <div class="content">-->
-<!--    <div class="card rounded-0 shadow">-->
-<!--      <div class="card-body">-->
-<!--&lt;!&ndash;        <div id="clear-cart">&ndash;&gt;-->
-<!--&lt;!&ndash;          <button onclick="clear_cart_btn()" type="button" class="btn btn-danger">&ndash;&gt;-->
-<!--&lt;!&ndash;            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">&ndash;&gt;-->
-<!--&lt;!&ndash;              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>&ndash;&gt;-->
-<!--&lt;!&ndash;              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>&ndash;&gt;-->
-<!--&lt;!&ndash;            </svg>&ndash;&gt;-->
-<!--&lt;!&ndash;          </button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--        <div class="row justify-content-center">-->
-<!--          <div class="row">-->
-<!--            <div class="column">-->
-<!--              <h2 id="cart_heading"></h2>-->
-<!--            </div>-->
-<!--            <div class="column"></div>-->
-<!--          </div>-->
-<!--&lt;!&ndash;          <table class="table table-bordered table-striped" id="card-tbl">&ndash;&gt;-->
-<!--&lt;!&ndash;            <thead class="thead-light">&ndash;&gt;-->
-<!--&lt;!&ndash;              <tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                <th scope="col" class="text-center">#</th>&ndash;&gt;-->
-<!--&lt;!&ndash;                <th scope="col" class="text-center">Item Description</th>&ndash;&gt;-->
-<!--&lt;!&ndash;                <th scope="col" class="text-center">Price</th>&ndash;&gt;-->
-<!--&lt;!&ndash;              </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;            </thead>&ndash;&gt;-->
-<!--&lt;!&ndash;            <tbody id="cart_body"></tbody>&ndash;&gt;-->
-<!--&lt;!&ndash;          </table>&ndash;&gt;-->
-<!--&lt;!&ndash;          <h2>Total: <span class="badge badge-light border px-5 rounded-pill" id="total"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </h2>&ndash;&gt;-->
-<!--        </div>-->
-<!--&lt;!&ndash;        <div class="row justify-content-center"> {% if request.session.table %} <div class="alert alert-info" role="alert"> Table: <span id="table_number">{{request.session.table}}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div> {% else %} <div class="alert alert-danger" role="alert"> No table selected! Please scan the QR Code on the table </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <span id="table_number"></span> {% endif %}&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--        <hr>-->
-<!--&lt;!&ndash;        <div class="row justify-content-center">&ndash;&gt;-->
-<!--&lt;!&ndash;          <button id="checkout_button" type="submit" class="btn btn-primary btn-block btn-lg rounded-pill" onclick="checkout()">Order Now</button>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"">-->
-
 <div class="container secondary-container">
 <section class="shopping-cart dark">
     <div class="container">
@@ -71,7 +24,7 @@
         <div id="cart-content" class="content" style="display:none;">
 
             <div id="clear-cart">
-          <button onclick="clear_cart_btn()" type="button" class="btn btn-danger">
+          <button id="clear-cart-btn" onclick="clear_cart_btn()" type="button" class="btn btn-danger">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
               <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
               <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
@@ -110,6 +63,9 @@
                                 <img src="/media/loading.gif" alt="loading..." width = "50" height = "50">
                                 <h7>Processing Order...</h7>
                             </div>
+<!--                            <div id="formsubmitbutton">-->
+<!--                                <input type="submit" name="submitter" value="Submit Button" onclick="CheckoutButtonClicked()">-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>

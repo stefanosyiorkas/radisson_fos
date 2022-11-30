@@ -25,8 +25,19 @@ main_context = {
 }
 
 def index(request):
+    # Save table
+    if request.user.is_authenticated:
+        table = request.GET.get('table')
+        tables = [str(table.table_number) for table in Table.objects.all()]
+        try:
+            if table in tables:
+                request.session['table'] = int(table)
+        except (TypeError, ValueError):
+            print(f"Table << {table} >> is not valid")
+
     main_context["all_dishes"] = get_all_dishes()
 
+    # Get last order
     try:
         last_order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
         minutes_diff = (datetime.now() - last_order.time_of_order.replace(tzinfo=None)).total_seconds() / 60.0

@@ -29,7 +29,7 @@ class Salad(models.Model):
     enabled = models.BooleanField()
 
     class Meta:
-        verbose_name = "List of Salads"
+        verbose_name = "Salad"
         verbose_name_plural = "Salads"
 
 
@@ -47,7 +47,7 @@ class AllDaySnacks(models.Model):
     enabled = models.BooleanField()
 
     class Meta:
-        verbose_name = "List of All Day Snacks"
+        verbose_name = "All Day Snack"
         verbose_name_plural = "All Day Snacks"
 
     def __str__(self):
@@ -64,7 +64,7 @@ class MainDishes(models.Model):
     enabled = models.BooleanField()
 
     class Meta:
-        verbose_name = "List of Main Dishes"
+        verbose_name = "Main Dish"
         verbose_name_plural = "Main Dishes"
 
     def __str__(self):
@@ -81,7 +81,7 @@ class Burgers(models.Model):
     enabled = models.BooleanField()
 
     class Meta:
-        verbose_name = "List of Burgers"
+        verbose_name = "Burger"
         verbose_name_plural = "Burgers"
 
     def __str__(self):
@@ -98,7 +98,7 @@ class Desserts(models.Model):
     enabled = models.BooleanField()
 
     class Meta:
-        verbose_name = "List of Desserts"
+        verbose_name = "Dessert"
         verbose_name_plural = "Desserts"
 
     def __str__(self):

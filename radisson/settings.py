@@ -188,7 +188,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # SESSION_TIMEOUT_REDIRECT = '/session_expired'
 # SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 86400 # one day
+SESSION_COOKIE_AGE = 43200 # 12 hours
 
 GUEST_USER_NAME_GENERATOR = 'guest_user.functions.generate_numbered_username'
 GUEST_USER_MAX_AGE = 43200 # 12 HOURS

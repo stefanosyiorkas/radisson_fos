@@ -1,0 +1,30 @@
+body{
+    background-color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+}
+.card{
+    border:none
+}
+.logo{
+    background-color: #eeeeeea8
+}
+.totals tr td{
+    font-size: 16px
+}
+.footer{
+    background-color: #eeeeeea8
+}
+.footer span{
+    font-size: 12px
+}
+.product-comment span{
+    font-size: 12px;
+    color: #898989
+}
+.invoice {
+    margin-top: 1rem;
+}
+.go-to-home{
+    margin: auto;
+    margin-top: 1rem;
+}

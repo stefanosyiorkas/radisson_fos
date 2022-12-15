@@ -18,12 +18,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # WHEN CHANGING RUN python manage.py collectstatic
-DEBUG = True
+if 'DJANGO_DEBUG' in os.environ:
+    DEBUG = False if os.environ['DJANGO_DEBUG'] == 'False' else True
+
+    if not DEBUG:
+        SECURE_HSTS_SECONDS = 60
+        SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+        SECURE_HSTS_PRELOAD = True
+        SECURE_SSL_REDIRECT = True
+        SESSION_COOKIE_SECURE = True
+        CSRF_COOKIE_SECURE = True
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','sgiorkas.pythonanywhere.com','sql7.freemysqlhosting.net']
 CSRF_TRUSTED_ORIGINS = ['https://sgiorkas.pythonanywhere.com']
@@ -118,19 +128,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'default2': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sql7552363',
-        'USER': 'sql7552363',
-        'PASSWORD': '1l7EzKi3W1',
-        'HOST': 'sql7.freemysqlhosting.net',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
     }
-
 }
 
 
@@ -164,7 +162,7 @@ AUTHENTICATION_BACKENDS = [
 LANGUAGE_CODE = 'el'
 LANGUAGES = [("en", "English"), ("el", "Greek")]
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 

@@ -23,7 +23,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&
 # SECURITY WARNING: don't run with debug turned on in production!
 # WHEN CHANGING RUN python manage.py collectstatic
 if 'DJANGO_DEBUG' in os.environ:
-    DEBUG = False if os.environ['DJANGO_DEBUG'] == 'False' else True
+    DEBUG = False if os.environ['DJANGO_DEBUG'] == 'false' else True
 
     if not DEBUG:
         SECURE_HSTS_SECONDS = 60

@@ -28,6 +28,10 @@ body {
     object-position: center center;
 }
 
+pre{
+    margin-bottom: 0;
+}
+
 body {
 
     background-color: #ffffff;
@@ -38,6 +42,38 @@ body {
     background-position: center center;
     backdrop-filter: brightness(0.9887);
     */
+}
+
+.top-btn-img{
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    object-position: center center;
+    background-color: white;
+    -webkit-mask: url(../img/arrow-up.svg) no-repeat center;
+    mask: url(../img/arrow-up.svg) no-repeat center;
+}
+
+#myBtn {
+    opacity: 0; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: 1px solid #9e6208; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #A27B3A; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 7px; /* Some padding */
+    border-radius: 50%; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+    transition: all 0.3s ease-in-out;
+}
+
+#myBtn:hover {
+    background-color: #9e6208; /* Add a dark-grey background on hover */
+    transition: all 0.3s ease-in-out;
 }
 
 .navbar-brand{
@@ -55,6 +91,8 @@ body {
     border: unset !important;
     border-color: white !important;
 }
+
+.subcategory-link
 
 #card-tbl tbody tr:hover {
     cursor: pointer !important;
@@ -100,34 +138,44 @@ body {
     font-size: 1.2rem;
     font-weight: 500;
     border-radius: 5rem;
-    transition: font-weight 0.3s ease-in-out;
-    -moz-transition: font-weight 0.3s ease-in-out; /* Firefox 4 */
-    -webkit-transition: font-weight 0.3s ease-in-out; /* Safari and Chrome */
-    -o-transition: font-weight 0.3s ease-in-out; /* Opera */
-    -ms-transition: font-weight 0.3s ease-in-out; /* Explorer 10 */
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out; /* Firefox 4 */
+    -webkit-transition: all 0.3s ease-in-out; /* Safari and Chrome */
+    -o-transition: all 0.3s ease-in-out; /* Opera */
+    -ms-transition: all 0.3s ease-in-out; /* Explorer 10 */
 }
 
 .subcategory-link:hover{
     text-decoration: none;
     color: rgb(60, 60, 60);
     font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out; /* Firefox 4 */
+    -webkit-transition: all 0.3s ease-in-out; /* Safari and Chrome */
+    -o-transition: all 0.3s ease-in-out; /* Opera */
+    -ms-transition: all 0.3s ease-in-out; /* Explorer 10 */
 }
 
 .subcategory-link:active {
-    font-weight: 600;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out; /* Firefox 4 */
+    -webkit-transition: all 0.3s ease-in-out; /* Safari and Chrome */
+    -o-transition: all 0.3s ease-in-out; /* Opera */
+    -ms-transition: all 0.3s ease-in-out; /* Explorer 10 */
 }
 
-.subcategory-link::before {
+/* .subcategory-link::before {
     display: block;
     content: attr(title);
     font-weight: 600;
     height: 0;
     overflow: hidden;
     visibility: hidden;
-}
+} */
 
 .active{
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .dish-img{
@@ -207,7 +255,7 @@ body {
     height: 5px;
     border-bottom: 1px solid #A27B3A;
     top: 5px;
-    width: 600px;
+    width: 2000px;
 }
 
 .title-category span::before{
@@ -349,6 +397,16 @@ body {
     to {transform:scale(1)}
 }
 
+/* @-webkit-keyframes zoom-out {
+    from {-webkit-transform:scale(1)}
+    to {-webkit-transform:scale(0)}
+}
+
+@keyframes zoom-out {
+    from {transform:scale(1)}
+    to {transform:scale(0)}
+} */
+
 /* The Close Button */
 .close {
     position: absolute;
@@ -358,6 +416,10 @@ body {
     font-size: 40px;
     font-weight: bold;
     transition: 0.2s;
+    /* -webkit-animation-name: zoom-out;
+    -webkit-animation-duration: 0.2s;
+    animation-name: zoom-out;
+    animation-duration: 0.2s; */
 }
 
 .close:hover,
@@ -401,4 +463,47 @@ body {
 }
 .item-description{
     font-style: italic;
+}
+
+.smm{
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-media-btn{
+    color: white;
+    background-color: #A27B3A;
+    border: 2px solid #A27B3A;
+    border-radius: 50%;
+    background-image: none;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+.social-media-btn:hover{
+    color: #b27100;
+    background-color: white;
+    border: 2px solid #b27100;
+    text-decoration: none;
+}
+
+.smm-btns{
+    text-decoration: none;
+    border: none;
+}
+
+.smm-btns:hover{
+    text-decoration: none;
+    border: none;
+}
+
+.contact-heading{
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #A27B3A;
 }

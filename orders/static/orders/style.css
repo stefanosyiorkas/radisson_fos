@@ -283,9 +283,11 @@ body {
 }
 
 #table-num-badge {
-    background-color: #CFA25E;
     margin: auto;
     margin-top: 5px;
+    color: #23272b;
+    border: 1px solid #23272b;
+    background-color: transparent;
 }
 
 #clear-cart {
@@ -378,9 +380,10 @@ body {
 
 .btn-gold
 {
-    background-color: #CFA25E;
-    border-color: #CFA25E;
-    color: #FFFFFF;
+    color: #9e6208;
+    background-color: transparent;
+    background-image: none;
+    border-color: #9e6208;
 }
 
 .btn-gold:hover{

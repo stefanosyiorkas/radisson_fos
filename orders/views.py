@@ -12,7 +12,11 @@ from itertools import chain
 from datetime import datetime, timedelta, timezone
 
 def get_all_dishes():
-    return list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),))
+    try:
+        return list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),))
+    except Exception as e:
+        print("DISHES ERROR "+str(e))
+        return None
 
 main_context = {
     "categories": Category.objects.all(),
@@ -21,14 +25,25 @@ main_context = {
 }
 
 def index(request):
+    # Save table
+    if request.user.is_authenticated:
+        table = request.GET.get('table')
+        tables = [str(table.table_number) for table in Table.objects.all()]
+        try:
+            if table in tables:
+                request.session['table'] = int(table)
+        except (TypeError, ValueError):
+            print(f"Table << {table} >> is not valid")
+
     main_context["all_dishes"] = get_all_dishes()
 
+    # Get last order
     try:
         last_order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
-        minutes_diff = (datetime.now() - last_order.time_of_order.replace(tzinfo=None)).total_seconds() / 60.0
+        minutes_diff = ((datetime.now() - timedelta(hours=2)) - last_order.time_of_order.replace(tzinfo=None)).total_seconds() / 60.0
         main_context['last_order'] = last_order if round(minutes_diff) < 15 else None
     except IndexError:
-        main_context['last_order'] = None
+         main_context['last_order'] = None
 
     # Setup allergens for all dishes
     allergens = main_context["allergens"]
@@ -136,8 +151,9 @@ def checkout(request):
         username = request.user.username
         response_data = {}
         list_of_items = [item["item_description"] for item in cart]
+        list_of_comments = [item['comments'] for item in cart]
 
-        order = UserOrder(username=username, order=list_of_items, price=float(price), table_number=table_num, delivered=False) #create the row entry
+        order = UserOrder(username=username, order=list_of_items, comments=list_of_comments, price=float(price), table_number=table_num, delivered=False) #create the row entry
         order.save() #save row entry in database
 
         response_data['result'] = 'Order Recieved!'
@@ -164,15 +180,13 @@ def checkout(request):
 def order_success(request):
     try:
         order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
-        print(order.time_of_order)
-        order_list = [[item,] for item in order.order.strip('][').replace("'","").split(', ') ]
-        all_dishes_prices = { dish.dish_name:float(dish.price) for dish in main_context["all_dishes"]}
+        order_list = [[item,comment] for item,comment in zip(order.order.strip('][').replace("'","").split(', '),order.comments.strip('][').replace("'","").split(', ')) ]
+        all_dishes_prices = { dish.dish_name:dish.price for dish in main_context["all_dishes"]}
         for dish in order_list:
             dish.append(all_dishes_prices[dish[0]])
-            dish.append('comment')
-    except Exception as e:
+        print(order_list)
+    except KeyError as e:
         print(e)
-        order_list = []
 
     return render(request, "orders/order_received.html", context={"order": order, "order_list":order_list})
 
@@ -181,6 +195,11 @@ def view_orders(request):
     if request.user.is_superuser or request.user.is_staff:
         #make a request for all the orders in the database
         rows = UserOrder.objects.all().order_by('-time_of_order')
+        for row in rows:
+            order_list = row.order.strip('][').replace("'","").split(', ')
+            comment_list = row.comments.strip('][').replace("'","").split(', ')
+            row_temp = [item + f" ({comment})" if comment else item for item,comment in zip(order_list,comment_list)]
+            row.orderlist = str(row_temp)
         return render(request, "orders/orders.html", context = {"rows":rows})
     else:
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
@@ -216,9 +235,11 @@ def mark_order_as_pending(request):
 
 def save_cart(request):
     if request.method == 'POST':
-        cart = request.POST.get('cart')
-        saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
-        saved_cart.save() #save row entry in database
+        if not request.user.is_superuser or not request.user.is_staff:
+            if 'Guest' not in request.user.username:
+                cart = request.POST.get('cart')
+                saved_cart = SavedCarts(username=request.user.username, cart=cart) #create the row entry
+                saved_cart.save() #save row entry in database
         return HttpResponse(
             json.dumps({"good":"boy"}),
             content_type="application/json"

@@ -3,7 +3,7 @@
 <div class="container secondary-container">
   {% if order.delivered %}
   <div class="alert alert-success" role="alert">
-  Order status: Ready
+  Order status: Approved
 </div>
   {% else %}
   <div class="alert alert-danger" role="alert">
@@ -13,13 +13,14 @@
   <div class="row d-flex justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="text-left logo p-2 px-2">
+        <div class="text-center logo p-2 px-2">
           <img src="/media/rbrl_logo.png" width="100">
         </div>
         <div class="invoice">
-          <h5>Order Received!</h5>
-          <span class="font-weight-bold d-block mt-4">Hello, {{request.user}}</span>
-          <span>You order has been confirmed and will be soon to your table!</span>
+          <h5>Order Sent!</h5>
+<!--          <span class="font-weight-bold d-block mt-4">Hello, {{request.user}}</span>-->
+          <span class="font-weight-bold d-block mt-4">Hello, Table {{order.table_number}}</span>
+          <span>The kitchen will process your order and update this page when its ready</span>
           <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
             <table class="table table-borderless">
               <tbody>
@@ -36,12 +37,12 @@
                       <span>{{order.id}}</span>
                     </div>
                   </td>
-                  <td>
-                    <div class="py-2">
-                      <span class="d-block text-muted">Table Number</span>
-                      <span>{{order.table_number}}</span>
-                    </div>
-                  </td>
+<!--                  <td>-->
+<!--                    <div class="py-2">-->
+<!--                      <span class="d-block text-muted">Table Number</span>-->
+<!--                      <span>{{order.table_number}}</span>-->
+<!--                    </div>-->
+<!--                  </td>-->
                 </tr>
               </tbody>
             </table>
@@ -54,13 +55,13 @@
 
                         <td width="60%">
                           <span class="font-weight-bold">{{dish.0}}</span>
-<!--                          <div class="product-comment">-->
-<!--                              <span class="d-block">{{dish.2}}</span>-->
-<!--                          </div>-->
+                          <div class="product-comment">
+                              <span class="d-block">{{dish.1}}</span>
+                          </div>
                         </td>
                     <td width="20%">
                   <div class="text-right">
-                    <span class="font-weight-bold">€ {{dish.1}}</span>
+                    <span class="font-weight-bold">€ {{dish.2}}</span>
                   </div>
                 </td>
                                     </tr>
@@ -74,31 +75,31 @@
             <div class="col-md-5">
               <table class="table table-borderless">
                 <tbody class="totals">
-<!--                  <tr>-->
-<!--                    <td>-->
-<!--                      <div class="text-left">-->
-<!--                        <span class="text-muted">Subtotal</span>-->
-<!--                      </div>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                      <div class="text-right">-->
-<!--                        <span>$168.50</span>-->
-<!--                      </div>-->
-<!--                    </td>-->
-<!--                  </tr>-->
+                  <tr>
+                    <td>
+                      <div class="text-left">
+                        <span class="text-muted">Subtotal</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-right">
+                        <span>€ X</span>
+                      </div>
+                    </td>
+                  </tr>
 
-<!--                  <tr>-->
-<!--                    <td>-->
-<!--                      <div class="text-left">-->
-<!--                        <span class="text-muted">Tax Fee</span>-->
-<!--                      </div>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                      <div class="text-right">-->
-<!--                        <span>$7.65</span>-->
-<!--                      </div>-->
-<!--                    </td>-->
-<!--                  </tr>-->
+                  <tr>
+                    <td>
+                      <div class="text-left">
+                        <span class="text-muted">Tax</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="text-right">
+                        <span>€ X</span>
+                      </div>
+                    </td>
+                  </tr>
 <!--                  <tr>-->
 <!--                    <td>-->
 <!--                      <div class="text-left">-->
@@ -119,7 +120,7 @@
                     </td>
                     <td>
                       <div class="text-right">
-                        <span class="font-weight-bold">€{{order.price}}</span>
+                        <span class="font-weight-bold">€ {{order.price}}</span>
                       </div>
                     </td>
                   </tr>
@@ -127,12 +128,11 @@
               </table>
             </div>
           </div>
-          <p>The kitchen will process your order and update this page when its ready</p>
-          <p class="font-weight-bold mb-0">Thank you and Enjoy your time!</p>
-          <span>Radisson Beach Resort</span>
+          <p class="font-weight-bold mb-0">Thank you and enjoy your time at Filini restaurant</p>
+          <span>@Radisson Beach Resort</span>
         </div>
           <div class="go-to-home">
-              <a class="btn btn-primary" href="/" role="button">Go to Home</a>
+              <a class="btn btn-gold" href="/" role="button">Go to Home</a>
           </div>
       </div>
     </div>

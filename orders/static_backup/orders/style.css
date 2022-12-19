@@ -1,0 +1,377 @@
+*{
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+#khra {
+    color: pink;
+}
+
+.truncate-3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    width: calc(100%);
+}
+
+.cat-img {
+    width: 100%;
+    height: 15em;
+    object-fit: cover;
+    object-position: center center;
+}
+
+body {
+
+    background-color: #ffffff;
+    /*
+    background-image: url(./../img/wp.jpg);
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-position: center center;
+    backdrop-filter: brightness(0.9887);
+    */
+}
+
+.navbar-brand{
+    background-image: url(./../img/logo.png);
+}
+
+.navbar-collapse{
+    padding: 1rem;
+}
+
+.navbar-toggler,
+.navbar-toggler:active,
+.navbar-toggler:focus{
+    margin-right: 0.5rem;
+    border: unset !important;
+    border-color: white !important;
+}
+
+#card-tbl tbody tr:hover {
+    cursor: pointer !important;
+}
+
+#login-box {
+    width: 100% !important
+}
+
+.burger-menu-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.language-change-btn{
+    margin-left: auto;
+}
+
+.nav-subcategories{
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    margin: 0.3rem 0.5rem;
+    gap: 0.3rem;
+}
+
+.nav-subcategories::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+.subcategory-link{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width:fit-content ;
+    padding: 0.2rem;
+    text-decoration: none;
+    color: rgb(60, 60, 60);
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 5rem;
+    transition: font-weight 0.3s ease-in-out;
+    -moz-transition: font-weight 0.3s ease-in-out; /* Firefox 4 */
+    -webkit-transition: font-weight 0.3s ease-in-out; /* Safari and Chrome */
+    -o-transition: font-weight 0.3s ease-in-out; /* Opera */
+    -ms-transition: font-weight 0.3s ease-in-out; /* Explorer 10 */
+}
+
+.subcategory-link:hover{
+    text-decoration: none;
+    color: rgb(60, 60, 60);
+    font-weight: 600;
+}
+
+.subcategory-link:active {
+    font-weight: 600;
+}
+
+.subcategory-link::before {
+    display: block;
+    content: attr(title);
+    font-weight: 600;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.active{
+    font-weight: 600;
+}
+
+.dish-img{
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 1em;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 15%;
+    transition: all 0.2s ease-in-out;
+}
+
+.dish-img-active{
+    height: 15em;
+}
+
+.allergen-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1em;
+}
+
+.allergen-img{
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.card-title{
+    display: inline-block !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 600;
+}
+
+.card-body{
+    padding: 1rem;
+}
+
+.dish-body{
+    display: flex;
+    flex-direction: row;
+}
+
+.card{
+    margin-bottom: 1.5em;
+    padding-bottom: 0.5em;
+    border: unset;
+    border-bottom: 1px solid rgb(188, 188, 188);
+    border-radius: 0;
+}
+
+
+.title-category span{
+    display: inline-block;
+    position: relative;
+}  
+
+.title-category{
+    font-size: 1.5rem;
+    font-weight: 900;
+    display: inline-block;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 0.5;
+}
+
+.title-category span::before,
+.title-category span::after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #049FAC;
+    top: 5px;
+    width: 600px;
+}
+
+.title-category span::before{
+    right: 100%;
+    margin-right: 15px;
+}
+
+.title-category span::after{
+    left: 100%;
+    margin-left: 15px;
+}
+
+.line{
+    width: 100%;
+    color: black;
+    height: 2px;
+}
+
+.shadow{
+    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.244) !important
+}
+
+.nav-main{
+    position: fixed !important;
+    top: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    z-index: 100 !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.nav-sticky{
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.264);
+    transition: all 0.2s ease-in-out;
+}
+
+.container{
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.main-container{
+    margin-top: 8em;
+}
+
+.secondary-container{
+    margin-top: 5.5rem;
+}
+
+.section {
+    scroll-margin-top: 9rem;
+    overflow: hidden;
+}
+
+.section:not(:first-child){
+    margin-top: 3rem;
+}
+
+.nav-logo{
+    display: block;
+    width: 150px;
+    height: 70px;
+    transform: scale(0.8);
+}
+
+.nav-logo-link{
+    transition: transform 0.2s;
+}
+
+.navbar{
+    padding: unset !important
+}
+
+#table-num-badge {
+    background-color: #059EAB;
+    margin: auto;
+    margin-top: 5px;
+}
+
+#clear-cart {
+    text-align: right;
+}
+
+
+/* The Modal (background) */
+.dish-img-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.dish-img-modal-content {
+    margin: auto;
+    margin-top: 10rem;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.dish-img-modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.2s;
+    animation-name: zoom;
+    animation-duration: 0.2s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 20rem;
+    right: 30rem;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+
+#orders-container{
+    max-width: 100%
+}

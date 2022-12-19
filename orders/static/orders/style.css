@@ -163,8 +163,12 @@ body {
 
 .card-title{
     display: inline-block !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0.5rem !important;
     font-weight: 600;
+}
+
+.card-body{
+    padding: 1rem;
 }
 
 .dish-body{
@@ -201,7 +205,7 @@ body {
     content: "";
     position: absolute;
     height: 5px;
-    border-bottom: 1px solid #049FAC;
+    border-bottom: 1px solid #A27B3A;
     top: 5px;
     width: 600px;
 }
@@ -241,6 +245,11 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
+.container{
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
 .main-container{
     margin-top: 8em;
 }
@@ -273,16 +282,10 @@ body {
     padding: unset !important
 }
 
-.btn-success {
-    background-color: #049FAC;
-    border-color: #049FAC;
-}
-
 #table-num-badge {
-    background-color: #059EAB;
+    background-color: #CFA25E;
     margin: auto;
-    margin-top: 10px;
-    margin-left: 5px;
+    margin-top: 5px;
 }
 
 #clear-cart {
@@ -291,7 +294,7 @@ body {
 
 
 /* The Modal (background) */
-.modal {
+.dish-img-modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -306,7 +309,7 @@ body {
 }
 
 /* Modal Content (Image) */
-.modal-content {
+.dish-img-modal-content {
     margin: auto;
     margin-top: 10rem;
     display: block;
@@ -327,7 +330,7 @@ body {
 }
 
 /* Add Animation - Zoom in the Modal */
-.modal-content, #caption {
+.dish-img-modal-content, #caption {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.2s;
     animation-name: zoom;
@@ -367,4 +370,32 @@ body {
     .modal-content {
         width: 100%;
     }
+}
+
+#orders-container{
+    max-width: 100%
+}
+
+.btn-gold
+{
+    background-color: #CFA25E;
+    border-color: #CFA25E;
+    color: #FFFFFF;
+}
+
+.btn-gold:hover{
+    color: #FFFFFF;
+    background-color: #A27B3A;
+    border-color: #A27B3A;
+    box-shadow: 0 0 0 .2rem rgb(196, 151, 83, .25);
+}
+.btn-gold:focus{
+    box-shadow: 0 0 0 0rem;
+}
+
+.item-price{
+    font-size: medium;
+}
+.item-description{
+    font-style: italic;
 }

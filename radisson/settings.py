@@ -22,20 +22,17 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # WHEN CHANGING RUN python manage.py collectstatic
-if 'DJANGO_DEBUG' in os.environ:
-    DEBUG = False if os.environ['DJANGO_DEBUG'] == 'false' else True
+DEBUG = False if 'DJANGO_DEBUG' in os.environ and os.environ['DJANGO_DEBUG'] == 'false' else True
 
-    if not DEBUG:
-        SECURE_HSTS_SECONDS = 60
-        SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-        SECURE_HSTS_PRELOAD = True
-        SECURE_SSL_REDIRECT = True
-        SESSION_COOKIE_SECURE = True
-        CSRF_COOKIE_SECURE = True
-else:
-    DEBUG = True
+if not DEBUG:
+    SECURE_HSTS_SECONDS = 60
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = ['127.0.0.1','sgiorkas.pythonanywhere.com','sql7.freemysqlhosting.net']
+ALLOWED_HOSTS = ['127.0.0.1','sgiorkas.pythonanywhere.com']
 CSRF_TRUSTED_ORIGINS = ['https://sgiorkas.pythonanywhere.com']
 
 
@@ -162,7 +159,7 @@ AUTHENTICATION_BACKENDS = [
 LANGUAGE_CODE = 'el'
 LANGUAGES = [("en", "English"), ("el", "Greek")]
 
-TIME_ZONE = 'Europe/Istanbul'
+TIME_ZONE = 'Europe/Athens'
 
 USE_I18N = True
 

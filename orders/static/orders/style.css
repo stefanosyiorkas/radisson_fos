@@ -383,12 +383,14 @@ body {
     color: #FFFFFF;
 }
 
-.btn-gold:hover,
-.btn-gold:active,
-.btn-gold:focus{
+.btn-gold:hover{
+    color: #FFFFFF;
     background-color: #A27B3A;
     border-color: #A27B3A;
     box-shadow: 0 0 0 .2rem rgb(196, 151, 83, .25);
+}
+.btn-gold:focus{
+    box-shadow: 0 0 0 0rem;
 }
 
 .item-price{

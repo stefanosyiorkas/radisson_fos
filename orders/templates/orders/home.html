@@ -108,7 +108,7 @@
                                         </form>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                         <button type="button" class="btn btn-gold" data-dismiss="modal" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}'})">Add to cart</button>
                                       </div>
                                     </div>
@@ -118,7 +118,7 @@
                                  <button class="btn btn-dark">Not Available</button>
                                 {% endif %}
                             {% else %}
-                            <button class="btn btn-outline-info" onclick="add_to_cart()">€ {{dish.price}}</button>
+                            <button class="btn btn-outline-dark" onclick="add_to_cart()">€ {{dish.price}}</button>
                             {% endif %}
                         </div>
                         {% endif %}

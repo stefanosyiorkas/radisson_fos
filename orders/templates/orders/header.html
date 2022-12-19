@@ -30,12 +30,12 @@
             </a>
             {% if user.is_authenticated %}
                 {% if user.is_superuser or user.is_staff %}
-                <a href="/view-orders" class="btn btn-primary btn-sm">
+                <a href="/view-orders" class="btn btn-gold btn-sm">
                 <i class="fa fa-th-list"></i>
                 View Orders
                 </a>
                 {% else %}
-                <a href="/cart" id="cart_button" class="btn btn-info"
+                <a href="/cart" id="cart_button" class="btn btn-gold"
                    >
                    <!--              <i class="fa fa-shopping-cart"></i>-->
                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-basket2-fill" viewBox="0 0 16 16">
@@ -44,7 +44,7 @@
                    <span class="badge badge-light" id="cart-count"></span>
                 </a>
                     {% if request.session.table %}
-                    <h4><span class="badge badge-pill badge-secondary" id="table-num-badge">{{request.session.table}}</span></h4>
+                    <h4><span class="badge badge-pill badge-secondary" id="table-num-badge">&#127869; {{request.session.table}}</span></h4>
                     {% endif %}
                 {% endif %}
             {% endif %}
@@ -79,13 +79,13 @@
                   <span class="navbar-text">
                   <a
                      href="/admin"
-                     class="btn btn-primary text-light btn-sm"
+                     class="btn btn-gold text-light btn-sm"
                      > Dashboard</a
                      >
                   {% else %}
                   <a
                      href="/view-orders"
-                     class="btn btn-primary btn-sm"
+                     class="btn btn-gold btn-sm"
                      ><i class="fa fa-th-list"></i> My Orders</a
                      >
                   {% endif %}
@@ -98,17 +98,17 @@
                   </button>
                   </span>
                   {% else %}
-                  <span class="navbar-text">
-                  <a
-                     href="/guest"
-                     class="btn btn-primary text-light btn-sm"
-                     ><i class="fa fa-sign-in"></i> Continue as Guest</a
-                     >
-                  </span>
+<!--                  <span class="navbar-text">-->
+<!--                  <a-->
+<!--                     href="/guest"-->
+<!--                     class="btn btn-primary text-light btn-sm"-->
+<!--                     ><i class="fa fa-sign-in"></i> Continue as Guest</a-->
+<!--                     >-->
+<!--                  </span>-->
                   <span class="navbar-text">
                   <a
                      href="/login"
-                     class="btn btn-secondary text-light btn-sm"
+                     class="btn btn-dark text-light btn-sm"
                      ><i class="fa fa-sign-in"></i> User Login</a
                      >
                   </span>
@@ -117,7 +117,7 @@
                      <form action="{% url 'set_language' %}" method="post">
                         {% csrf_token %}
                         <input name="next" type="hidden" value="/" />
-                        <select class="btn btn-secondary btn-sm dropdown-toggle" name="language" style="width: auto;" onchange="this.form.submit()">
+                        <select class="btn btn-dark btn-sm dropdown-toggle" name="language" style="width: auto;" onchange="this.form.submit()">
                            {% get_current_language as LANGUAGE_CODE %}
                            {% get_available_languages as LANGUAGES %}
                            {% get_language_info_list for LANGUAGES as languages %}

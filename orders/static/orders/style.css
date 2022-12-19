@@ -205,7 +205,7 @@ body {
     content: "";
     position: absolute;
     height: 5px;
-    border-bottom: 1px solid #049FAC;
+    border-bottom: 1px solid #A27B3A;
     top: 5px;
     width: 600px;
 }
@@ -283,7 +283,7 @@ body {
 }
 
 #table-num-badge {
-    background-color: #059EAB;
+    background-color: #CFA25E;
     margin: auto;
     margin-top: 5px;
 }
@@ -374,4 +374,26 @@ body {
 
 #orders-container{
     max-width: 100%
+}
+
+.btn-gold
+{
+    background-color: #CFA25E;
+    border-color: #CFA25E;
+    color: #FFFFFF;
+}
+
+.btn-gold:hover,
+.btn-gold:active,
+.btn-gold:focus{
+    background-color: #A27B3A;
+    border-color: #A27B3A;
+    box-shadow: 0 0 0 .2rem rgb(196, 151, 83, .25);
+}
+
+.item-price{
+    font-size: medium;
+}
+.item-description{
+    font-style: italic;
 }

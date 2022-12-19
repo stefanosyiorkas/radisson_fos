@@ -40,10 +40,10 @@ def index(request):
     # Get last order
     try:
         last_order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
-        minutes_diff = (datetime.now() - last_order.time_of_order.replace(tzinfo=None)).total_seconds() / 60.0
+        minutes_diff = ((datetime.now() - timedelta(hours=2)) - last_order.time_of_order.replace(tzinfo=None)).total_seconds() / 60.0
         main_context['last_order'] = last_order if round(minutes_diff) < 15 else None
     except IndexError:
-        main_context['last_order'] = None
+         main_context['last_order'] = None
 
     # Setup allergens for all dishes
     allergens = main_context["allergens"]

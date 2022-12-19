@@ -39,7 +39,7 @@
 .shopping-cart .block-heading h2,
 .shopping-cart .block-heading h3 {
 	margin-bottom:1.2rem;
-	color: #059EAB;
+	color: #A27B3A;
 }
 
 .shopping-cart #table-alert{
@@ -93,8 +93,8 @@
  }
 
 .shopping-cart .summary{
-	border-top: 2px solid #059EAB;
-    background-color: #eafdff;
+	border-top: 2px solid #A27B3A;
+    background-color: #efe8de;
     height: 100%;
     padding: 30px;
 }
@@ -148,10 +148,6 @@
 	}
 }
 
-#checkout_button {
-    background-color: #059EAB;
-    border-color: #059EAB;
-}
 
 #back-to-menu{
     margin: 1rem auto;
@@ -160,4 +156,13 @@
 #empty-cart{
     margin: 5rem auto;
     padding: 20px;
+}
+
+.spinner-border{
+    vertical-align: baseline;
+}
+
+#clear-cart-btn:hover,
+#clear-cart-btn:active{
+    color: #ffffff;
 }

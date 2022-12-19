@@ -18,13 +18,21 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# WHEN CHANGING RUN python manage.py collectstatic
+DEBUG = False if 'DJANGO_DEBUG' in os.environ and os.environ['DJANGO_DEBUG'] == 'false' else True
 
-ALLOWED_HOSTS = ['127.0.0.1','sgiorkas.pythonanywhere.com','sql7.freemysqlhosting.net']
+if not DEBUG:
+    SECURE_HSTS_SECONDS = 60
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
+ALLOWED_HOSTS = ['127.0.0.1','sgiorkas.pythonanywhere.com']
 CSRF_TRUSTED_ORIGINS = ['https://sgiorkas.pythonanywhere.com']
 
 
@@ -61,13 +69,13 @@ TINYMCE_DEFAULT_CONFIG = {
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic',
     'orders.apps.OrdersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'tinymce',
@@ -117,19 +125,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'default2': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sql7552363',
-        'USER': 'sql7552363',
-        'PASSWORD': '1l7EzKi3W1',
-        'HOST': 'sql7.freemysqlhosting.net',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
     }
-
 }
 
 
@@ -163,7 +159,7 @@ AUTHENTICATION_BACKENDS = [
 LANGUAGE_CODE = 'el'
 LANGUAGES = [("en", "English"), ("el", "Greek")]
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Athens'
 
 USE_I18N = True
 
@@ -176,12 +172,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-if DEBUG:
-    STATICFILES_DIRS = [
-            os.path.join(BASE_DIR, 'orders/static'),
-       ]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'orders/static')
+# if DEBUG:
+#     STATICFILES_DIRS = [
+#             os.path.join(BASE_DIR, 'orders/static'),
+#        ]
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'orders/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'orders/static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

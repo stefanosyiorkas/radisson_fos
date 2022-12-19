@@ -1,5 +1,7 @@
-{% extends 'orders/header.html' %} {% block content %}
+{% extends 'orders/header.html' %} {% load static%} {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'orders/contact.css' %}" />
+
 <div class="container secondary-container">
   <div class="content my-3">
     <div class="card rounded-0 shadow">
@@ -40,8 +42,8 @@
               </tr>
               <tr>
                 <td>
-                  <a href="https://www.facebook.com/RadissonLarnacaBeachResort/" class="fa fa-facebook"></a>
-                  <a href="https://www.instagram.com/radissonbeachresortlarnaca/" class="fa fa-instagram"></a>
+                  <a href="https://www.facebook.com/RadissonLarnacaBeachResort/" class="social-media-btn fa fa-facebook"></a>
+                  <a href="https://www.instagram.com/radissonbeachresortlarnaca/" class="social-media-btn fa fa-instagram"></a>
                 </td>
               </tr>
             </tbody>

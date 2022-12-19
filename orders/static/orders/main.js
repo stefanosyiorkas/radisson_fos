@@ -35,9 +35,32 @@ $(document).ready(function() {
                 current.classList.remove('active')
             e.target.classList.add('active')
             const id = e.target.getAttribute('href');
-            document.querySelector(id).scrollIntoView()
+            document.querySelector(id)?.scrollIntoView()
         }
     })
+});
+
+const sections = document.querySelectorAll("section");
+const links = document.querySelectorAll("nav .subcategory-link");
+links[0].classList.add("active")
+
+window.addEventListener("scroll", () => {
+    var current = "";
+
+    sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 500 ) {
+            current = section.getAttribute("id"); 
+        }
+    });
+
+    links.forEach((li) => {
+        li.classList.remove("active");
+        if (li.title === current) {
+            li.classList.add("active");
+            li.scrollIntoView()
+        }
+    });
 });
 
 function order_list_functionality() {
@@ -179,6 +202,26 @@ function add_to_cart(info) {
 
 }
 
+// Get the button:
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 500px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+    mybutton.style.opacity = 1;
+  } else {
+    mybutton.style.opacity = 0;
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 
 function onRowClick(tableId, callback) {
     var table = document.getElementById(tableId),
@@ -243,7 +286,7 @@ function load_cart() {
         console.log(err)
       var cart = null
     }
-    console.log(cart);
+
     var total = 0;
     if (cart !== null && cart.length > 0) {
         document.getElementById("empty-cart").style.display = "none";
@@ -253,13 +296,15 @@ function load_cart() {
             var row = table.insertRow(-1);
             var item_number = row.insertCell(0);
             var item_description = row.insertCell(1);
-            var item_comments = row.insertCell(2);
-            var item_price = row.insertCell(3);
+            var item_price = row.insertCell(2);
+            var item_remove = row.insertCell(3);
             item_number.innerHTML = String(i + 1);
-            item_description.innerHTML = cart[i].item_description;
-            item_comments.innerHTML = cart[i].comments;
+            if (cart[i].comments.length > 0)
+                item_description.innerHTML = '<b>' + cart[i].item_description + '</b>' + '<pre>' + cart[i].comments + '</pre>';
+            else
+                item_description.innerHTML = '<b>' + cart[i].item_description + '</b>'
             item_price.innerHTML = "€ " + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
-
+            item_remove.innerHTML = '<button class="btn btn-dark btn-sm" onclick="remove_from_cart(' + i + ')">X</button>';
             total += parseFloat(cart[i].price)
         }
         total = Math.round(total * 100) / 100
@@ -269,7 +314,7 @@ function load_cart() {
 
         onRowClick("cart_body", function(row) {
             var value = row.getElementsByTagName("td")[0].innerHTML;
-            var description = row.getElementsByTagName("td")[1].innerHTML;
+            var description = row.getElementsByTagName("td")[1].innerHTML.replace(/(<([^>]+)>)/ig, "");
             var r = confirm("Proceed to delete '" + description + "' from cart?");
             if (r == true) {
                 document.getElementById("cart_body").deleteRow(value - 1);
@@ -286,8 +331,9 @@ function load_cart() {
     }
     $('#card-tbl').find('th').addClass('px-2 py-1 align-middle')
     $('#card-tbl').find('td').addClass('px-2 py-3 align-middle')
+    $('#card-tbl').find('td:nth-child(3)').addClass('text-center')
     $('#card-tbl').find('th:nth-child(1), td:nth-child(1)').addClass('text-center')
-    $('#card-tbl').find('th:nth-last-child(1), td:nth-last-child(1)').addClass('text-right')
+    $('#card-tbl').find('th:nth-last-child(1), td:nth-last-child(1)').addClass('text-center')
 
 }
 

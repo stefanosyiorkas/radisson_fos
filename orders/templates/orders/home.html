@@ -14,7 +14,7 @@
         <div class=" rounded-0 shadow">
             <div class="card-body">
                {% for cat in categories %}
-                <div class="section" id="{{cat}}">
+                <section class="section" id="{{cat}}">
                    <h5 class="title-category"><span>{{cat}}</span></h5>
                     {% for dish in all_dishes %}
                         {% if cat == dish.category_id %}
@@ -68,7 +68,6 @@
 
                                     // When the user clicks on <span> (x), close the modal
                                     span.onclick = function() {
-                                      modal.style.display = "none";
                                       modal.style.display = "none";
                                     }
                                 }
@@ -124,7 +123,7 @@
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
-                </div>
+                </section>
             </div>
         </div>
     </div>

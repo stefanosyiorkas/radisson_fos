@@ -314,7 +314,7 @@ function load_cart() {
 
         onRowClick("cart_body", function(row) {
             var value = row.getElementsByTagName("td")[0].innerHTML;
-            var description = row.getElementsByTagName("td")[1].innerHTML.replace(/(<([^>]+)>)/ig, "");
+            var description = row.getElementsByTagName("td")[1].innerHTML.split("<pre>")[0].replace(/(<([^>]+)>)/ig, "");
             var r = confirm("Proceed to delete '" + description + "' from cart?");
             if (r == true) {
                 document.getElementById("cart_body").deleteRow(value - 1);

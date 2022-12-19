@@ -184,7 +184,6 @@ def order_success(request):
         all_dishes_prices = { dish.dish_name:dish.price for dish in main_context["all_dishes"]}
         for dish in order_list:
             dish.append(all_dishes_prices[dish[0]])
-        print(order_list)
     except KeyError as e:
         print(e)
 

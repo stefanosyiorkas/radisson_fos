@@ -51,7 +51,7 @@
               <h6>Hello, {{request.user.username}}</h6>
             </span>
             <div class="burger-menu-buttons"> {% if user.is_superuser or user.is_staff %} <span class="navbar-text">
-                <a href="/admin" class="btn btn-gold text-light btn-sm"> Dashboard</a> {% else %} <a href="/view-orders" class="btn btn-gold btn-sm">
+                <a href="/admin" class="btn btn-gold-full text-light btn-sm"> Dashboard</a> {% else %} <a href="/view-orders" class="btn btn-gold btn-sm">
                   <i class="fa fa-th-list"></i> My Orders </a> {% endif %} <button type="button" class="btn btn-dark btn-sm" onclick="logout()">
                   <i class="fa fa-sign-out"></i> Logout </button>
               </span> {% else %}

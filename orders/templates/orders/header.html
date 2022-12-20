@@ -34,10 +34,12 @@
             <span class="badge badge-dark" id="cart-count"></span>
           </a> {% if request.session.table %} <h4>
             <span class="badge badge-pill badge-dark" id="table-num-badge"># {{request.session.table}}</span>
-          </h4> {% endif %} {% endif %} {% endif %} <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          </h4> {% endif %} {% endif %} {% endif %}
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarText">
+          <div class="collapse" id="navbarText">
+            <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <a class="nav-link" href="/">
@@ -78,6 +80,7 @@
                     </option> {% endfor %} </select>
                 </form>
               </div>
+            </div>
             </div>
           </div>
         </nav>

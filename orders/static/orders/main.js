@@ -49,7 +49,7 @@ window.addEventListener("scroll", () => {
 
     sections.forEach((section) => {
         const sectionTop = section.offsetTop;
-        if (scrollY >= sectionTop - 500 ) {
+        if (scrollY >= sectionTop - 900 ) {
             current = section.getAttribute("id"); 
         }
     });

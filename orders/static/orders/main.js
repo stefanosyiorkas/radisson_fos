@@ -303,7 +303,7 @@ function load_cart() {
                 item_description.innerHTML = '<b>' + cart[i].item_description + '</b>' + '<pre>' + cart[i].comments + '</pre>';
             else
                 item_description.innerHTML = '<b>' + cart[i].item_description + '</b>'
-            item_price.innerHTML = "€ " + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
+            item_price.innerHTML = "€" + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
             item_remove.innerHTML = '<button class="btn btn-dark btn-sm" onclick="remove_from_cart(' + i + ')">X</button>';
             total += parseFloat(cart[i].price)
         }

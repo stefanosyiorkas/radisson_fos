@@ -304,7 +304,7 @@ function load_cart() {
             else
                 item_description.innerHTML = '<b>' + cart[i].item_description + '</b>'
             item_price.innerHTML = "€" + parseFloat(cart[i].price).toLocaleString('en-US', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2 });
-            item_remove.innerHTML = '<button class="btn btn-dark btn-sm" onclick="remove_from_cart(' + i + ')">X</button>';
+            item_remove.innerHTML = '<button class="btn btn-light btn-sm" onclick="remove_from_cart(' + i + ')">X</button>';
             total += parseFloat(cart[i].price)
         }
         total = Math.round(total * 100) / 100

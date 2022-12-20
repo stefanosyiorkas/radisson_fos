@@ -35,6 +35,9 @@ def index(request):
         except (TypeError, ValueError):
             print(f"Table << {table} >> is not valid")
 
+    if 'Guest' not in request.user.username:
+        request.session['username'] = request.user.username
+
     main_context["all_dishes"] = get_all_dishes()
 
     # Get last order
@@ -65,6 +68,7 @@ def hello_guest(request):
     try:
         if table in tables:
             request.session['table'] = int(table)
+            request.session['username'] = f'Table {table}'
     except (TypeError, ValueError):
         print(f"Table << {table} >> is not valid")
 

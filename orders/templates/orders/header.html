@@ -48,7 +48,7 @@
                   <i class="fa fa-phone"></i> Contact Us </a>
               </li>
             </ul> {% if user.is_authenticated %} <span class="navbar-text">
-              <h6>Hello, {{request.user.username}}</h6>
+              <h6>Hello, {{request.session.username}}</h6>
             </span>
             <div class="burger-menu-buttons"> {% if user.is_superuser or user.is_staff %} <span class="navbar-text">
                 <a href="/admin" class="btn btn-gold-full text-light btn-sm"> Dashboard</a> {% else %} <a href="/view-orders" class="btn btn-gold btn-sm">

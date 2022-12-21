@@ -117,7 +117,7 @@
                                  <button class="btn btn-dark">Not Available</button>
                                 {% endif %}
                             {% else %}
-                            <button class="btn btn-outline-dark" onclick="add_to_cart()">€ {{dish.price}}</button>
+                            <button class="view-only-btn btn btn-sm btn-outline-dark item-price" disabled onclick="add_to_cart()">€ {{dish.price}}</button>
                             {% endif %}
                         </div>
                         {% endif %}

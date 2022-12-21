@@ -57,7 +57,9 @@ def index(request):
             dish.allergies = allergens_temp
         except AttributeError as e:
             pass
-            # print(f"Error in ({dish}):", e)
+        except KeyError:
+            #no allergens for this item
+            pass
 
     return render(request, "orders/home.html", main_context)
 

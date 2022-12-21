@@ -472,6 +472,13 @@ body {
 }
 .item-description{
     font-style: italic;
+    font-size: .9rem;
+}
+
+.view-only-btn,
+.view-only-btn:disabled{
+    color: black;
+    opacity: 1;
 }
 
 pre {

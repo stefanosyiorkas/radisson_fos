@@ -6,7 +6,7 @@ from translated_fields import TranslatedField
 # Create your models here.
 
 class Category(models.Model):
-    category_title = TranslatedField(models.CharField(_("category_title"),max_length=200),)
+    category_title = TranslatedField(models.CharField(_("category_title"),max_length=200,null=True),)
 
     class Meta:
         verbose_name = "Category"
@@ -26,7 +26,7 @@ class Salad(models.Model):
     dish_image = models.ImageField(upload_to='salads', default='media/no-img-available.png')
     allergies = models.CharField(max_length=200, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    enabled = models.BooleanField()
+    enabled = models.BooleanField(default=1)
 
     class Meta:
         verbose_name = "Salad"

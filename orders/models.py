@@ -48,7 +48,7 @@ class Allergens(models.Model):
         return f"{self.allergen_name}"
 
 class Table(models.Model):
-    table_number = models.IntegerField()
+    table_number = models.PositiveIntegerField()
 
     def __str__(self):
         return f"{self.table_number}"

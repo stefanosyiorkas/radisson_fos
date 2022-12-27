@@ -9,3 +9,4 @@ django-session-timeout
 django-guest-user
 django-translated-fields
 whitenoise
+django-jazzmin

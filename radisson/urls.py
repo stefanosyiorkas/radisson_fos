@@ -24,7 +24,7 @@ urlpatterns = [
     re_path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 handler404='orders.views.handle_404'
-
-admin.site.site_header = "Admin Dashboard"
-admin.site.site_title = "Radisson FOS Admin Dashboard"
-admin.site.index_title = "Radisson FOS Admin Dashboard"
+#
+# admin.site.site_header = "Admin Dashboard"
+# admin.site.site_title = "Radisson FOS Admin Dashboard"
+# admin.site.index_title = "Radisson FOS Admin Dashboard"

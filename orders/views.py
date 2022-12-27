@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from .models import Category, Salad, AllDaySnacks, MainDishes, Burgers, Desserts, Allergens, UserOrder, SavedCarts, Table
+from .models import Category, Allergens, UserOrder, SavedCarts, Table, Foods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 import json
@@ -13,10 +13,17 @@ from datetime import datetime, timedelta, timezone
 
 def get_all_dishes():
     try:
-        return list(chain(Salad.objects.all(), AllDaySnacks.objects.all(), MainDishes.objects.all(), Burgers.objects.all(),Desserts.objects.all(),))
+        return Foods.objects.all()
     except Exception as e:
         print("DISHES ERROR "+str(e))
-        return None
+        return []
+
+# def get_all_drinks():
+#     try:
+#         return Foods.objects.all()
+#     except Exception as e:
+#         print("DISHES ERROR "+str(e))
+#         return []
 
 main_context = {
     "categories": Category.objects.all(),
@@ -60,7 +67,6 @@ def index(request):
         except KeyError:
             #no allergens for this item
             pass
-
     return render(request, "orders/home.html", main_context)
 
 @allow_guest_user

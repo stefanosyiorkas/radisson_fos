@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from . import jazzmin
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -70,6 +71,7 @@ TINYMCE_DEFAULT_CONFIG = {
 
 INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,6 +83,9 @@ INSTALLED_APPS = [
     'tinymce',
     'guest_user',
 ]
+
+JAZZMIN_SETTINGS = jazzmin.JAZZMIN_SETTINGS
+JAZZMIN_UI_TWEAKS = jazzmin.JAZZMIN_UI_TWEAKS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

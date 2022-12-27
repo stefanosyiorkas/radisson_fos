@@ -17,7 +17,7 @@
                 <section class="section" id="{{cat}}">
                    <h5 class="title-category"><span>{{cat}}</span></h5>
                     {% for dish in all_dishes %}
-                        {% if cat == dish.category_id %}
+                        {% if cat.id == dish.category_id and not dish.hidden %}
                         <div class="card" id="dish-card">
                             <div class="dish-body">
                                 <div>

@@ -1,13 +1,37 @@
 from django.contrib import admin
 from .models import Category, Foods, FoodOption, Drinks, DrinkOption, Allergens, UserOrder, SavedCarts, Table
-from django.db import models
+from django.contrib import messages
 from django.utils.html import format_html
 from django.contrib.admin.options import StackedInline
 from django.shortcuts import HttpResponseRedirect
+from translate import Translator
 
-
+translator= Translator(to_lang="Greek")
 class CategoryAdmin(admin.ModelAdmin):
-    ordering = ['category_title_en']
+    ordering = ['order']
+    list_display = ['category_title_en','category_title_el','order']
+
+    def response_add(self, request, obj, post_url_continue=None):
+        try:
+            obj.category_title_en = obj.category_title_en.title()
+            obj.category_title_el = translator.translate(obj.category_title_en)
+        except Exception as e:
+            obj.category_title_en = obj.category_title_en.title()
+            obj.category_title_el = ''
+            messages.error(request, "Translation failed, please enter manually")
+
+        # Save the form
+        obj.save()
+        last_saved_id = obj.id
+        return HttpResponseRedirect(str(request.path + f"{last_saved_id}/change/").replace("add/", ""))
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(CategoryAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['category_title_en'].required = True
+        form.base_fields['category_title_en'].label = 'Category Title'
+        form.base_fields['category_title_el'].label = 'Τίτλος Κατηγορίας'
+        form.base_fields['category_title_el'].widget.attrs['placeholder'] = 'This field will be translated to Greek'
+        return form
 
 
 class AllergensAdmin(admin.ModelAdmin):

@@ -1,5 +1,4 @@
 django
-django-tinymce
 jsmin
 pytz
 sqlparse

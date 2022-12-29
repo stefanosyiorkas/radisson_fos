@@ -108,6 +108,7 @@ JAZZMIN_SETTINGS = {
         "orders.UserOrder": "fas fa-receipt",
         "orders.Table": "fas fa-table",
         "orders.SavedCarts": "fas fa-save",
+        "orders.Drinks": "fas fa-cocktail",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",

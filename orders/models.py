@@ -53,7 +53,7 @@ class Drinks(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='drinks', blank=True)
+    image = models.ImageField(upload_to='drinks', default='media/no-img-available.png')
     available = models.BooleanField(default=True)
     has_options = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

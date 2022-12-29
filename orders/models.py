@@ -28,6 +28,9 @@ class Foods(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     enabled = models.BooleanField(default=1)
     hidden = models.BooleanField()
+    has_options = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = "Food"
@@ -35,6 +38,43 @@ class Foods(models.Model):
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
         return f"{self.category}:{self.dish_name}"
+
+class FoodOption(models.Model):
+    food = models.ForeignKey(Foods, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    allergies = models.CharField(max_length=200, blank=True, default='')
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.food.dish_name} - {self.name}"
+
+class Drinks(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='drinks', blank=True)
+    available = models.BooleanField(default=True)
+    has_options = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Drink"
+        verbose_name_plural = "Drinks"
+
+    def __str__(self):
+        return self.name
+
+
+class DrinkOption(models.Model):
+    drink = models.ForeignKey(Drinks, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.drink.name} - {self.name}"
+
 
 class Allergens(models.Model):
     allergen_name = models.CharField(max_length=200)

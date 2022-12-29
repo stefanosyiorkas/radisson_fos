@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Category, Foods, FoodOption, Drinks, DrinkOption, Allergens, UserOrder, SavedCarts, Table
-from tinymce.widgets import TinyMCE
 from django.db import models
 from django.utils.html import format_html
 from django.contrib.admin.options import StackedInline
@@ -8,10 +7,6 @@ from django.shortcuts import HttpResponseRedirect
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.TextField: {'widget': TinyMCE()},
-    }
-
     ordering = ['category_title_en']
 
 
@@ -32,7 +27,7 @@ class FoodAdmin(admin.ModelAdmin):
 
     image_tag.short_description = 'Image'
 
-    list_display = ('dish_name', 'dish_description', 'image_tag', 'category', 'price', 'enabled', 'hidden')
+    list_display = ('dish_name', 'image_tag', 'category', 'price', 'enabled', 'hidden')
 
     list_filter = [
         "category",
@@ -56,8 +51,14 @@ class DrinkOptionInline(StackedInline):
 
 
 class DrinksAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'available')
+    list_display = ('name', 'price', 'image_tag', 'available')
     inlines = [DrinkOptionInline]
+
+    def image_tag(self, obj):
+        return format_html(
+            '<img style="width: 2.5rem; height: 2.5rem; object-fit: cover;" src="{}" />'.format(obj.image.url))
+
+    image_tag.short_description = 'Image'
 
     def response_add(self, request, obj, post_url_continue=None):
         # Save the form

@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Category, Foods, Allergens, UserOrder, SavedCarts, Table
 from tinymce.widgets import TinyMCE
 from django.db import models
+from django.utils.html import format_html
 
 class CategoryAdmin(admin.ModelAdmin):
     formfield_overrides = {
@@ -14,7 +15,13 @@ class AllergensAdmin(admin.ModelAdmin):
     list_display = ('id','allergen_name',)
     ordering = ('id',)
 class FoodAdmin(admin.ModelAdmin):
-    list_display = ('dish_name','dish_description','category','price','enabled','hidden')
+
+    def image_tag(self, obj):
+        return format_html('<img style="width: 2.5rem; height: 2.5rem; object-fit: cover;" src="{}" />'.format(obj.dish_image.url))
+
+    image_tag.short_description = 'Image'
+
+    list_display = ('dish_name','dish_description','image_tag','category','price','enabled','hidden')
 
     list_filter = [
         "category",

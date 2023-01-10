@@ -4,50 +4,49 @@
 
 <div class="container main-container">
     {% if request.user.is_authenticated %}
-        {% if last_order %}
-            <div id="last-order-alert" class="alert alert-dark" role="alert">
-                Take a look on your last order <a href="/order_success" class="alert-link">here</a>
-            </div>
-        {% endif %}
+    {% if last_order %}
+    <div id="last-order-alert" class="alert alert-dark" role="alert">
+        Take a look on your last order <a href="/order_success" class="alert-link">here</a>
+    </div>
+    {% endif %}
     {% endif %}
     <div class=" my-4">
         <div class=" rounded-0 shadow">
-            <div class="card-body">
-               {% for cat in categories %}
+            <div class="form-inline d-flex justify-content-center md-form form-sm pt-3">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input class="searchBar form-control form-control-sm ml-3 w-75" type="text"
+                       placeholder="Search for menu items" id="searchBar" onkeyup="menuSearch()"
+                       aria-label="Search">
+            </div>
+            <div id="menu-card" class="card-body">
+                {% for cat in categories %}
                 <section class="section" id="{{cat}}">
-                   <h5 class="title-category"><span>{{cat}}</span></h5>
+                    <h5 class="title-category"><span>{{cat}}</span></h5>
                     {% for dish in all_dishes %}
-                        {% if cat.id == dish.category_id and not dish.hidden %}
-                        <div class="card" id="dish-card">
-                            <div class="dish-body">
-                                <div>
-                                    <h5 class="card-title">{{dish.dish_name}}</h5>
-                                    <div class="allergen-container">
-                                        {% for allergen in dish.allergies %}
-                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="{{allergen}}">
+                    {% if cat.id == dish.category_id and not dish.hidden %}
+                    <div class="card" id="dish-card">
+                        <div class="dish-body">
+                            <div>
+                                <h5 class="card-title">{{dish.dish_name}}</h5>
+                                <div class="allergen-container">
+                                    {% for allergen in dish.allergies %}
+                                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                                          data-placement="bottom" title="{{allergen}}">
                                             <img class="allergen-img" src="media/allergens/{{allergen}}.png">
                                         </span>
-                                        {% endfor %}
-                                    </div>
-                                    <h6 class="item-description">{{dish.dish_description}}</h6>
+                                    {% endfor %}
                                 </div>
-                                 <!-- Trigger the Modal -->
-                                <img id="dish-img-{{dish.dish_name}}" class="dish-img" src="media/{{dish.dish_image}}">
-
-                                <!-- The Modal -->
-                                <div id="dish-img-modal" class="dish-img-modal" onclick="document.getElementById('dish-img-modal').style.display='none'">
-
-                                  <!-- The Close Button -->
-                                  <span class="close" onclick="document.getElementById('dish-img-modal').style.display='none'">&times;</span>
-
-                                  <!-- Modal Content (The Image) -->
-                                  <img class="dish-img-modal-content" id="img01">
-
-                                  <!-- Modal Caption (Image Text) -->
-                                  <div id="caption"></div>
-                                </div>
-
-                                <script>
+                                <h6 class="item-description">{{dish.dish_description}}</h6>
+                            </div>
+                            <img id="dish-img-{{dish.dish_name}}" class="dish-img" src="media/{{dish.dish_image}}">
+                            <div id="dish-img-modal" class="dish-img-modal"
+                                 onclick="document.getElementById('dish-img-modal').style.display='none'">
+                                <span class="close"
+                                      onclick="document.getElementById('dish-img-modal').style.display='none'">&times;</span>
+                                <img class="dish-img-modal-content" id="img01">
+                                <div id="caption"></div>
+                            </div>
+                            <script>
                                 // Get the modal
                                 var modal = document.getElementById('dish-img-modal');
 
@@ -74,62 +73,74 @@
                                 catch(err) {
                                     console.log(err)
                                 }
-                                </script>
-                            </div>
-                            {% if request.user.is_authenticated %}
-                                {% if dish.enabled %}
-<!--                                <button class="btn btn-gold" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}', comments:''})">€ {{dish.price}}</button>-->
-                                <button type="button" class="btn btn-gold btn-sm item-price" data-toggle="modal" data-target="#{{dish.dish_name}}Modal" data-whatever="€ {{dish.price}}">€ {{dish.price}}</button>
 
-                                <div class="modal fade" id="{{dish.dish_name}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{dish.dish_name}}ModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog" role="document" style="margin-top: 7rem;">
-                                    <div class="modal-content">
-<!--                                      <div class="modal-header">-->
-<!--                                        <h5 class="modal-title" id="{{dish.dish_name}}ModalLabel">New message</h5>-->
-<!--                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                          <span aria-hidden="true">&times;</span>-->
-<!--                                        </button>-->
-<!--                                      </div>-->
-                                      <div class="modal-body">
-                                        <form>
-                                          <div class="form-group">
-                                            <label for="item-name" class="col-form-label">Item:</label>
-                                            <input type="text" class="form-control" id="item-name" value="{{dish.dish_name}}" disabled>
-                                          </div>
-                                          <div class="form-group">
-                                            <label for="item-price" class="col-form-label">Price:</label>
-                                            <input type="text" class="form-control" id="item-price" value="€ {{dish.price}}" disabled>
-                                          </div>
-                                          <div class="form-group">
-                                              <label for="{{dish.dish_name}}-additional-comments" class="col-form-label"><b>Additional Comments:</b></label>
-                                            <textarea class="form-control" id="{{dish.dish_name}}-additional-comments"></textarea>
-                                          </div>
-                                        </form>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-gold" data-dismiss="modal" onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}'})">Add to cart</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                {% else %}
-                                 <button class="btn btn-dark">Not Available</button>
-                                {% endif %}
-                            {% else %}
-                            <button class="view-only-btn btn btn-sm btn-outline-dark item-price" disabled onclick="add_to_cart()">€ {{dish.price}}</button>
-                            {% endif %}
+                            </script>
                         </div>
+                        {% if request.user.is_authenticated %}
+                        {% if dish.enabled %}
+                        <button type="button" class="btn btn-gold btn-sm item-price" data-toggle="modal"
+                                data-target="#{{dish.dish_name}}Modal" data-whatever="€ {{dish.price}}">€ {{dish.price}}
+                        </button>
+
+                        <div class="modal fade" id="{{dish.dish_name}}Modal" tabindex="-1" role="dialog"
+                             aria-labelledby="{{dish.dish_name}}ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="margin-top: 7rem;">
+                                <div class="modal-content">
+                                    <!--                                      <div class="modal-header">-->
+                                    <!--                                        <h5 class="modal-title" id="{{dish.dish_name}}ModalLabel">New message</h5>-->
+                                    <!--                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                                    <!--                                          <span aria-hidden="true">&times;</span>-->
+                                    <!--                                        </button>-->
+                                    <!--                                      </div>-->
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="item-name" class="col-form-label">Item:</label>
+                                                <input type="text" class="form-control" id="item-name"
+                                                       value="{{dish.dish_name}}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="item-price" class="col-form-label">Price:</label>
+                                                <input type="text" class="form-control" id="item-price"
+                                                       value="€ {{dish.price}}" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="{{dish.dish_name}}-additional-comments"
+                                                       class="col-form-label"><b>Additional Comments:</b></label>
+                                                <textarea class="form-control"
+                                                          id="{{dish.dish_name}}-additional-comments"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-gold" data-dismiss="modal"
+                                                onclick="add_to_cart({item_description:'{{dish.dish_name}}' , price:'{{dish.price}}'})">
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <button class="btn btn-dark">Not Available</button>
                         {% endif %}
+                        {% else %}
+                        <button class="view-only-btn btn btn-sm btn-outline-dark item-price" disabled
+                                onclick="add_to_cart()">€ {{dish.price}}
+                        </button>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                     {% endfor %}
-                {% endfor %}
                 </section>
+                {% endfor %}
             </div>
         </div>
     </div>
-    <div style="text-align: center; opacity: 0.7"> Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a></div>
+    <div style="text-align: center; opacity: 0.7"> Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a>
+    </div>
 </div>
-
 
 {% endblock %}
 

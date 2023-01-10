@@ -461,6 +461,35 @@ function retrieve_saved_cart() {
     }
 }
 
+function menuSearch() {
+    var input, filter, menu, cards, a, i, y, txtValue;
+    var categories = new Set();
+    input = document.getElementById('searchBar');
+    filter = input.value.toUpperCase();
+    menu = document.getElementById("menu-card");
+    cats = document.getElementsByClassName("section");
+    cards = menu.getElementsByClassName('card');
+
+    for (i = 0; i < cards.length; i++) {
+        h = cards[i].getElementsByTagName("h5")[0];
+        txtValue = h.textContent || h.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          categories.add(cards[i].parentElement.id);
+          cards[i].style.display = "";
+        } else {
+          cards[i].style.display = "none";
+        }
+    }
+    console.log(categories);
+    for (y = 0; y < cats.length; y++) {
+        if (categories.has(cats[y].id)) {
+            cats[y].style.display = '';
+        } else {
+            cats[y].style.display = "none";
+        }
+    }
+}
+
 function CheckoutButtonClicked()
 {
    document.getElementById("clear-cart-btn").disabled = true;

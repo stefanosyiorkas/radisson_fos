@@ -6,7 +6,8 @@ from translated_fields import TranslatedField
 # Create your models here.
 
 class Category(models.Model):
-    category_title = TranslatedField(models.CharField(_("category_title"),max_length=200,null=True),)
+    order = models.PositiveIntegerField(default=0)
+    category_title = TranslatedField(models.CharField(_("category_title"),max_length=200,blank=True),)
 
     class Meta:
         verbose_name = "Category"
@@ -16,8 +17,6 @@ class Category(models.Model):
         #overriding the string method to get a good representation of it in string format
         return f"{self.category_title}"
 
-    def has_add_permission(self):
-        return False
 
 class Foods(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)

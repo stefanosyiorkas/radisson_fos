@@ -9,3 +9,4 @@ django-guest-user
 django-translated-fields
 whitenoise
 django-jazzmin
+translate

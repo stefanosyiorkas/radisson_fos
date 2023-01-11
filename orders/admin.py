@@ -5,6 +5,7 @@ from django.utils.html import format_html
 from django.contrib.admin.options import StackedInline
 from django.shortcuts import HttpResponseRedirect
 from translate import Translator
+from .forms import FoodsForm
 
 translator= Translator(to_lang="Greek")
 class CategoryAdmin(admin.ModelAdmin):
@@ -62,6 +63,7 @@ class FoodAdmin(admin.ModelAdmin):
     )
 
     inlines = [FoodOptionInline]
+    form = FoodsForm
 
     def response_add(self, request, obj, post_url_continue=None):
         # Save the form

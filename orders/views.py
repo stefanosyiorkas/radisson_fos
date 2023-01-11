@@ -60,7 +60,7 @@ def index(request):
     allergens_dict = { str(allergen.id):allergen.allergen_name for allergen in allergens}
     for dish in main_context['all_dishes']:
         try:
-            allergens_temp = [allergens_dict[allergie] for allergie in dish.allergies.split(",")]
+            allergens_temp = [[allergie,allergens_dict[allergie]] for allergie in dish.allergies.split(",")]
             dish.allergies = allergens_temp
         except AttributeError as e:
             pass

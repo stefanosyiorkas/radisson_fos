@@ -29,7 +29,7 @@ class FoodsForm(forms.ModelForm):
         model = Foods
         fields = '__all__'
 
-    allergies = forms.CharField(
+    allergies = forms.CharField(required=False,
         widget=forms.TextInput(attrs={'placeholder': 'Enter allergen number and seperate with a comma (e.g. 1,2,3)'}),
         help_text="""
         <style>

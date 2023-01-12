@@ -45,64 +45,79 @@ class FoodsForm(forms.ModelForm):
         <tr>
             <th>#</th>
             <th>Allergen</th>
+            <th>Αλλεργιογόνο</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>1</td>
             <td>Peanuts</td>
+            <td>Φιστίκια</td>
         </tr>
         <tr>
             <td>2</td>
             <td>Nuts</td>
+            <td>Ξηροί Καρποί</td>
         </tr>
         <tr>
             <td>3</td>
-            <td>Crustaceans (Shellfish)<br></td>
+            <td>Crustaceans (Shellfish)</td>
+            <td>Οστρακοειδή</td>
         </tr>
         <tr>
             <td>4</td>
-            <td>Molluscs (Shellfish)<br></td>
+            <td>Molluscs (Shellfish)</td>
+            <td>Μαλάκια</td>
         </tr>
         <tr>
             <td>5</td>
             <td>Fish<br></td>
+            <td>Ψάρι</td>
         </tr>
         <tr>
             <td>6</td>
             <td>Eggs</td>
+            <td>Αυγά</td>
         </tr>
         <tr>
             <td>7</td>
-            <td>Milk<br></td>
+            <td>Milk</td>
+            <td>Γάλα</td>
         </tr>
         <tr>
             <td>8</td>
-            <td>Cereals Containing Gluten<br></td>
+            <td>Cereals Containing Gluten</td>
+            <td>Δημητριακά με Γλουτένη</td>
         </tr>
         <tr>
             <td>9</td>
-            <td>Soya<br></td>
+            <td>Soya</td>
+            <td>Σόγια</td>
         </tr>
         <tr>
             <td>10</td>
-            <td>Sesame Seeds<br></td>
+            <td>Sesame Seeds</td>
+            <td>Σπόροι σησαμιού</td>
         </tr>
         <tr>
             <td>11</td>
-            <td>Celery<br></td>
+            <td>Celery</td>
+            <td>Σέλινο</td>
         </tr>
         <tr>
             <td>12</td>
             <td>Mustard<br></td>
+            <td>Μουστάρδα</td>
         </tr>
         <tr>
             <td>13</td>
-            <td>Lupin<br></td>
+            <td>Lupin</td>
+            <td>Λούπινο</td>
         </tr>
         <tr>
             <td>14</td>
-            <td>Sulphur Dioxide<br></td>
+            <td>Sulphur Dioxide</td>
+            <td>Διοξείδιο του θείου</td>
         </tr>
         <tbody>
     </table>

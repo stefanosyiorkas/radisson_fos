@@ -65,6 +65,14 @@ class FoodAdmin(admin.ModelAdmin):
     inlines = [FoodOptionInline]
     form = FoodsForm
 
+    fields = (
+        'category','dish_name','dish_description',
+        'dish_image','food_image', 'allergies', 'price',
+        'enabled', 'hidden', 'has_options', 'created_at',
+        'updated_at',
+    )
+    readonly_fields = ('food_image','created_at', 'updated_at')
+
     def response_add(self, request, obj, post_url_continue=None):
         # Save the form
         obj.save()

@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.utils.translation import gettext as _
 from translated_fields import TranslatedField
-
+from django.utils.html import mark_safe
 # Create your models here.
 
 class Category(models.Model):
@@ -37,6 +37,11 @@ class Foods(models.Model):
     def __str__(self):
         #overriding the string method to get a good representation of it in string format
         return f"{self.category}:{self.dish_name}"
+
+    def food_image(self):
+        return mark_safe('<img src="/media/%s" style="width: 20rem; object-fit: cover;" />' % (self.dish_image))
+    food_image.short_description = 'Image Preview'
+
 
 class FoodOption(models.Model):
     food = models.ForeignKey(Foods, on_delete=models.CASCADE)

@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 handler404='orders.views.handle_404'
+handler500='orders.views.handle_500'
 handler403='orders.views.handle_403'
 #
 # admin.site.site_header = "Admin Dashboard"

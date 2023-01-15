@@ -299,5 +299,8 @@ def check_staff_user(request):
 def handle_404(request,exception):
     return render(request, 'orders/404.html')
 
+def handle_500(request):
+    return render(request, 'orders/500.html')
+
 def handle_403(request,exception):
     return render(request, 'orders/403.html')

@@ -10,6 +10,9 @@ from urllib.parse import urlencode
 from guest_user.decorators import allow_guest_user
 from itertools import chain
 from datetime import datetime, timedelta, timezone
+from django.http import JsonResponse
+from django.core import serializers
+from django.core.exceptions import PermissionDenied
 
 def get_all_dishes():
     try:
@@ -216,6 +219,25 @@ def view_orders(request):
         rows = UserOrder.objects.all().filter(username = request.user.username).order_by('-time_of_order')
         return render(request, "orders/orders.html", context = {"rows":rows})
 
+@login_required(login_url='orders:login')
+def update_orders(request):
+    if request.method == "GET":
+        if request.user.is_superuser or request.user.is_staff:
+            rows = UserOrder.objects.all().order_by('-time_of_order')
+            json_data = serializers.serialize("json", rows)
+            return HttpResponse(json_data, content_type='application/json')
+        else:
+            raise PermissionDenied
+
+@login_required(login_url='orders:login')
+def order_approved(request):
+    if request.method == "GET":
+        try:
+            order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
+            return HttpResponse(order.delivered)
+        except KeyError as e:
+            pass
+
 def mark_order_as_delivered(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -269,12 +291,13 @@ def retrieve_saved_cart(request):
         return HttpResponse('')
 
 def check_superuser(request):
-    print(f"User super??? {request.user.is_superuser}")
     return HttpResponse(request.user.is_superuser)
 
 def check_staff_user(request):
-    print(f"User staff??? {request.user.is_staff}")
     return HttpResponse(request.user.is_staff)
 
 def handle_404(request,exception):
     return render(request, 'orders/404.html')
+
+def handle_403(request,exception):
+    return render(request, 'orders/403.html')

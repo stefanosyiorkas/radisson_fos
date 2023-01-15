@@ -64,7 +64,7 @@ window.addEventListener("scroll", () => {
 });
 
 function order_list_functionality() {
-    document.getElementById('pending-orders').innerText = document.getElementsByClassName("table-danger").length
+//    document.getElementById('pending-orders').innerText = document.getElementsByClassName("table-danger").length
     onRowClick("orders_table", function(row) {
         var id = row.getElementsByTagName("td")[0].innerHTML;
         var csrftoken = getCookie('csrftoken');
@@ -233,7 +233,7 @@ function onRowClick(tableId, callback) {
     }
 }
 
-function display_notif(type, info = "No info provided") {
+function display_notif(type, info = "No info provided", timeout="3000") {
     //the different types of toasts are success, warning ... info and error
     toastr.options = {
         "closeButton": true,
@@ -245,7 +245,7 @@ function display_notif(type, info = "No info provided") {
         "onclick": null,
         "showDuration": "70",
         "hideDuration": "1000",
-        "timeOut": "3000",
+        "timeOut": timeout,
         "extendedTimeOut": "500",
         "showEasing": "swing",
         "hideEasing": "linear",
@@ -260,7 +260,7 @@ function display_notif(type, info = "No info provided") {
             toastr.info("Successfully removed " + info + " from cart");
             break;
         case "new order":
-            toastr.success("Order successfully placed");
+            toastr.success("New Order Received");
             break;
         case "table none":
             toastr.error("Please select a table");

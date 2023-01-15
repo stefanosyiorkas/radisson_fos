@@ -92,6 +92,12 @@ body {
     border-color: white !important;
 }
 
+.navbar-text > h6 {
+    margin: auto;
+    margin-right: .5rem;
+}
+
+
 .subcategory-link
 
 #card-tbl tbody tr:hover {
@@ -110,7 +116,7 @@ body {
 }
 
 .language-change-btn{
-    margin-left: auto;
+    margin-left: 0.5rem;
 }
 
 .nav-subcategories{
@@ -333,6 +339,7 @@ body {
 #table-num-badge {
     margin: auto;
     margin-top: 5px;
+    margin-left: 0.25rem;
     color: #23272b;
     border: 1px solid #23272b;
     background-color: transparent;

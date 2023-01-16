@@ -198,7 +198,7 @@ if (super_or_staff){
 
 function setMute(){
     if (mute){
-        document.getElementById("mute-btn").className = "btn btn-sm btn-success";
+        document.getElementById("mute-btn").className = "btn btn-sm btn-success active";
         mute = false;
         var audio = new Audio('media/notification.mp3');
         audio.play();

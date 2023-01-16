@@ -143,6 +143,7 @@
 
 <script>
 const $ = jQuery;
+var approved_notify_sent = false;
 
 const orderApproved = () => {
   $.ajax({
@@ -155,6 +156,7 @@ const orderApproved = () => {
         if (data == 'True') {
             pending.style.display = 'none';
             approved.style.display = '';
+            approved_notification();
         }
         else {
             pending.style.display = '';
@@ -170,5 +172,11 @@ const orderApproved = () => {
 setInterval(orderApproved, 5000);
 orderApproved();
 
+function approved_notification() {
+    if (!approved_notify_sent) {
+        alert('Your order has been approved by the kitchen');
+        approved_notify_sent = true;
+    }
+}
 </script>
 {% endblock %}

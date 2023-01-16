@@ -140,25 +140,24 @@ const updateOrders = () => {
             }
 
             const time_of_order = new Date(row.fields.time_of_order);
-            console.log(time_of_order);
             if (super_or_staff) {
                 row_html += `
-                    <td>${row.pk}</td>
+                    <td style="text-align: center;">${row.pk}</td>
                     <td>${row.fields.username}</td>
-                    <td>${formatDate(time_of_order)}</td>
+                    <td >${formatDate(time_of_order)}</td>
                 `;
 
                 order = row.fields.order.replaceAll("'","").replace("[","").replace("]","").split(',');
                 comments = row.fields.comments.replaceAll("'","").replace("[","").replace("]","").split(",");
 
                 row_html += `
-                    <td>
+                    <td style="width: 40%">
                         <ul>
                 `;
 
                 order.forEach((item, index) => {
                   const comment = comments[index];
-                  if (comment) {
+                  if (comment && comment != ' ') {
                     row_html += '<li>' + item + ' (' + comment + ' )' + '</li>';
                   } else {
                     row_html += '<li>' + item + '</li>';

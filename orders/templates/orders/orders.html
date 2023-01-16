@@ -5,6 +5,8 @@
     <div class="content my-3">
         <div class="card shadow rounded-0">
             <div class="card-body">
+                <button id="play-btn" type="button" class="btn btn-sm btn-primary" data-bs-toggle="button"
+                        onclick="playSound()" style="display: none;"><i class="fa fa-play"></i></button>
                 {% if user.is_superuser or user.is_staff %}
                 <button id="mute-btn" type="button" class="btn btn-sm btn-danger" data-bs-toggle="button"
                         onclick="setMute()"><i class="fa fa-volume-up"></i></button>
@@ -125,8 +127,9 @@ const updateOrders = () => {
         document.getElementById('pending-orders').innerText = pending_orders;
         if (pending_orders > pending_orders_old) {
             if (!mute) {
-                var audio = new Audio('media/notification.mp3');
-                audio.play();
+<!--                var audio = new Audio('media/notification.mp3');-->
+<!--                audio.play();-->
+                document.getElementById('play-btn').click();
             }
             display_notif("new order", "No info provided", "6000");
             pending_orders_old = pending_orders;
@@ -206,6 +209,11 @@ function setMute(){
         document.getElementById("mute-btn").className = "btn btn-sm btn-danger";
         mute = true;
     }
+}
+
+var audio = new Audio('media/notification.mp3');
+function playSound(){
+    audio.play();
 }
 
 

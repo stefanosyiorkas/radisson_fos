@@ -5,6 +5,7 @@
     <div class="content my-3">
         <div class="card shadow rounded-0">
             <div class="card-body">
+                {% if user.is_superuser or user.is_staff %} <button id="mute-btn" type="button" class="btn btn-sm btn-danger" data-bs-toggle="button" onclick="setMute()"><i class="fa fa-volume-up"></i></button> {% endif %}
                 <div class="row justify-content-center">
                     {% if user.is_superuser or user.is_staff %}
                     <div class="alert alert-primary" role="alert">
@@ -93,6 +94,7 @@
 <script>
 const $ = jQuery;
 var super_or_staff = check_user_super() || check_user_staff()
+var mute = true;
 
 function formatDate(date) {
   var hours = date.getHours();
@@ -119,8 +121,10 @@ const updateOrders = () => {
         var pending_orders_old = document.getElementById('pending-orders').innerText;
         document.getElementById('pending-orders').innerText = pending_orders;
         if (pending_orders > pending_orders_old) {
-            var audio = new Audio('media/notification.mp3');
-            audio.play();
+            if (!mute) {
+                var audio = new Audio('media/notification.mp3');
+                audio.play();
+            }
             display_notif("new order", "No info provided", "6000");
             pending_orders_old = pending_orders;
         }
@@ -190,6 +194,17 @@ if (super_or_staff){
     updateOrders();
 }
 
+function setMute(){
+    if (mute){
+        document.getElementById("mute-btn").className = "btn btn-sm btn-success";
+        mute = false;
+        var audio = new Audio('media/notification.mp3');
+        audio.play();
+    } else {
+        document.getElementById("mute-btn").className = "btn btn-sm btn-danger";
+        mute = true;
+    }
+}
 
 
 </script>

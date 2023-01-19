@@ -354,7 +354,7 @@ body {
 .dish-img-modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 100; /* Sit on top */
     padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
@@ -368,7 +368,7 @@ body {
 /* Modal Content (Image) */
 .dish-img-modal-content {
     margin: auto;
-    margin-top: 10rem;
+    margin-top: 30%;
     display: block;
     width: 80%;
     max-width: 700px;

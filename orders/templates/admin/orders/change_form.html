@@ -3628,7 +3628,7 @@ fileInput.addEventListener('change', function(e) {
                 input.files = fileList.files;
                 var url = URL.createObjectURL(fileList.files[0]);
                 console.log(url);
-                document.getElementById("imageContainer").innerHTML = "<image src=" + url + ' style="height: 30%; margin: auto;">';
+                document.getElementById("imageContainer").innerHTML = "<image src=" + url + ' style="width: 20rem; height: 30%; margin: auto;">';
                 imageContainer.style.height = "";
             }, 'image/jpeg', 1);
         });

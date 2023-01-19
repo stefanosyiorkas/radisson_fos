@@ -368,7 +368,6 @@ body {
 /* Modal Content (Image) */
 .dish-img-modal-content {
     margin: auto;
-    margin-top: 30%;
     display: block;
     width: 80%;
     max-width: 700px;

@@ -1,3 +1,15 @@
+.jazzmin-login-page {
+    background-image: url("https://princess-beach-hotel-larnaca.hotelmix.co.uk/data/Photos/OriginalPhoto/12848/1284815/1284815566/Radisson-Beach-Resort-Larnaca-Exterior.JPEG");
+    background-position: ;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-logo > h1 > picture > img {
+    filter: drop-shadow(0px 0px 15px #ffffff);
+    width: 50%;
+}
+
 .cancel-link {
     background-color: #343a40;
     border-color: #343a40;

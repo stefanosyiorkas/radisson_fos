@@ -266,6 +266,20 @@ def mark_order_as_pending(request):
             content_type="application/json"
         )
 
+def set_default_image(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        Foods.objects.filter(pk=id).update(dish_image='media/no-img-available.png')
+        return HttpResponse(
+            json.dumps({"good":"boy"}),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
 def save_cart(request):
     if request.method == 'POST':
         if not request.user.is_superuser or not request.user.is_staff:

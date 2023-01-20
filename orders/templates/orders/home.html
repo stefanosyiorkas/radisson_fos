@@ -38,6 +38,7 @@
                                 </div>
                                 <h6 class="item-description">{{dish.dish_description}}</h6>
                             </div>
+                            {% if dish.dish_image != "media/no-img-available.png" %}
                             <img id="dish-img-{{dish.dish_name}}" class="dish-img" src="media/{{dish.dish_image}}">
                             <div id="dish-img-modal" class="dish-img-modal"
                                  onclick="document.getElementById('dish-img-modal').style.display='none'">
@@ -75,6 +76,7 @@
                                 }
 
                             </script>
+                            {% endif %}
                         </div>
                         {% if request.user.is_authenticated %}
                         {% if dish.enabled %}

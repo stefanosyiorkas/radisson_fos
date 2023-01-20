@@ -29,6 +29,41 @@ class FoodsForm(forms.ModelForm):
         model = Foods
         fields = '__all__'
 
+    dish_image = forms.ImageField(help_text="""
+    <button id="removeItemImage" type="button" class="btn btn-danger btn-sm mx-auto mt-2" onclick="removeImageAdmin()">Remove Image</button>
+    <script>
+    if (document.getElementsByClassName('field-dish_image')[0].innerText.includes('media/no-img-available.png')) {
+        document.getElementById("removeItemImage").style.display = "none";
+    }
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    
+    function removeImageAdmin() {
+        var r = confirm("Remove image for this item?");
+        if (r == true) {
+            var item_id = window.location.pathname.split("/")[4];
+            var csrftoken = getCookie('csrftoken');
+            $.ajax({
+                url: "/set_default_image",
+                type: "POST",
+                data: { id: item_id, csrfmiddlewaretoken: csrftoken },
+        
+                success: function(json) {
+                    location.reload();
+                },
+                error: function(xhr, errmsg, err) {
+                    console.log("Unable to remove image due to error: " + xhr.responseText);
+                }
+            });
+        }
+        
+    }
+    </script>
+    """)
     allergies = forms.CharField(required=False,
         widget=forms.TextInput(attrs={'placeholder': 'Enter allergen number and seperate with a comma (e.g. 1,2,3)'}),
         help_text="""

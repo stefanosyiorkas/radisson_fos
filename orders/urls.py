@@ -19,6 +19,7 @@ urlpatterns = [
     path("update-orders", views.update_orders, name="update_orders"),
     path("mark_order_as_delivered", views.mark_order_as_delivered, name="mark_order_as_delivered"),
     path("mark_order_as_pending", views.mark_order_as_pending, name="mark_order_as_pending"),
+    path("set_default_image", views.set_default_image,  name="set_default_image"),
     path("save_cart", views.save_cart, name="save_cart"),
     path("retrieve_saved_cart", views.retrieve_saved_cart, name="retrieve_saved_cart"),
     path("check_superuser", views.check_superuser, name="check_superuser"),

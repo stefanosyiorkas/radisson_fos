@@ -40,7 +40,7 @@ class Foods(models.Model):
 
     def save(self, *args, **kwargs):
         # Set the upload_to parameter based on the form data
-        self.dish_image.field.upload_to = f'{self.category}'
+        self.dish_image.field.upload_to = f'food_images/{self.category}'
         # Save the image
         super().save(*args, **kwargs)
 

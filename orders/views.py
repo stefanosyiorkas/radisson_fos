@@ -269,7 +269,10 @@ def mark_order_as_pending(request):
 def set_default_image(request):
     if request.method == 'POST':
         id = request.POST.get('id')
-        Foods.objects.filter(pk=id).update(dish_image='media/no-img-available.png')
+        item = Foods.objects.filter(pk=id)
+        item.first().dish_image.delete()
+        item.update(dish_image='media/no-img-available.png')
+
         return HttpResponse(
             json.dumps({"good":"boy"}),
             content_type="application/json"

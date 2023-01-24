@@ -99,7 +99,7 @@ MIDDLEWARE = [
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
 
-ROOT_URLCONF = 'radisson.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -118,7 +118,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'radisson.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database

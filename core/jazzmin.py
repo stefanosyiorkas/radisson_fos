@@ -1,15 +1,16 @@
 from menu.apps import MenuConfig as Configuration
+from core.info import Info
 ORDERING = Configuration.ordering
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Radisson FOS Admin",
+    "site_title": Info.admin_site_title,
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Radisson FOS",
+    "site_header": Info.admin_site_header,
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Radisson FOS",
+    "site_brand": Info.admin_site_brand,
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "img/logo.png",
@@ -27,7 +28,7 @@ JAZZMIN_SETTINGS = {
     "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to Radisson FOS Admin",
+    "welcome_sign": Info.admin_welcome_text ,
 
     # Copyright on the footer
     "copyright": "Leyio Digital",

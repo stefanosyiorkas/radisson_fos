@@ -1,0 +1,14 @@
+1	Peanuts
+2	Nuts
+3	Crustaceans (Shellfish)
+4	Molluscs (Shellfish)
+5	Fish
+6	Eggs
+7	Milk
+8	Cereals Containing Gluten
+9	Soya
+10	Sesame Seeds
+11	Celery
+12	Mustard
+13	Lupin
+14	Sulphur Dioxide

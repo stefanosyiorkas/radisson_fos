@@ -1,3 +1,6 @@
+from menu.apps import MenuConfig as Configuration
+ORDERING = Configuration.ordering
+
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Radisson FOS Admin",
@@ -83,15 +86,15 @@ JAZZMIN_SETTINGS = {
     "hide_models": [],
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    # "order_with_respect_to": ["auth","orders"],
+    # "order_with_respect_to": ["auth","menu"],
 
     # # Custom links to append to app groups, keyed on app name
     # "custom_links": {
-    #     "orders": [{
+    #     "menu": [{
     #         "name": "Make Messages",
     #         "url": "make_messages",
     #         "icon": "fas fa-comments",
-    #         "permissions": ["orders.index"]
+    #         "permissions": ["menu.index"]
     #     }]
     # },
 
@@ -102,13 +105,13 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
         "guest_user.guest": "far fa-user",
-        "orders.Allergens": "fas fa-leaf",
-        "orders.Category": "fas fa-list",
-        "orders.Foods": "fas fa-utensils",
-        "orders.UserOrder": "fas fa-receipt",
-        "orders.Table": "fas fa-table",
-        "orders.SavedCarts": "fas fa-save",
-        "orders.Drinks": "fas fa-cocktail",
+        "menu.Allergens": "fas fa-leaf",
+        "menu.Category": "fas fa-list",
+        "menu.Foods": "fas fa-utensils",
+        "menu.UserOrder": "fas fa-receipt",
+        "menu.Table": "fas fa-table",
+        "menu.SavedCarts": "fas fa-save",
+        "menu.Drinks": "fas fa-cocktail",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -124,8 +127,8 @@ JAZZMIN_SETTINGS = {
     # UI Tweaks #
     #############
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    "custom_css": '/orders/custom_admin.css',
-    "custom_js": '/orders/custom_admin.js',
+    "custom_css": '/menu/custom_admin.css',
+    "custom_js": '/menu/custom_admin.js',
     # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
     # Whether to show the UI customizer on the sidebar
@@ -179,3 +182,7 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": False
 }
+
+if not ORDERING:
+    JAZZMIN_SETTINGS["hide_apps"] = ["guest_user"]
+    JAZZMIN_SETTINGS["hide_models"] = ["menu.Table","menu.SavedCarts", "menu.UserOrder"]

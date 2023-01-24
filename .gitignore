@@ -1,2 +1,7 @@
+/.idea
+*.log
+*.pot
 *.pyc
-/.idea/*
+__pycache__/
+/media/food_images/
+db.sqlite3

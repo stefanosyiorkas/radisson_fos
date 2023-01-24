@@ -15,18 +15,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 
-
 urlpatterns = [
-    path("", include("orders.urls")),
+    path("", include("menu.urls")),
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
-    path("convert/", include("guest_user.urls")),
     re_path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
-handler404='orders.views.handle_404'
-handler500='orders.views.handle_500'
-handler403='orders.views.handle_403'
-#
-# admin.site.site_header = "Admin Dashboard"
-# admin.site.site_title = "Radisson FOS Admin Dashboard"
-# admin.site.index_title = "Radisson FOS Admin Dashboard"
+handler404='menu.views.handle_404'
+handler500='menu.views.handle_500'
+handler403='menu.views.handle_403'

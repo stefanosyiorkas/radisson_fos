@@ -107,6 +107,11 @@ class DrinksAdmin(admin.ModelAdmin):
         last_saved_id = obj.id
         return HttpResponseRedirect(str(request.path + f"{last_saved_id}/change/").replace("add/", ""))
 
+class UserOrderAdmin(admin.ModelAdmin):
+    change_form_template = 'admin/menu/user_order_form.html'
+    def has_change_permission(self, request, obj=None):
+        return False
+
 
 class TableAdmin(admin.ModelAdmin):
     ordering = ('table_number',)
@@ -114,7 +119,7 @@ class TableAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 
-admin.site.register(UserOrder)
+admin.site.register(UserOrder, UserOrderAdmin)
 admin.site.register(SavedCarts)
 
 admin.site.register(Foods, FoodAdmin)

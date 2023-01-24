@@ -1,0 +1,36 @@
+{% extends "admin/change_form.html" %}
+
+{% block field_sets %}
+{{block.super}}
+
+<script>
+    var order_field = document.getElementsByClassName('field-order')[0].getElementsByClassName('readonly')[0].innerText
+    var comment_field = document.getElementsByClassName('field-comments')[0].getElementsByClassName('readonly')[0].innerText
+
+    order_field_list = order_field.replaceAll("'","").replace("[","").replace("]","").split(',');
+    comment_field_list = comment_field.replaceAll("'","").replace("[","").replace("]","").split(',');
+
+    order_html = "<ul>"
+    comments_html = "<ul>"
+
+    order_field_list.forEach((item, index) => {
+    });
+
+    comment_field_list.forEach((item, index) => {
+
+    });
+
+    order_field_list.forEach((item, index) => {
+      const comment = comment_field_list[index];
+      order_html += '<li>' + item + '</li>';
+      if (comment.length > 0){
+        comments_html += '<li>' + "For " + item + ": " + comment + '</li>';
+      }
+    });
+    comments_html += '</ul>';
+    order_html += '</ul>';
+
+    document.getElementsByClassName('field-order')[0].getElementsByClassName('readonly')[0].innerHTML = order_html;
+    document.getElementsByClassName('field-comments')[0].getElementsByClassName('readonly')[0].innerHTML = comments_html;
+</script>
+{% endblock %}

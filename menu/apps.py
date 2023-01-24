@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 class MenuConfig(AppConfig):
     name = 'menu'
-    ordering = False
+    ordering = True

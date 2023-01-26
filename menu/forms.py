@@ -8,7 +8,7 @@ class Registration(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
-            {'class': 'form-control form-control-sm rounded-0', 'placeholder': "jsmith"})
+            {'class': 'form-control form-control-sm rounded-0', 'placeholder': "Enter a username"})
         self.fields['password1'].widget.attrs.update(
             {'class': 'form-control form-control-sm rounded-0', 'placeholder': "*******"})
         self.fields['password2'].widget.attrs.update(

@@ -1,11 +1,8 @@
-import logging
-
 from django.db import models
 from datetime import datetime
 from django.utils.translation import gettext as _
 from translated_fields import TranslatedField
 from django.utils.html import mark_safe
-# Create your models here.
 
 class Category(models.Model):
     order = models.PositiveIntegerField(default=0)
@@ -16,7 +13,6 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
     def __str__(self):
-        #overriding the string method to get a good representation of it in string format
         return f"{self.category_title}"
 
 
@@ -37,7 +33,6 @@ class Foods(models.Model):
         verbose_name = "Food"
         verbose_name_plural = "Food"
     def __str__(self):
-        #overriding the string method to get a good representation of it in string format
         return f"{self.category}:{self.dish_name}"
 
     def save(self, *args, **kwargs):
@@ -98,7 +93,6 @@ class Allergens(models.Model):
         verbose_name_plural = "Allergens"
 
     def __str__(self):
-        #overriding the string method to get a good representation of it in string format
         return f"{self.allergen_name}"
 
 class Table(models.Model):
@@ -108,10 +102,10 @@ class Table(models.Model):
         return f"{self.table_number}"
 
 class UserOrder(models.Model):
-    username = models.CharField(max_length=200) #who placed the order
-    order = models.TextField() #this will be a string representation of the cart from localStorage
+    username = models.CharField(max_length=200)
+    order = models.TextField()
     comments = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2) #how much was the order
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     table_number = models.IntegerField()
     time_of_order  = models.DateTimeField(default=datetime.now, blank=True)
     delivered = models.BooleanField()
@@ -121,12 +115,11 @@ class UserOrder(models.Model):
         verbose_name_plural = "Orders"
 
     def __str__(self):
-        #overriding the string method to get a good representation of it in string format
         return f"Order placed by  : {self.username} on {self.time_of_order.date()} at {self.time_of_order.time().strftime('%H:%M:%S')}"
 
 class SavedCarts(models.Model):
     username = models.CharField(max_length=200, primary_key=True)
-    cart = models.TextField() #this will be a string representation of the cart from localStorage
+    cart = models.TextField()
 
     class Meta:
         verbose_name = "Saved Cart"
@@ -134,5 +127,4 @@ class SavedCarts(models.Model):
 
 
     def __str__(self):
-        #overriding the string method to get a good representation of it in string format
         return f"Saved cart for {self.username}"

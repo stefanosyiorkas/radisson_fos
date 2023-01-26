@@ -10,3 +10,4 @@ django-translated-fields
 whitenoise
 django-jazzmin
 translate
+tinymce

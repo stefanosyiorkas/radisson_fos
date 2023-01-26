@@ -18,7 +18,7 @@ from django.urls import include, path, re_path
 urlpatterns = [
     path("", include("menu.urls")),
     path("admin/", admin.site.urls),
-    path('tinymce/', include('tinymce.urls')),
+    # path('tinymce/', include('tinymce.urls')),
     re_path(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 handler404='menu.views.handle_404'

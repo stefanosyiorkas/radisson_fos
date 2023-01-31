@@ -48,31 +48,31 @@ $(document).ready(function() {
 });
 
 const sections = document.querySelectorAll("section");
-const links = document.querySelectorAll("nav .subcategory-link");
-try{
-    links[0].classList.add("active")
-} catch(e){
-    console.log(e)
-}
-
-window.addEventListener("scroll", () => {
-    var current = "";
-
-    sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        if (scrollY >= sectionTop - 900 ) {
-            current = section.getAttribute("id"); 
-        }
-    });
-
-    links.forEach((li) => {
-        li.classList.remove("active");
-        if (li.title === current) {
-            li.classList.add("active");
-            li.scrollIntoView()
-        }
-    });
-});
+//const links = document.querySelectorAll("nav .subcategory-link");
+//try{
+//    links[0].classList.add("active")
+//} catch(e){
+//    console.log(e)
+//}
+//
+//window.addEventListener("scroll", () => {
+//    var current = "";
+//
+//    sections.forEach((section) => {
+//        const sectionTop = section.offsetTop;
+//        if (scrollY >= sectionTop - 900 ) {
+//            current = section.getAttribute("id");
+//        }
+//    });
+//
+//    links.forEach((li) => {
+//        li.classList.remove("active");
+//        if (li.title === current) {
+//            li.classList.add("active");
+//            li.scrollIntoView()
+//        }
+//    });
+//});
 
 function order_list_functionality() {
 //    document.getElementById('pending-orders').innerText = document.getElementsByClassName("table-danger").length
@@ -215,16 +215,20 @@ function add_to_cart(info) {
 }
 
 // Get the button:
-let mybutton = document.getElementById("myBtn");
+let mybutton = document.getElementById("goToTop");
 
 // When the user scrolls down 500px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function() {myscrollFunction()};
 
-function scrollFunction() {
-  if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-    mybutton.style.opacity = 1;
-  } else {
-    mybutton.style.opacity = 0;
+function myscrollFunction() {
+  try {
+      if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+        mybutton.style.opacity = 1;
+      } else {
+        mybutton.style.opacity = 0;
+      }
+  } catch (e) {
+    console.log(e)
   }
 }
 
@@ -234,6 +238,12 @@ function topFunction() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+function scrollToElement(id){
+console.log("scrollToElement")
+console.log(id)
+ var element = document.getElementById(id);
+ element.scrollIntoView();
+}
 
 function onRowClick(tableId, callback) {
     var table = document.getElementById(tableId),

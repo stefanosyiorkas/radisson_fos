@@ -283,7 +283,7 @@ body {
 }
 
 .shadow{
-    box-shadow: 0 0 2rem rgba(0, 0, 0, 0.244) !important
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1) !important
 }
 
 .nav-main{
@@ -302,16 +302,16 @@ body {
 }
 
 .container{
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    padding-right: 0rem;
+    padding-left: 0rem;
 }
 
 .main-container{
-    margin-top: 8em;
+    margin-top: 5.5em;
 }
 
 .secondary-container{
-    margin-top: 5.5rem;
+    margin-top: 2.5rem;
 }
 
 .section {

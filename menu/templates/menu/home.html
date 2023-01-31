@@ -12,7 +12,7 @@
     {% endif %}
     <div class=" my-4">
         <div class=" rounded-0 shadow">
-            <div class="form-inline d-flex justify-content-center md-form form-sm pt-3">
+            <div class="form-inline d-flex justify-content-center md-form form-sm pt-3" data-aos="zoom-in">
                 <i class="fa fa-search" aria-hidden="true"></i>
                 <input class="searchBar form-control form-control-sm ml-3 w-75" type="text"
                        placeholder="Search for menu items" id="searchBar" onkeyup="menuSearch()"
@@ -21,10 +21,10 @@
             <div id="menu-card" class="card-body">
                 {% for cat in categories %}
                 <section class="section" id="{{cat}}">
-                    <h5 class="title-category"><span>{{cat}}</span></h5>
+                    <h5 class="title-category" data-aos="fade-right" data-aos-delay="100"><span>{{cat}}</span></h5>
                     {% for dish in all_dishes %}
                     {% if cat.id == dish.category_id and not dish.hidden %}
-                    <div class="card" id="dish-card">
+                    <div class="card" id="dish-card" data-aos="fade-up" data-aos-delay="200">
                         <div class="dish-body">
                             <div>
                                 <h5 class="card-title">{{dish.dish_name}}</h5>

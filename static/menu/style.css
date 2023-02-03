@@ -370,10 +370,18 @@ body {
 /* Modal Content (Image) */
 .dish-img-modal-content {
     margin: auto;
-    transform: translateY(50%);
     display: block;
     width: 80%;
     max-width: 700px;
+}
+
+@media (max-width: 700px) {
+    .dish-img-modal-content {
+        margin: 50% auto;;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */

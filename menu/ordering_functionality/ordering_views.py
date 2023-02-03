@@ -1,5 +1,4 @@
-from menu.common_views import *
-
+import logging
 import json
 
 from django.http import HttpResponse, JsonResponse
@@ -8,9 +7,11 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from django.core.exceptions import PermissionDenied
 
-
 from guest_user.decorators import allow_guest_user
 
+from ..models import *
+from ..views import main_context
+from ..apps import MenuConfig as Configuration
 @allow_guest_user
 def hello_guest(request):
     table = request.GET.get('table')
@@ -23,18 +24,9 @@ def hello_guest(request):
             logging.error(f'Table {table} does not exist')
     except (TypeError, ValueError):
         logging.error(f"Table << {table} >> is not valid")
+    return redirect(f"{Configuration.name}:index")
 
-    """
-    SOURCE: https://django-guest-user.readthedocs.io/en/latest/usage.html
-    This view will always have an authenticated user, but some may be guests.
-    The default username generator will create a UUID4.
-
-    Example response: "Hello, b5daf1dd-1a2f-4d18-a74c-f13bf2f086f7!"
-    """
-    # return HttpResponse(f"Hello, {request.user.username}!")
-    return redirect("menu:index")
-
-@login_required(login_url='menu:login')
+@login_required(login_url='main:login')
 def cart(request):
     tables = Table.objects.all()
     context = {'tables': tables}
@@ -89,7 +81,7 @@ def checkout(request):
             content_type="application/json"
         )
 
-@login_required(login_url='menu:login')
+@login_required(login_url='main:login')
 def order_success(request):
     try:
         order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
@@ -103,7 +95,7 @@ def order_success(request):
 
     return render(request, "menu/order_received.html", context={"order": order, "order_list": order_list})
 
-@login_required(login_url='menu:login')
+@login_required(login_url='main:login')
 def view_orders(request):
     if request.user.is_superuser or request.user.is_staff:
         rows = UserOrder.objects.all().order_by('-time_of_order')
@@ -117,7 +109,7 @@ def view_orders(request):
         rows = UserOrder.objects.all().filter(username=request.user.username).order_by('-time_of_order')
         return render(request, "menu/orders.html", context={"rows": rows})
 
-@login_required(login_url='menu:login')
+@login_required(login_url='main:login')
 def update_orders(request):
     if request.method == "GET":
         if request.user.is_superuser or request.user.is_staff:
@@ -127,14 +119,14 @@ def update_orders(request):
         else:
             raise PermissionDenied
 
-@login_required(login_url='menu:login')
+@login_required(login_url='main:login')
 def order_approved(request):
     if request.method == "GET":
         try:
             order = UserOrder.objects.filter(username=request.user.username).order_by('-time_of_order')[0]
             return HttpResponse(order.delivered)
         except KeyError as e:
-            pass
+            logging.error(e)
 
 def mark_order_as_delivered(request):
     if request.method == 'POST':

@@ -451,7 +451,7 @@ function logout() {
         var current_cart = localStorage.getItem("cart")
         var csrftoken = getCookie('csrftoken');
         $.ajax({
-            url: "/save_cart", // the endpoint
+            url: "save_cart", // the endpoint
             type: "POST", // http method
             data: { cart: current_cart, csrfmiddlewaretoken: csrftoken }, // data sent with the post request
 
@@ -460,7 +460,7 @@ function logout() {
                 //clear the local storage
                 localStorage.removeItem("cart"); //Clear the cart
                 localStorage.setItem('cart_retrieved', false);
-                window.location.href = "/logout";
+                window.location.href = "logout";
             },
 
             // handle a non-successful response
@@ -486,34 +486,5 @@ function retrieve_saved_cart() {
             }
         });
         //
-    }
-}
-
-function menuSearch() {
-    var input, filter, menu, cards, a, i, y, txtValue;
-    var categories = new Set();
-    input = document.getElementById('searchBar');
-    filter = input.value.toUpperCase();
-    menu = document.getElementById("menu-card");
-    cats = document.getElementsByClassName("section");
-    cards = menu.getElementsByClassName('card');
-
-    for (i = 0; i < cards.length; i++) {
-        h = cards[i].getElementsByTagName("h5")[0];
-        txtValue = h.textContent || h.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          categories.add(cards[i].parentElement.id);
-          cards[i].style.display = "";
-        } else {
-          cards[i].style.display = "none";
-        }
-    }
-    console.log(categories);
-    for (y = 0; y < cats.length; y++) {
-        if (categories.has(cats[y].id)) {
-            cats[y].style.display = '';
-        } else {
-            cats[y].style.display = "none";
-        }
     }
 }

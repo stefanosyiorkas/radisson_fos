@@ -11,9 +11,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get(
     'DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 # WHEN CHANGING RUN python manage.py collectstatic
-DEBUG = False if 'DJANGO_DEBUG' in os.environ and os.environ['DJANGO_DEBUG'] == 'false' else True
+DEBUG = True
 #
 # if not DEBUG:
 #     SECURE_HSTS_SECONDS = 60
@@ -59,6 +58,7 @@ CSRF_TRUSTED_ORIGINS = ['https://sgiorkas.pythonanywhere.com']
 
 # Application definition
 INSTALLED_APPS = [
+    'main.apps.MainConfig',
     'menu.apps.MenuConfig',
     'jazzmin',
     'django.contrib.admin',
@@ -150,7 +150,11 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en'
-LANGUAGES = [("en", "English"), ("el", "Greek")]
+LANGUAGES = [ ("en", "English"), ("el", "Greek")]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 TIME_ZONE = 'Europe/Athens'
 

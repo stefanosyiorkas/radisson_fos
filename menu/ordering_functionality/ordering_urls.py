@@ -1,5 +1,5 @@
 from django.urls import include, path
-from menu import views
+from . import ordering_views as views
 
 orders_urlpatterns = [
     path("guest", views.hello_guest, name="guest"),

@@ -1,0 +1,14 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'menu/style.css' %}"/>
+
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">403</h1>
+        <p class="fs-3"><span class="text-danger">Sorry!</span> Permission Denied</p>
+        <p class="lead">
+            You are not allowed to see this page
+        </p>
+        <button onclick="history.back()" class="btn btn-gold">Go Back</button>
+    </div>
+</div>

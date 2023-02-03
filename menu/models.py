@@ -1,30 +1,83 @@
+import logging
+
+from .apps import MenuConfig as Configuration
 from django.db import models
 from datetime import datetime
 from django.utils.translation import gettext as _
 from translated_fields import TranslatedField
 from django.utils.html import mark_safe
 
+class CategoryBaseModel(models.Model):
+    title = TranslatedField(models.CharField(_("title"),max_length=200,blank=True),)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return f"{self.title}"
+
 class Category(models.Model):
     order = models.PositiveIntegerField(default=0)
-    category_title = TranslatedField(models.CharField(_("category_title"),max_length=200,blank=True),)
+    title = TranslatedField(models.CharField(_("title"),max_length=200,blank=True),)
 
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
 
     def __str__(self):
-        return f"{self.category_title}"
+        return f"{self.title}"
+
+class Subcategory(CategoryBaseModel):
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        verbose_name = "Subcategory"
+        verbose_name_plural = "Subcategories"
+
+class ItemBaseModel(models.Model):
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='item_imgs', blank=True, null=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    enabled = models.BooleanField(default=1)
+    available = models.BooleanField(default=1)
+    has_options = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract=True
+
+    def __str__(self):
+        return f"{self.subcategory}:{self.name}"
+
+    def save_image(self):
+        try:
+            self.image.field.upload_to = f'{Configuration.name}_images/{self.__class__.__name__}/{self.subcategory}'
+        except AttributeError as e:
+            logging.error(e)
+
+    def save(self, *args, **kwargs):
+        self.save_image()
+        super().save(*args, **kwargs)
+
+    def item_image(self):
+        if not self.image or self.image == 'none':
+            self.image = "media/no-img-available.png"
+        return mark_safe('<img src="/media/%s" style="width: 20rem; object-fit: cover;" />' % (self.image))
+    item_image.short_description = 'Image Preview'
 
 
 class Foods(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     dish_name = models.CharField(max_length=200)
     dish_description = models.TextField(null=True, blank=True)
-    dish_image = models.ImageField(upload_to='food_imgs', blank=True, null=True)
+    image = models.ImageField(upload_to='food_imgs', blank=True, null=True)
     allergies = models.CharField(max_length=200, blank=True, default='')
     price = models.DecimalField(max_digits=6, decimal_places=2)
     enabled = models.BooleanField(default=1)
-    hidden = models.BooleanField()
+    available = models.BooleanField(default=1)
     has_options = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -36,15 +89,17 @@ class Foods(models.Model):
         return f"{self.category}:{self.dish_name}"
 
     def save(self, *args, **kwargs):
-        # Set the upload_to parameter based on the form data
-        self.dish_image.field.upload_to = f'food_images/{self.category}'
-        # Save the image
-        super().save(*args, **kwargs)
+        try:
+            self.image.field.upload_to = f'{Configuration.name}_images/{self.category}'
+            super().save(*args, **kwargs)
+        except AttributeError as e:
+            logging.error(e)
+            super().save(*args, **kwargs)
 
     def food_image(self):
-        if self.dish_image=="":
-            self.dish_image = "media/no-img-available.png"
-        return mark_safe('<img src="/media/%s" style="width: 20rem; object-fit: cover;" />' % (self.dish_image))
+        if not self.image or self.image == 'none':
+            self.image = "media/no-img-available.png"
+        return mark_safe('<img src="/media/%s" style="width: 20rem; object-fit: cover;" />' % (self.image))
     food_image.short_description = 'Image Preview'
 
 
@@ -58,22 +113,10 @@ class FoodOption(models.Model):
     def __str__(self):
         return f"{self.food.dish_name} - {self.name}"
 
-class Drinks(models.Model):
-    name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='drinks', default='media/no-img-available.png')
-    available = models.BooleanField(default=True)
-    has_options = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
+class Drinks(ItemBaseModel):
     class Meta:
         verbose_name = "Drink"
         verbose_name_plural = "Drinks"
-
-    def __str__(self):
-        return self.name
 
 
 class DrinkOption(models.Model):
@@ -83,17 +126,6 @@ class DrinkOption(models.Model):
 
     def __str__(self):
         return f"{self.drink.name} - {self.name}"
-
-
-class Allergens(models.Model):
-    allergen_name = models.CharField(max_length=200)
-
-    class Meta:
-        verbose_name = "Allergen"
-        verbose_name_plural = "Allergens"
-
-    def __str__(self):
-        return f"{self.allergen_name}"
 
 class Table(models.Model):
     table_number = models.PositiveIntegerField()

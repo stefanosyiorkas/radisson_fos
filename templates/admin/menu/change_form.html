@@ -319,7 +319,7 @@
 <script>
 var iDiv = document.createElement('div');
 iDiv.id = 'imageContainer';
-document.getElementsByClassName('field-dish_image')[0].appendChild(iDiv);
+document.getElementsByClassName('field-image')[0].appendChild(iDiv);
 
 </script>
 
@@ -3587,7 +3587,7 @@ document.getElementsByClassName('field-dish_image')[0].appendChild(iDiv);
 
 </script>
 <script>
-var fileInput = document.getElementById('id_dish_image');
+var fileInput = document.getElementById('id_image');
 var imageContainer = document.getElementById('imageContainer');
 var cropper;
 fileInput.addEventListener('change', function(e) {
@@ -3619,7 +3619,7 @@ fileInput.addEventListener('change', function(e) {
 
         document.getElementById("crop-image-button").addEventListener("click", function(event){
            cropper.getCroppedCanvas().toBlob((blob) => {
-                var input = document.getElementById("id_dish_image");
+                var input = document.getElementById("id_image");
                 var file = fileInput.files[0];
                 var fileName = file.name;
                 var file = new File([blob], fileName, {type: "image/jpeg"});
@@ -3654,7 +3654,7 @@ fileInput.addEventListener('change', function(e) {
 // <!--    e.preventDefault();-->
 // <!--    var form = e.target;-->
 // <!--    cropper.getCroppedCanvas().toBlob((blob) => {-->
-// <!--        var input = document.getElementById("id_dish_image");-->
+// <!--        var input = document.getElementById("id_image");-->
 // <!--        var file = fileInput.files[0];-->
 // <!--        var fileName = file.name;-->
 // <!--        var file = new File([blob], fileName, {type: "image/jpeg"});-->

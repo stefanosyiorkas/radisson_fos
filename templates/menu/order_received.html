@@ -148,7 +148,7 @@ const $ = jQuery;
 
 const orderApproved = () => {
   $.ajax({
-    url: '/order-approved',
+    url: 'order-approved',
     method: 'GET',
     success: (data) => {
         pending = document.getElementById('orderPending');

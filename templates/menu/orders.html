@@ -112,7 +112,7 @@ function formatDate(date) {
 
 const updateOrders = () => {
   $.ajax({
-    url: '/update-orders',
+    url: 'update-orders',
     method: 'GET',
     success: (data) => {
         var pending_orders = 0;

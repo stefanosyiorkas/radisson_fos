@@ -150,7 +150,7 @@ function order_list_functionality() {
 function check_user_super() {
     var return_value;
     $.ajax({
-        url: "check_superuser",
+        url: "/check_superuser",
         type: 'GET',
         success: function(res) {
             console.log("we got back from the server the value ---> " + res)
@@ -169,7 +169,7 @@ function check_user_super() {
 function check_user_staff() {
     var return_value;
     $.ajax({
-        url: "check_staff_user",
+        url: "/check_staff_user",
         type: 'GET',
         success: function(res) {
             console.log("we got back from the server the value ---> " + res)

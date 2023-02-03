@@ -1,7 +1,7 @@
 from . import forms
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 def landing(request):
     return render(request, 'main/landing.html')
@@ -32,8 +32,8 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            login(request, user)
-            return redirect("menu:index")
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect("/")
 
         return render(request=request,
                       template_name="main/register.html",
@@ -44,8 +44,12 @@ def register(request):
                   context={"form": form})
 
 def logout_request(request):
+    try:
+        referer = request.META.get('HTTP_REFERER', '').split('/')[-2]
+    except:
+        referer = ""
     logout(request)
-    return redirect('/')
+    return redirect(f'/{referer}')
 
 
 def check_superuser(request):

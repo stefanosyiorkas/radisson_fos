@@ -68,7 +68,7 @@
                         {% if user.is_superuser or user.is_staff %}
                         <a href="/admin" class="btn btn-gold-full text-light btn-sm">{% trans "Dashboard" %} </a>
                         {% else %}
-                        <a href="/view-orders" class="btn btn-gold btn-sm"><i class="fa fa-th-list"></i> {% trans "My Orders" %} </a>
+                        <a href="/{{request.session.restaurant}}_menu/view-orders" class="btn btn-gold btn-sm"><i class="fa fa-th-list"></i> {% trans "My Orders" %} </a>
                         {% endif %}
                         <button type="button" class="btn btn-dark btn-sm" onclick="logout()"><i
                                 class="fa fa-sign-out"></i> {% trans "Logout" %}

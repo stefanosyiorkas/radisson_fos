@@ -1,3 +1,7 @@
+:root {
+  --accent-color: #A27B3A;
+}
+
 *{
   scroll-behavior: smooth;
 }
@@ -64,7 +68,7 @@ body {
     z-index: 99; /* Make sure it does not overlap */
     border: 1px solid #9e6208; /* Remove borders */
     outline: none; /* Remove outline */
-    background-color: #A27B3A; /* Set a background color */
+    background-color: var(--accent-color); /* Set a background color */
     color: white; /* Text color */
     cursor: pointer; /* Add a mouse pointer on hover */
     padding: 7px; /* Some padding */
@@ -261,7 +265,7 @@ body {
     content: "";
     position: absolute;
     height: 5px;
-    border-bottom: 1px solid #A27B3A;
+    border-bottom: 2px solid var(--accent-color);
     top: 5px;
     width: 2000px;
 }
@@ -307,7 +311,7 @@ body {
 }
 
 .main-container{
-    margin-top: 5.5em;
+    margin-top: 6.5em;
 }
 
 .secondary-container{
@@ -320,7 +324,7 @@ body {
 }
 
 .section:not(:first-child){
-    margin-top: 3rem;
+    margin-top: 1rem;
 }
 
 .nav-logo{
@@ -475,8 +479,8 @@ body {
 .btn-gold:hover,
 .btn-gold-full:hover{
     color: #FFFFFF;
-    background-color: #A27B3A;
-    border-color: #A27B3A;
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
     box-shadow: 0 0 0 .2rem rgb(196, 151, 83, .25);
 }
 .btn-gold:focus,

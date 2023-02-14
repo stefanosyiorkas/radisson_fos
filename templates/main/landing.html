@@ -6,6 +6,7 @@
   </head>
   <body>
     <h1>{% trans 'Hotel Menus' %}</h1>
+    <a href="menu_menu/">BASE MENU</a>
     {% for restaurant in restaurants %}
     <div>
       {% if restaurant.logo %}<img class="logo" src="media/{{restaurant.logo}}">{% endif %}

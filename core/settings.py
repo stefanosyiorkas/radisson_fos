@@ -60,7 +60,7 @@ CSRF_TRUSTED_ORIGINS = ['https://sgiorkas.pythonanywhere.com']
 # Application definition
 INSTALLED_APPS = [
     'main.apps.MainConfig',
-    # 'menu.apps.MenuConfig',
+    'menu.apps.MenuConfig',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',

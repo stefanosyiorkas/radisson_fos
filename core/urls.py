@@ -9,6 +9,6 @@ urlpatterns = [
 handler404='main.views.handle_404'
 handler500='main.views.handle_500'
 handler403='main.views.handle_403'
+urlpatterns+=[path("menu_menu/", include("menu.urls"))]
 
-urlpatterns+=[path("therestaurant_menu/", include("therestaurant_app.urls"))]
-urlpatterns+=[path("alldaylounge_menu/", include("alldaylounge_app.urls"))]
+

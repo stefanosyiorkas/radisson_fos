@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-02 15:09+0200\n"
+"POT-Creation-Date: 2023-02-06 17:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: menu/models.py:10
-msgid "title"
-msgstr "Τίτλος"
-
-#: menu/models.py:21
+#: menu/models.py:11 menu/models.py:21
 msgid "title"
 msgstr "Τίτλος"
 
@@ -57,6 +53,10 @@ msgstr "Αποσύνδεση"
 #: templates/menu/header.html:78
 msgid "User Login"
 msgstr "Σύνδεση"
+
+#: templates/menu/home.html:19
+msgid "Search for menu items"
+msgstr "Αναζήτηση στοιχείων"
 
 #: venv/lib/python3.8/site-packages/click/_termui_impl.py:496
 #, python-brace-format

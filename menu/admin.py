@@ -23,30 +23,30 @@ def image_tag_admin(object):
 
 translator= Translator(to_lang="Greek")
 class CategoryAdmin(admin.ModelAdmin):
-    ordering = ['order']
-    list_display = ['title_en','title_el','order']
+    # ordering = ['order']
+    list_display = ['title']
 
-    def response_add(self, request, obj, post_url_continue=None):
-        try:
-            obj.title_en = obj.title_en.title()
-            obj.title_el = translator.translate(obj.title_en)
-        except Exception as e:
-            obj.title_en = obj.title_en.title()
-            obj.title_el = ''
-            messages.error(request, "Translation failed, please enter manually")
-
-        # Save the form
-        obj.save()
-        last_saved_id = obj.id
-        return HttpResponseRedirect(str(request.path + f"{last_saved_id}/change/").replace("add/", ""))
-
-    def get_form(self, request, obj=None, **kwargs):
-        form = super(CategoryAdmin, self).get_form(request, obj, **kwargs)
-        form.base_fields['title_en'].required = True
-        form.base_fields['title_en'].label = 'Category Title'
-        form.base_fields['title_el'].label = 'Τίτλος Κατηγορίας'
-        form.base_fields['title_el'].widget.attrs['placeholder'] = 'This field will be translated to Greek'
-        return form
+    # def response_add(self, request, obj, post_url_continue=None):
+    #     try:
+    #         obj.title_en = obj.title_en.title()
+    #         obj.title_el = translator.translate(obj.title_en)
+    #     except Exception as e:
+    #         obj.title_en = obj.title_en.title()
+    #         obj.title_el = ''
+    #         messages.error(request, "Translation failed, please enter manually")
+    #
+    #     # Save the form
+    #     obj.save()
+    #     last_saved_id = obj.id
+    #     return HttpResponseRedirect(str(request.path + f"{last_saved_id}/change/").replace("add/", ""))
+    #
+    # def get_form(self, request, obj=None, **kwargs):
+    #     form = super(CategoryAdmin, self).get_form(request, obj, **kwargs)
+    #     form.base_fields['title_en'].required = True
+    #     form.base_fields['title_en'].label = 'Category Title'
+    #     form.base_fields['title_el'].label = 'Τίτλος Κατηγορίας'
+    #     form.base_fields['title_el'].widget.attrs['placeholder'] = 'This field will be translated to Greek'
+    #     return form
 
 class FoodOptionInline(StackedInline):
     model = FoodOption

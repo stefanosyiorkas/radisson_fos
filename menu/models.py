@@ -4,11 +4,10 @@ from .apps import MenuConfig as Configuration
 from django.db import models
 from datetime import datetime
 from django.utils.translation import gettext as _
-from translated_fields import TranslatedField
 from django.utils.html import mark_safe
 
 class CategoryBaseModel(models.Model):
-    title = TranslatedField(models.CharField(_("title"),max_length=200,blank=True),)
+    title = models.CharField("title",max_length=200,blank=True)
 
     class Meta:
         abstract = True
@@ -18,7 +17,7 @@ class CategoryBaseModel(models.Model):
 
 class Category(models.Model):
     order = models.PositiveIntegerField(default=0)
-    title = TranslatedField(models.CharField(_("title"),max_length=200,blank=True),)
+    title = models.CharField("title",max_length=200,blank=True)
 
     class Meta:
         verbose_name = "Category"

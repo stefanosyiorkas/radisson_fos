@@ -1,5 +1,6 @@
 import os
 from . import jazzmin
+from . import restaurant_apps
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -59,7 +60,7 @@ CSRF_TRUSTED_ORIGINS = ['https://sgiorkas.pythonanywhere.com']
 # Application definition
 INSTALLED_APPS = [
     'main.apps.MainConfig',
-    'menu.apps.MenuConfig',
+    # 'menu.apps.MenuConfig',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -71,6 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'guest_user',
 ]
+INSTALLED_APPS+=restaurant_apps.NEW_APPS
 
 JAZZMIN_SETTINGS = jazzmin.JAZZMIN_SETTINGS
 JAZZMIN_UI_TWEAKS = jazzmin.JAZZMIN_UI_TWEAKS

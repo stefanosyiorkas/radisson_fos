@@ -26,9 +26,12 @@
 <div class="nav-main" id="nav-main">
     <div>
         <nav class="navbar navbar-expand-lg navbar-light shadow bg-light">
-            <a href="/{{request.session.restaurant}}_menu" class="nav-logo-link">
-                <img alt="Radisson" class="nav-logo" src="/media/rbrl_logo.png"/>
-            </a>
+            <div>
+                <a href="/" ><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                <a href="/{{request.session.restaurant}}_menu" class="nav-logo-link">
+                    <img alt="Radisson" class="nav-logo" src="/media/rbrl_logo.png"/>
+                </a>
+            </div>
             {% if ordering %}
             {% if user.is_authenticated %}
             {% if user.is_superuser or user.is_staff %}
@@ -106,9 +109,6 @@
         </div>
     </div>
 </div>
-<a onclick="topFunction()" id="goToTop" title="Go to top">
-    <div src="/static/img/arrow-up.svg" class="top-btn-img" alt="Go to top"></div>
-</a>
 {% block content %} {% endblock %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -118,6 +118,10 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="{% static 'menu/aos/aos.js' %}"></script>
-<script>AOS.init();</script>
+<script>
+AOS.init({
+    once: true
+});
+</script>
 </body>
 </html>

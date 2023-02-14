@@ -17,7 +17,7 @@ def get_all_dishes():
         return []
 
 main_context = {
-    "restaurant": 'restaurant1',
+    "restaurant": Configuration.restaurant,
     "ordering": ORDERING,
     "categories": Category.objects.all(),
     "all_dishes": get_all_dishes(),

@@ -1,17 +1,20 @@
-{% load i18n %}
+{% load i18n %}{% load static %}
 <html>
   <head>
+    <link rel="stylesheet" href="{% static 'main/main.css' %}"/>
     <title>Hotel Menus</title>
   </head>
   <body>
     <h1>{% trans 'Hotel Menus' %}</h1>
+    {% for restaurant in restaurants %}
     <div>
-      <h2>Restaurant 1</h2>
-      <a href="restaurant1_menu/">See Menu</a>
+      {% if restaurant.logo %}<img class="logo" src="media/{{restaurant.logo}}">{% endif %}
+      <h2>{{restaurant.name}}</h2>
+      {% if restaurant.opens_at %}<h3>{{restaurant.opens_at}} - {{restaurant.closes_at}}</h3>{% endif %}
+      <p>{{restaurant.description}}</p>
+      <a href="{{restaurant.url}}/">See Menu</a>
     </div>
-    <div>
-      <h2>Restaurant 2</h2>
-      <a href="restaurant2_menu/">See Menu</a>
-    </div>
+    <hr>
+    {% endfor %}
   </body>
 </html>

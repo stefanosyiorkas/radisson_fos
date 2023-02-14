@@ -1,5 +1,5 @@
 {% extends 'menu/header.html' %}
-{% load static %}
+{% load static %} {% load i18n %}
 {% block content %}
 <script src="{% static 'menu/home.js' %}"></script>
 
@@ -16,16 +16,18 @@
             <div class="form-inline d-flex justify-content-center md-form form-sm pt-3" data-aos="zoom-in">
                 <i class="fa fa-search" aria-hidden="true"></i>
                 <input class="searchBar form-control form-control-sm ml-3 w-75" type="text"
-                       placeholder="Search for menu items" id="searchBar" onkeyup="menuSearch()"
+                       placeholder="{% trans 'Search for menu items' %}" id="searchBar" onkeyup="menuSearch()"
                        aria-label="Search">
             </div>
             <div id="menu-card" class="card-body">
                 {% for cat in categories %}
                 <section class="section" id="{{cat}}">
-                    <h5 class="title-category" data-aos="fade-right" data-aos-delay="100"><span>{{cat}}</span></h5>
+<!--                    <h5 class="title-category" data-aos="fade-right" data-aos-delay="100"><span>{{cat}}</span></h5>-->
+                    <h5 class="title-category"><span>{{cat}}</span></h5>
                     {% for dish in all_dishes %}
                     {% if cat.id == dish.category_id %}
-                    <div class="card" id="dish-card" data-aos="fade-up" data-aos-delay="150">
+<!--                    <div class="card" id="dish-card" data-aos="fade-up" data-aos-delay="150">-->
+                    <div class="card" id="dish-card">
                         <div class="dish-body">
                             <div>
                                 <h5 class="card-title">{{dish.dish_name}}</h5>
@@ -112,6 +114,10 @@
     <div style="text-align: center; opacity: 0.7"> Powered by <a href="https://www.leyiodigital.com">Leyio Digital</a>
     </div>
 </div>
+
+<!--<a onclick="topFunction()" id="goToTop" title="Go to top">-->
+<!--    <div src="/static/img/arrow-up.svg" class="top-btn-img" alt="Go to top"></div>-->
+<!--</a>-->
 
 {% endblock %}
 

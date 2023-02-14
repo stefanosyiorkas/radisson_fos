@@ -1,10 +1,12 @@
 from . import forms
+from . import models
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 
 def landing(request):
-    return render(request, 'main/landing.html')
+    restaurants = models.Restaurant.objects.all()
+    return render(request, 'main/landing.html', {'restaurants':restaurants})
 
 def login_request(request):
     if request.method == 'POST':

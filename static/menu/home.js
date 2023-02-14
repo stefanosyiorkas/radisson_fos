@@ -7,6 +7,14 @@ function menuSearch() {
     cats = document.getElementsByClassName("section");
     cards = menu.getElementsByClassName('card');
 
+    navSecondary = document.getElementsByClassName('nav-secondary')[0]
+    if (!input.value){
+        navSecondary.style.display = '';
+    }
+    else{
+        navSecondary.style.display = 'none';
+    }
+
     for (i = 0; i < cards.length; i++) {
         h = cards[i].getElementsByTagName("h5")[0];
         txtValue = h.textContent || h.innerText;
@@ -17,7 +25,6 @@ function menuSearch() {
           cards[i].style.display = "none";
         }
     }
-    console.log(categories);
     for (y = 0; y < cats.length; y++) {
         if (categories.has(cats[y].id)) {
             cats[y].style.display = '';

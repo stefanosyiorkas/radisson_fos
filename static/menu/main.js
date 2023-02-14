@@ -1,5 +1,4 @@
 let ORDERING = false;
-
 $(document).ready(function() {
     //check if local storage value of "cart retrived " is True
     if (ORDERING) {
@@ -12,9 +11,7 @@ $(document).ready(function() {
         }else{
             try {
                 document.getElementById('cart-count').innerText = parseFloat(cart.length).toLocaleString('en-US')
-            } catch (e) {
-                console.log(e)
-            }
+            } catch (e) {}
         }
 
     if (window.location.href.indexOf("cart") > -1) {
@@ -215,22 +212,23 @@ function add_to_cart(info) {
 }
 
 // Get the button:
-let mybutton = document.getElementById("goToTop");
-
-// When the user scrolls down 500px from the top of the document, show the button
-window.onscroll = function() {myscrollFunction()};
-
-function myscrollFunction() {
-  try {
-      if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-        mybutton.style.opacity = 1;
-      } else {
-        mybutton.style.opacity = 0;
-      }
-  } catch (e) {
-    console.log(e)
-  }
-}
+//let goToTopbutton = document.getElementById("goToTop");
+//console.log(goToTopbutton)
+//
+//// When the user scrolls down 500px from the top of the document, show the button
+//window.onscroll = function() {myscrollFunction()};
+//
+//function myscrollFunction() {
+//  try {
+//      if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+//        goToTopbutton.style.opacity = 1;
+//      } else {
+//        goToTopbutton.style.opacity = 0;
+//      }
+//  } catch (e) {
+//    console.log(e)
+//  }
+//}
 
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
